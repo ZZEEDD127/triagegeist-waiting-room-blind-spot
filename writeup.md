@@ -125,6 +125,13 @@ clinical reasoning. The transferable contributions are:
 - **A scoped negative result** that redirects the waiting-room track toward the
   real data it requires.
 
+The tool is delivered clinician-facing: a per-patient *second-opinion* readout
+giving the assigned acuity, a calibrated escalation risk, a watch flag with two
+selectable modes (a high-recall **safety-net** and a high-precision **targeted-
+review**), and the top risk drivers. The worked example is the thesis in
+miniature — a patient triaged **ESI 3** ("can wait") flagged at **81% escalation
+risk** and subsequently admitted.
+
 This is directly actionable for a foundation planning clinical pilots: it ships a
 second-read tool to deploy, says what to *stop* trusting, what to *measure*, and
 what data to *acquire* — a fundable, constructive roadmap rather than a critique.
