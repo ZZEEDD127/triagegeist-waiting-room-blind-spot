@@ -15,6 +15,8 @@ data/doc*_text.txt
 research/
 artifacts/*.png
 
+artifacts/*.log
+
 # python
 __pycache__/
 *.pyc
