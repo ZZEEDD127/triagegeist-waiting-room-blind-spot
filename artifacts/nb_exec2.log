@@ -1,0 +1,23 @@
+merged training frame: (80000, 67) | acuity prevalence: {1: 0.04, 2: 0.168, 3: 0.362, 4: 0.288, 5: 0.142}
+[cell 0] OK
+Correlation with triage_acuity: {'ed_los_hours': np.float64(-0.757), 'news2_score': np.float64(-0.815), 'shock_index': np.float64(-0.632), 'gcs_total': np.float64(0.657)}
+Unique complaints: 4949
+Mean within-complaint acuity purity: 0.9993
+Share of complaints that FULLY determine acuity: 99.7%
+[cell 1] OK
+StratifiedKFold (in-template)          acc=0.857  QWK=0.931  undertriage=0.074  high-acuity recall=0.982  missed_high=295
+GroupKFold by complaint (out-of-template) acc=0.858  QWK=0.931  undertriage=0.073  high-acuity recall=0.982  missed_high=294
+
+Accuracy change when complaints are held out: +0.001  (~0: no collapse)
+[cell 2] OK
+[cell 3] OK
+[cell 4] OK
+Escalation AUC — acuity only: 0.837 | full intake: 0.838 | gain: +0.001
+Escalation PR-AUC (full): 0.797 (prevalence 0.432)
+Brier 0.157 -> 0.155 after calibration
+
+LWBS AUC: 0.621 (prevalence 0.046) — near-random
+[cell 5] OK
+NHAMCS real (n=20,702):  accuracy=0.540  QWK=0.265
+[cell 6] OK
+=== DONE ===

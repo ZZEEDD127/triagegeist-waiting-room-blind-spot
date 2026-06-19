@@ -1,0 +1,22 @@
+# SECURITY: never commit Kaggle credentials / tokens
+.kaggle/
+*access_token*
+kaggle.json
+*.key
+
+# data (large / redistribution terms) — document how to fetch instead
+comp_data/
+data/*.parquet
+data/ed20*
+data/*.zip
+data/*.pdf
+data/*.html
+data/doc*_text.txt
+research/
+artifacts/*.png
+
+# python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/

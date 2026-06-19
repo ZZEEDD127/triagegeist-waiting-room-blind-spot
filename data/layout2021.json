@@ -1,0 +1,2762 @@
+{
+"VMONTH": {
+"start": 1,
+"end": 2,
+"len": 2
+},
+"VDAYR": {
+"start": 3,
+"end": 3,
+"len": 1
+},
+"ARRTIME": {
+"start": 4,
+"end": 7,
+"len": 4
+},
+"WAITTIME": {
+"start": 8,
+"end": 11,
+"len": 4
+},
+"LOV": {
+"start": 12,
+"end": 15,
+"len": 4
+},
+"AGE": {
+"start": 16,
+"end": 18,
+"len": 3
+},
+"AGER": {
+"start": 19,
+"end": 19,
+"len": 1
+},
+"AGEDAYS": {
+"start": 20,
+"end": 22,
+"len": 3
+},
+"RESIDNCE": {
+"start": 23,
+"end": 24,
+"len": 2
+},
+"SEX": {
+"start": 25,
+"end": 25,
+"len": 1
+},
+"ETHUN": {
+"start": 26,
+"end": 27,
+"len": 2
+},
+"ETHIM": {
+"start": 28,
+"end": 28,
+"len": 1
+},
+"RACEUN": {
+"start": 29,
+"end": 30,
+"len": 2
+},
+"RACER": {
+"start": 31,
+"end": 31,
+"len": 1
+},
+"RACERETH": {
+"start": 32,
+"end": 32,
+"len": 1
+},
+"ARREMS": {
+"start": 33,
+"end": 34,
+"len": 2
+},
+"AMBTRANSFER": {
+"start": 35,
+"end": 36,
+"len": 2
+},
+"NOPAY": {
+"start": 37,
+"end": 37,
+"len": 1
+},
+"PAYPRIV": {
+"start": 38,
+"end": 38,
+"len": 1
+},
+"PAYMCARE": {
+"start": 39,
+"end": 39,
+"len": 1
+},
+"PAYMCAID": {
+"start": 40,
+"end": 40,
+"len": 1
+},
+"PAYWKCMP": {
+"start": 41,
+"end": 41,
+"len": 1
+},
+"PAYSELF": {
+"start": 42,
+"end": 42,
+"len": 1
+},
+"PAYNOCHG": {
+"start": 43,
+"end": 43,
+"len": 1
+},
+"PAYOTH": {
+"start": 44,
+"end": 44,
+"len": 1
+},
+"PAYDK": {
+"start": 45,
+"end": 45,
+"len": 1
+},
+"PAYTYPER": {
+"start": 46,
+"end": 47,
+"len": 2
+},
+"TEMPF": {
+"start": 48,
+"end": 51,
+"len": 4
+},
+"PULSE": {
+"start": 52,
+"end": 54,
+"len": 3
+},
+"RESPR": {
+"start": 55,
+"end": 57,
+"len": 3
+},
+"BPSYS": {
+"start": 58,
+"end": 60,
+"len": 3
+},
+"BPDIAS": {
+"start": 61,
+"end": 63,
+"len": 3
+},
+"POPCT": {
+"start": 64,
+"end": 66,
+"len": 3
+},
+"IMMEDR": {
+"start": 67,
+"end": 68,
+"len": 2
+},
+"PAINSCALE": {
+"start": 69,
+"end": 70,
+"len": 2
+},
+"SEEN72": {
+"start": 71,
+"end": 72,
+"len": 2
+},
+"RFV1": {
+"start": 73,
+"end": 77,
+"len": 5
+},
+"RFV2": {
+"start": 78,
+"end": 82,
+"len": 5
+},
+"RFV3": {
+"start": 83,
+"end": 87,
+"len": 5
+},
+"RFV4": {
+"start": 88,
+"end": 92,
+"len": 5
+},
+"RFV5": {
+"start": 93,
+"end": 97,
+"len": 5
+},
+"EPISODE": {
+"start": 98,
+"end": 99,
+"len": 2
+},
+"INJURY": {
+"start": 100,
+"end": 101,
+"len": 2
+},
+"INJPOISAD": {
+"start": 102,
+"end": 103,
+"len": 2
+},
+"CAUSE1": {
+"start": 110,
+"end": 113,
+"len": 4
+},
+"CAUSE2": {
+"start": 114,
+"end": 117,
+"len": 4
+},
+"CAUSE3": {
+"start": 118,
+"end": 121,
+"len": 4
+},
+"DIAG1": {
+"start": 122,
+"end": 125,
+"len": 4
+},
+"DIAG2": {
+"start": 126,
+"end": 129,
+"len": 4
+},
+"DIAG4": {
+"start": 134,
+"end": 137,
+"len": 4
+},
+"DIAG5": {
+"start": 138,
+"end": 141,
+"len": 4
+},
+"PRDIAG1": {
+"start": 142,
+"end": 143,
+"len": 2
+},
+"PRDIAG2": {
+"start": 144,
+"end": 145,
+"len": 2
+},
+"PRDIAG3": {
+"start": 146,
+"end": 147,
+"len": 2
+},
+"PRDIAG4": {
+"start": 148,
+"end": 149,
+"len": 2
+},
+"PRDIAG5": {
+"start": 150,
+"end": 151,
+"len": 2
+},
+"NOCHRON": {
+"start": 174,
+"end": 174,
+"len": 1
+},
+"TOTCHRON": {
+"start": 175,
+"end": 176,
+"len": 2
+},
+"DIAGSCRN": {
+"start": 177,
+"end": 177,
+"len": 1
+},
+"ABG": {
+"start": 178,
+"end": 178,
+"len": 1
+},
+"BAC": {
+"start": 179,
+"end": 179,
+"len": 1
+},
+"BMP": {
+"start": 180,
+"end": 180,
+"len": 1
+},
+"BNP": {
+"start": 181,
+"end": 181,
+"len": 1
+},
+"BUNCREAT": {
+"start": 182,
+"end": 182,
+"len": 1
+},
+"CARDENZ": {
+"start": 183,
+"end": 183,
+"len": 1
+},
+"CBC": {
+"start": 184,
+"end": 184,
+"len": 1
+},
+"CMP": {
+"start": 185,
+"end": 185,
+"len": 1
+},
+"BLOODCX": {
+"start": 186,
+"end": 186,
+"len": 1
+},
+"TRTCX": {
+"start": 187,
+"end": 187,
+"len": 1
+},
+"URINECX": {
+"start": 188,
+"end": 188,
+"len": 1
+},
+"WOUNDCX": {
+"start": 189,
+"end": 189,
+"len": 1
+},
+"OTHCX": {
+"start": 190,
+"end": 190,
+"len": 1
+},
+"DDIMER": {
+"start": 191,
+"end": 191,
+"len": 1
+},
+"ELECTROL": {
+"start": 192,
+"end": 192,
+"len": 1
+},
+"GLUCOSE": {
+"start": 193,
+"end": 193,
+"len": 1
+},
+"LACTATE": {
+"start": 194,
+"end": 194,
+"len": 1
+},
+"LFT": {
+"start": 195,
+"end": 195,
+"len": 1
+},
+"PTTINR": {
+"start": 196,
+"end": 196,
+"len": 1
+},
+"OTHERBLD": {
+"start": 197,
+"end": 197,
+"len": 1
+},
+"CARDMON": {
+"start": 198,
+"end": 198,
+"len": 1
+},
+"EKG": {
+"start": 199,
+"end": 199,
+"len": 1
+},
+"HIVTEST": {
+"start": 200,
+"end": 200,
+"len": 1
+},
+"FLUTEST": {
+"start": 201,
+"end": 201,
+"len": 1
+},
+"PREGTEST": {
+"start": 202,
+"end": 202,
+"len": 1
+},
+"TOXSCREN": {
+"start": 203,
+"end": 203,
+"len": 1
+},
+"URINE": {
+"start": 204,
+"end": 204,
+"len": 1
+},
+"OTHRTEST": {
+"start": 205,
+"end": 205,
+"len": 1
+},
+"ANYIMAGE": {
+"start": 206,
+"end": 206,
+"len": 1
+},
+"XRAY": {
+"start": 207,
+"end": 207,
+"len": 1
+},
+"CATSCAN": {
+"start": 208,
+"end": 208,
+"len": 1
+},
+"CTCONTRAST": {
+"start": 209,
+"end": 210,
+"len": 2
+},
+"CTAB": {
+"start": 211,
+"end": 211,
+"len": 1
+},
+"MRICONTRAST": {
+"start": 217,
+"end": 218,
+"len": 2
+},
+"TOTDIAG": {
+"start": 221,
+"end": 222,
+"len": 2
+},
+"PROC": {
+"start": 223,
+"end": 223,
+"len": 1
+},
+"TOTPROC": {
+"start": 238,
+"end": 239,
+"len": 2
+},
+"MED": {
+"start": 240,
+"end": 240,
+"len": 1
+},
+"MED1": {
+"start": 241,
+"end": 245,
+"len": 5
+},
+"MED2": {
+"start": 246,
+"end": 250,
+"len": 5
+},
+"MED3": {
+"start": 251,
+"end": 255,
+"len": 5
+},
+"MED4": {
+"start": 256,
+"end": 260,
+"len": 5
+},
+"MED5": {
+"start": 261,
+"end": 265,
+"len": 5
+},
+"MED6": {
+"start": 266,
+"end": 270,
+"len": 5
+},
+"MED7": {
+"start": 271,
+"end": 275,
+"len": 5
+},
+"MED24": {
+"start": 356,
+"end": 360,
+"len": 5
+},
+"MED25": {
+"start": 361,
+"end": 365,
+"len": 5
+},
+"MED26": {
+"start": 366,
+"end": 370,
+"len": 5
+},
+"MED27": {
+"start": 371,
+"end": 375,
+"len": 5
+},
+"MED28": {
+"start": 376,
+"end": 380,
+"len": 5
+},
+"MED29": {
+"start": 381,
+"end": 385,
+"len": 5
+},
+"MED30": {
+"start": 386,
+"end": 390,
+"len": 5
+},
+"GPMED1": {
+"start": 391,
+"end": 392,
+"len": 2
+},
+"GPMED2": {
+"start": 393,
+"end": 394,
+"len": 2
+},
+"GPMED3": {
+"start": 395,
+"end": 396,
+"len": 2
+},
+"GPMED4": {
+"start": 397,
+"end": 398,
+"len": 2
+},
+"GPMED5": {
+"start": 399,
+"end": 400,
+"len": 2
+},
+"GPMED6": {
+"start": 401,
+"end": 402,
+"len": 2
+},
+"GPMED7": {
+"start": 403,
+"end": 404,
+"len": 2
+},
+"GPMED8": {
+"start": 405,
+"end": 406,
+"len": 2
+},
+"GPMED9": {
+"start": 407,
+"end": 408,
+"len": 2
+},
+"GPMED10": {
+"start": 409,
+"end": 410,
+"len": 2
+},
+"GPMED11": {
+"start": 411,
+"end": 412,
+"len": 2
+},
+"GPMED12": {
+"start": 413,
+"end": 414,
+"len": 2
+},
+"GPMED13": {
+"start": 415,
+"end": 416,
+"len": 2
+},
+"GPMED14": {
+"start": 417,
+"end": 418,
+"len": 2
+},
+"GPMED15": {
+"start": 419,
+"end": 420,
+"len": 2
+},
+"GPMED16": {
+"start": 421,
+"end": 422,
+"len": 2
+},
+"GPMED17": {
+"start": 423,
+"end": 424,
+"len": 2
+},
+"GPMED18": {
+"start": 425,
+"end": 426,
+"len": 2
+},
+"GPMED19": {
+"start": 427,
+"end": 428,
+"len": 2
+},
+"GPMED20": {
+"start": 429,
+"end": 430,
+"len": 2
+},
+"GPMED21": {
+"start": 431,
+"end": 432,
+"len": 2
+},
+"GPMED22": {
+"start": 433,
+"end": 434,
+"len": 2
+},
+"GPMED23": {
+"start": 435,
+"end": 436,
+"len": 2
+},
+"GPMED24": {
+"start": 437,
+"end": 438,
+"len": 2
+},
+"GPMED25": {
+"start": 439,
+"end": 440,
+"len": 2
+},
+"GPMED26": {
+"start": 441,
+"end": 442,
+"len": 2
+},
+"GPMED27": {
+"start": 443,
+"end": 444,
+"len": 2
+},
+"GPMED28": {
+"start": 445,
+"end": 446,
+"len": 2
+},
+"GPMED29": {
+"start": 447,
+"end": 448,
+"len": 2
+},
+"GPMED30": {
+"start": 449,
+"end": 450,
+"len": 2
+},
+"NUMGIV": {
+"start": 451,
+"end": 452,
+"len": 2
+},
+"NUMDIS": {
+"start": 453,
+"end": 454,
+"len": 2
+},
+"NUMMED": {
+"start": 455,
+"end": 456,
+"len": 2
+},
+"VITALSD": {
+"start": 457,
+"end": 458,
+"len": 2
+},
+"TEMPDF": {
+"start": 459,
+"end": 462,
+"len": 4
+},
+"PULSED": {
+"start": 463,
+"end": 465,
+"len": 3
+},
+"RESPRD": {
+"start": 466,
+"end": 468,
+"len": 3
+},
+"BPSYSD": {
+"start": 469,
+"end": 471,
+"len": 3
+},
+"BPDIASD": {
+"start": 472,
+"end": 474,
+"len": 3
+},
+"NOPROVID": {
+"start": 475,
+"end": 475,
+"len": 1
+},
+"ATTPHYS": {
+"start": 476,
+"end": 476,
+"len": 1
+},
+"RESINT": {
+"start": 477,
+"end": 477,
+"len": 1
+},
+"CONSULT": {
+"start": 478,
+"end": 478,
+"len": 1
+},
+"RNLPN": {
+"start": 479,
+"end": 479,
+"len": 1
+},
+"NURSEPR": {
+"start": 480,
+"end": 480,
+"len": 1
+},
+"PHYSASST": {
+"start": 481,
+"end": 481,
+"len": 1
+},
+"EMT": {
+"start": 482,
+"end": 482,
+"len": 1
+},
+"MHPROV": {
+"start": 483,
+"end": 483,
+"len": 1
+},
+"OTHPROV": {
+"start": 484,
+"end": 484,
+"len": 1
+},
+"ADMIT": {
+"start": 501,
+"end": 502,
+"len": 2
+},
+"ADMTPHYS": {
+"start": 503,
+"end": 504,
+"len": 2
+},
+"LOS": {
+"start": 505,
+"end": 506,
+"len": 2
+},
+"HDDIAG1": {
+"start": 507,
+"end": 510,
+"len": 4
+},
+"HDDIAG2": {
+"start": 511,
+"end": 514,
+"len": 4
+},
+"HDDIAG3": {
+"start": 515,
+"end": 518,
+"len": 4
+},
+"HDDIAG4": {
+"start": 519,
+"end": 522,
+"len": 4
+},
+"HDDIAG5": {
+"start": 523,
+"end": 526,
+"len": 4
+},
+"HDSTAT": {
+"start": 527,
+"end": 528,
+"len": 2
+},
+"ADISP": {
+"start": 529,
+"end": 530,
+"len": 2
+},
+"OBSSTAY": {
+"start": 531,
+"end": 534,
+"len": 4
+},
+"STAY24": {
+"start": 535,
+"end": 535,
+"len": 1
+},
+"AGEFL": {
+"start": 536,
+"end": 537,
+"len": 2
+},
+"BDATEFL": {
+"start": 538,
+"end": 538,
+"len": 1
+},
+"SEXFL": {
+"start": 539,
+"end": 539,
+"len": 1
+},
+"ETHNICFL": {
+"start": 540,
+"end": 540,
+"len": 1
+},
+"RACERFL": {
+"start": 541,
+"end": 541,
+"len": 1
+},
+"HOSPCODE": {
+"start": 542,
+"end": 544,
+"len": 3
+},
+"PATCODE": {
+"start": 545,
+"end": 547,
+"len": 3
+},
+"EMRED": {
+"start": 548,
+"end": 549,
+"len": 2
+},
+"HHSMUE": {
+"start": 550,
+"end": 551,
+"len": 2
+},
+"EHRINSE": {
+"start": 552,
+"end": 553,
+"len": 2
+},
+"EDPRIM": {
+"start": 554,
+"end": 555,
+"len": 2
+},
+"EDINFO": {
+"start": 556,
+"end": 557,
+"len": 2
+},
+"OBSCLIN": {
+"start": 558,
+"end": 559,
+"len": 2
+},
+"OBSSEP": {
+"start": 560,
+"end": 561,
+"len": 2
+},
+"OBSPHYSED": {
+"start": 562,
+"end": 563,
+"len": 2
+},
+"OBSHOSP": {
+"start": 564,
+"end": 565,
+"len": 2
+},
+"OBSPHYSOT": {
+"start": 566,
+"end": 567,
+"len": 2
+},
+"OBSPHYSUN": {
+"start": 568,
+"end": 569,
+"len": 2
+},
+"BOARD": {
+"start": 570,
+"end": 571,
+"len": 2
+},
+"BOARDHOS": {
+"start": 572,
+"end": 573,
+"len": 2
+},
+"AMBDIV": {
+"start": 574,
+"end": 575,
+"len": 2
+},
+"TOTHRDIVR": {
+"start": 576,
+"end": 577,
+"len": 2
+},
+"REGDIV": {
+"start": 578,
+"end": 579,
+"len": 2
+},
+"ADMDIV": {
+"start": 580,
+"end": 581,
+"len": 2
+},
+"INCSHX": {
+"start": 582,
+"end": 583,
+"len": 2
+},
+"INCPHYS": {
+"start": 584,
+"end": 585,
+"len": 2
+},
+"EXPSPACE": {
+"start": 586,
+"end": 587,
+"len": 2
+},
+"BEDREG": {
+"start": 588,
+"end": 589,
+"len": 2
+},
+"KIOSELCHK": {
+"start": 590,
+"end": 591,
+"len": 2
+},
+"CATRIAGE": {
+"start": 592,
+"end": 593,
+"len": 2
+},
+"IMBED": {
+"start": 594,
+"end": 595,
+"len": 2
+},
+"ADVTRIAG": {
+"start": 596,
+"end": 597,
+"len": 2
+},
+"PHYSPRACTRIA": {
+"start": 598,
+"end": 599,
+"len": 2
+},
+"FASTTRAK": {
+"start": 600,
+"end": 601,
+"len": 2
+},
+"EDPTOR": {
+"start": 602,
+"end": 603,
+"len": 2
+},
+"DASHBORD": {
+"start": 604,
+"end": 605,
+"len": 2
+},
+"RFID": {
+"start": 606,
+"end": 607,
+"len": 2
+},
+"WIRELESS": {
+"start": 608,
+"end": 609,
+"len": 2
+},
+"ZONENURS": {
+"start": 610,
+"end": 611,
+"len": 2
+},
+"POOLNURS": {
+"start": 612,
+"end": 613,
+"len": 2
+},
+"SURGDAY": {
+"start": 614,
+"end": 615,
+"len": 2
+},
+"BEDCZAR": {
+"start": 616,
+"end": 617,
+"len": 2
+},
+"BEDDATA": {
+"start": 618,
+"end": 619,
+"len": 2
+},
+"HLIST": {
+"start": 620,
+"end": 621,
+"len": 2
+},
+"HLISTED": {
+"start": 622,
+"end": 623,
+"len": 2
+},
+"EMEDRES": {
+"start": 624,
+"end": 625,
+"len": 2
+},
+"REGION": {
+"start": 626,
+"end": 626,
+"len": 1
+},
+"MSA": {
+"start": 627,
+"end": 627,
+"len": 1
+},
+"DRUGID1": {
+"start": 628,
+"end": 633,
+"len": 6
+},
+"PRESCR1": {
+"start": 634,
+"end": 634,
+"len": 1
+},
+"CONTSUB1": {
+"start": 635,
+"end": 635,
+"len": 1
+},
+"COMSTAT1": {
+"start": 636,
+"end": 636,
+"len": 1
+},
+"RX1CAT1": {
+"start": 637,
+"end": 639,
+"len": 3
+},
+"RX1CAT2": {
+"start": 640,
+"end": 642,
+"len": 3
+},
+"RX1CAT3": {
+"start": 643,
+"end": 645,
+"len": 3
+},
+"RX1CAT4": {
+"start": 646,
+"end": 648,
+"len": 3
+},
+"RX1V1C1": {
+"start": 649,
+"end": 651,
+"len": 3
+},
+"RX1V1C2": {
+"start": 652,
+"end": 654,
+"len": 3
+},
+"RX1V1C3": {
+"start": 655,
+"end": 657,
+"len": 3
+},
+"RX1V1C4": {
+"start": 658,
+"end": 660,
+"len": 3
+},
+"RX1V2C1": {
+"start": 661,
+"end": 663,
+"len": 3
+},
+"RX1V2C2": {
+"start": 664,
+"end": 666,
+"len": 3
+},
+"RX1V2C3": {
+"start": 667,
+"end": 669,
+"len": 3
+},
+"RX1V2C4": {
+"start": 670,
+"end": 672,
+"len": 3
+},
+"RX1V3C1": {
+"start": 673,
+"end": 675,
+"len": 3
+},
+"RX1V3C2": {
+"start": 676,
+"end": 678,
+"len": 3
+},
+"RX1V3C3": {
+"start": 679,
+"end": 681,
+"len": 3
+},
+"RX1V3C4": {
+"start": 682,
+"end": 684,
+"len": 3
+},
+"DRUGID2": {
+"start": 685,
+"end": 690,
+"len": 6
+},
+"PRESCR2": {
+"start": 691,
+"end": 691,
+"len": 1
+},
+"CONTSUB2": {
+"start": 692,
+"end": 692,
+"len": 1
+},
+"COMSTAT2": {
+"start": 693,
+"end": 693,
+"len": 1
+},
+"RX2CAT1": {
+"start": 694,
+"end": 696,
+"len": 3
+},
+"RX2CAT2": {
+"start": 697,
+"end": 699,
+"len": 3
+},
+"RX2CAT3": {
+"start": 700,
+"end": 702,
+"len": 3
+},
+"RX2CAT4": {
+"start": 703,
+"end": 705,
+"len": 3
+},
+"RX2V1C1": {
+"start": 706,
+"end": 708,
+"len": 3
+},
+"RX2V1C2": {
+"start": 709,
+"end": 711,
+"len": 3
+},
+"RX2V1C3": {
+"start": 712,
+"end": 714,
+"len": 3
+},
+"RX2V1C4": {
+"start": 715,
+"end": 717,
+"len": 3
+},
+"RX2V2C1": {
+"start": 718,
+"end": 720,
+"len": 3
+},
+"RX2V2C2": {
+"start": 721,
+"end": 723,
+"len": 3
+},
+"RX2V2C3": {
+"start": 724,
+"end": 726,
+"len": 3
+},
+"RX2V2C4": {
+"start": 727,
+"end": 729,
+"len": 3
+},
+"RX2V3C1": {
+"start": 730,
+"end": 732,
+"len": 3
+},
+"RX2V3C2": {
+"start": 733,
+"end": 735,
+"len": 3
+},
+"RX2V3C3": {
+"start": 736,
+"end": 738,
+"len": 3
+},
+"RX2V3C4": {
+"start": 739,
+"end": 741,
+"len": 3
+},
+"DRUGID3": {
+"start": 742,
+"end": 747,
+"len": 6
+},
+"PRESCR3": {
+"start": 748,
+"end": 748,
+"len": 1
+},
+"CONTSUB3": {
+"start": 749,
+"end": 749,
+"len": 1
+},
+"COMSTAT3": {
+"start": 750,
+"end": 750,
+"len": 1
+},
+"RX3CAT1": {
+"start": 751,
+"end": 753,
+"len": 3
+},
+"RX3CAT2": {
+"start": 754,
+"end": 756,
+"len": 3
+},
+"RX3CAT3": {
+"start": 757,
+"end": 759,
+"len": 3
+},
+"RX3CAT4": {
+"start": 760,
+"end": 762,
+"len": 3
+},
+"DRUGID4": {
+"start": 799,
+"end": 804,
+"len": 6
+},
+"PRESCR4": {
+"start": 805,
+"end": 805,
+"len": 1
+},
+"CONTSUB4": {
+"start": 806,
+"end": 806,
+"len": 1
+},
+"COMSTAT4": {
+"start": 807,
+"end": 807,
+"len": 1
+},
+"RX4CAT1": {
+"start": 808,
+"end": 810,
+"len": 3
+},
+"RX4CAT2": {
+"start": 811,
+"end": 813,
+"len": 3
+},
+"RX4CAT3": {
+"start": 814,
+"end": 816,
+"len": 3
+},
+"RX4CAT4": {
+"start": 817,
+"end": 819,
+"len": 3
+},
+"RX4V1C1": {
+"start": 820,
+"end": 822,
+"len": 3
+},
+"RX4V1C2": {
+"start": 823,
+"end": 825,
+"len": 3
+},
+"RX4V1C3": {
+"start": 826,
+"end": 828,
+"len": 3
+},
+"RX4V1C4": {
+"start": 829,
+"end": 831,
+"len": 3
+},
+"RX4V2C1": {
+"start": 832,
+"end": 834,
+"len": 3
+},
+"RX4V2C2": {
+"start": 835,
+"end": 837,
+"len": 3
+},
+"RX4V2C3": {
+"start": 838,
+"end": 840,
+"len": 3
+},
+"RX4V2C4": {
+"start": 841,
+"end": 843,
+"len": 3
+},
+"RX4V3C1": {
+"start": 844,
+"end": 846,
+"len": 3
+},
+"RX4V3C2": {
+"start": 847,
+"end": 849,
+"len": 3
+},
+"RX4V3C3": {
+"start": 850,
+"end": 852,
+"len": 3
+},
+"RX4V3C4": {
+"start": 853,
+"end": 855,
+"len": 3
+},
+"DRUGID5": {
+"start": 856,
+"end": 861,
+"len": 6
+},
+"PRESCR5": {
+"start": 862,
+"end": 862,
+"len": 1
+},
+"CONTSUB5": {
+"start": 863,
+"end": 863,
+"len": 1
+},
+"COMSTAT5": {
+"start": 864,
+"end": 864,
+"len": 1
+},
+"RX5CAT1": {
+"start": 865,
+"end": 867,
+"len": 3
+},
+"RX5CAT2": {
+"start": 868,
+"end": 870,
+"len": 3
+},
+"RX5CAT3": {
+"start": 871,
+"end": 873,
+"len": 3
+},
+"RX5CAT4": {
+"start": 874,
+"end": 876,
+"len": 3
+},
+"DRUGID6": {
+"start": 913,
+"end": 918,
+"len": 6
+},
+"PRESCR6": {
+"start": 919,
+"end": 919,
+"len": 1
+},
+"CONTSUB6": {
+"start": 920,
+"end": 920,
+"len": 1
+},
+"COMSTAT6": {
+"start": 921,
+"end": 921,
+"len": 1
+},
+"RX6CAT1": {
+"start": 922,
+"end": 924,
+"len": 3
+},
+"RX6CAT2": {
+"start": 925,
+"end": 927,
+"len": 3
+},
+"RX6CAT3": {
+"start": 928,
+"end": 930,
+"len": 3
+},
+"RX6CAT4": {
+"start": 931,
+"end": 933,
+"len": 3
+},
+"RX6V1C1": {
+"start": 934,
+"end": 936,
+"len": 3
+},
+"RX6V1C2": {
+"start": 937,
+"end": 939,
+"len": 3
+},
+"RX6V1C3": {
+"start": 940,
+"end": 942,
+"len": 3
+},
+"RX6V1C4": {
+"start": 943,
+"end": 945,
+"len": 3
+},
+"RX6V2C1": {
+"start": 946,
+"end": 948,
+"len": 3
+},
+"RX6V2C2": {
+"start": 949,
+"end": 951,
+"len": 3
+},
+"RX6V2C3": {
+"start": 952,
+"end": 954,
+"len": 3
+},
+"RX6V2C4": {
+"start": 955,
+"end": 957,
+"len": 3
+},
+"RX6V3C1": {
+"start": 958,
+"end": 960,
+"len": 3
+},
+"RX6V3C2": {
+"start": 961,
+"end": 963,
+"len": 3
+},
+"RX6V3C3": {
+"start": 964,
+"end": 966,
+"len": 3
+},
+"RX6V3C4": {
+"start": 967,
+"end": 969,
+"len": 3
+},
+"DRUGID7": {
+"start": 970,
+"end": 975,
+"len": 6
+},
+"PRESCR7": {
+"start": 976,
+"end": 976,
+"len": 1
+},
+"CONTSUB7": {
+"start": 977,
+"end": 977,
+"len": 1
+},
+"COMSTAT7": {
+"start": 978,
+"end": 978,
+"len": 1
+},
+"RX7CAT1": {
+"start": 979,
+"end": 981,
+"len": 3
+},
+"RX7CAT2": {
+"start": 982,
+"end": 984,
+"len": 3
+},
+"RX7CAT3": {
+"start": 985,
+"end": 987,
+"len": 3
+},
+"RX7CAT4": {
+"start": 988,
+"end": 990,
+"len": 3
+},
+"DRUGID8": {
+"start": 1027,
+"end": 1032,
+"len": 6
+},
+"PRESCR8": {
+"start": 1033,
+"end": 1033,
+"len": 1
+},
+"CONTSUB8": {
+"start": 1034,
+"end": 1034,
+"len": 1
+},
+"COMSTAT8": {
+"start": 1035,
+"end": 1035,
+"len": 1
+},
+"RX8CAT1": {
+"start": 1036,
+"end": 1038,
+"len": 3
+},
+"RX8CAT2": {
+"start": 1039,
+"end": 1041,
+"len": 3
+},
+"RX8CAT3": {
+"start": 1042,
+"end": 1044,
+"len": 3
+},
+"RX8CAT4": {
+"start": 1045,
+"end": 1047,
+"len": 3
+},
+"RX8V1C1": {
+"start": 1048,
+"end": 1050,
+"len": 3
+},
+"RX8V1C2": {
+"start": 1051,
+"end": 1053,
+"len": 3
+},
+"RX8V1C3": {
+"start": 1054,
+"end": 1056,
+"len": 3
+},
+"RX8V1C4": {
+"start": 1057,
+"end": 1059,
+"len": 3
+},
+"RX8V2C1": {
+"start": 1060,
+"end": 1062,
+"len": 3
+},
+"RX8V2C2": {
+"start": 1063,
+"end": 1065,
+"len": 3
+},
+"RX8V2C3": {
+"start": 1066,
+"end": 1068,
+"len": 3
+},
+"RX8V2C4": {
+"start": 1069,
+"end": 1071,
+"len": 3
+},
+"RX8V3C1": {
+"start": 1072,
+"end": 1074,
+"len": 3
+},
+"RX8V3C2": {
+"start": 1075,
+"end": 1077,
+"len": 3
+},
+"RX8V3C3": {
+"start": 1078,
+"end": 1080,
+"len": 3
+},
+"RX8V3C4": {
+"start": 1081,
+"end": 1083,
+"len": 3
+},
+"DRUGID9": {
+"start": 1084,
+"end": 1089,
+"len": 6
+},
+"PRESCR9": {
+"start": 1090,
+"end": 1090,
+"len": 1
+},
+"CONTSUB9": {
+"start": 1091,
+"end": 1091,
+"len": 1
+},
+"COMSTAT9": {
+"start": 1092,
+"end": 1092,
+"len": 1
+},
+"RX9CAT1": {
+"start": 1093,
+"end": 1095,
+"len": 3
+},
+"RX9CAT2": {
+"start": 1096,
+"end": 1098,
+"len": 3
+},
+"RX9CAT3": {
+"start": 1099,
+"end": 1101,
+"len": 3
+},
+"RX9CAT4": {
+"start": 1102,
+"end": 1104,
+"len": 3
+},
+"DRUGID10": {
+"start": 1141,
+"end": 1146,
+"len": 6
+},
+"PRESCR10": {
+"start": 1147,
+"end": 1147,
+"len": 1
+},
+"CONTSUB10": {
+"start": 1148,
+"end": 1148,
+"len": 1
+},
+"COMSTAT10": {
+"start": 1149,
+"end": 1149,
+"len": 1
+},
+"RX10CAT1": {
+"start": 1150,
+"end": 1152,
+"len": 3
+},
+"RX10CAT2": {
+"start": 1153,
+"end": 1155,
+"len": 3
+},
+"RX10CAT3": {
+"start": 1156,
+"end": 1158,
+"len": 3
+},
+"RX10CAT4": {
+"start": 1159,
+"end": 1161,
+"len": 3
+},
+"RX10V1C1": {
+"start": 1162,
+"end": 1164,
+"len": 3
+},
+"RX10V1C2": {
+"start": 1165,
+"end": 1167,
+"len": 3
+},
+"RX10V1C3": {
+"start": 1168,
+"end": 1170,
+"len": 3
+},
+"RX10V1C4": {
+"start": 1171,
+"end": 1173,
+"len": 3
+},
+"RX10V2C1": {
+"start": 1174,
+"end": 1176,
+"len": 3
+},
+"RX10V2C2": {
+"start": 1177,
+"end": 1179,
+"len": 3
+},
+"RX10V2C3": {
+"start": 1180,
+"end": 1182,
+"len": 3
+},
+"RX10V2C4": {
+"start": 1183,
+"end": 1185,
+"len": 3
+},
+"RX10V3C1": {
+"start": 1186,
+"end": 1188,
+"len": 3
+},
+"RX10V3C2": {
+"start": 1189,
+"end": 1191,
+"len": 3
+},
+"RX10V3C3": {
+"start": 1192,
+"end": 1194,
+"len": 3
+},
+"RX10V3C4": {
+"start": 1195,
+"end": 1197,
+"len": 3
+},
+"DRUGID11": {
+"start": 1198,
+"end": 1203,
+"len": 6
+},
+"PRESCR11": {
+"start": 1204,
+"end": 1204,
+"len": 1
+},
+"CONTSUB11": {
+"start": 1205,
+"end": 1205,
+"len": 1
+},
+"COMSTAT11": {
+"start": 1206,
+"end": 1206,
+"len": 1
+},
+"RX11CAT1": {
+"start": 1207,
+"end": 1209,
+"len": 3
+},
+"RX11CAT2": {
+"start": 1210,
+"end": 1212,
+"len": 3
+},
+"RX11CAT3": {
+"start": 1213,
+"end": 1215,
+"len": 3
+},
+"RX11CAT4": {
+"start": 1216,
+"end": 1218,
+"len": 3
+},
+"DRUGID12": {
+"start": 1255,
+"end": 1260,
+"len": 6
+},
+"PRESCR12": {
+"start": 1261,
+"end": 1261,
+"len": 1
+},
+"CONTSUB12": {
+"start": 1262,
+"end": 1262,
+"len": 1
+},
+"COMSTAT12": {
+"start": 1263,
+"end": 1263,
+"len": 1
+},
+"RX12CAT1": {
+"start": 1264,
+"end": 1266,
+"len": 3
+},
+"RX12CAT2": {
+"start": 1267,
+"end": 1269,
+"len": 3
+},
+"RX12CAT3": {
+"start": 1270,
+"end": 1272,
+"len": 3
+},
+"RX12CAT4": {
+"start": 1273,
+"end": 1275,
+"len": 3
+},
+"RX12V1C1": {
+"start": 1276,
+"end": 1278,
+"len": 3
+},
+"RX12V1C2": {
+"start": 1279,
+"end": 1281,
+"len": 3
+},
+"RX12V1C3": {
+"start": 1282,
+"end": 1284,
+"len": 3
+},
+"RX12V1C4": {
+"start": 1285,
+"end": 1287,
+"len": 3
+},
+"RX12V2C1": {
+"start": 1288,
+"end": 1290,
+"len": 3
+},
+"RX12V2C2": {
+"start": 1291,
+"end": 1293,
+"len": 3
+},
+"RX12V2C3": {
+"start": 1294,
+"end": 1296,
+"len": 3
+},
+"RX12V2C4": {
+"start": 1297,
+"end": 1299,
+"len": 3
+},
+"RX12V3C1": {
+"start": 1300,
+"end": 1302,
+"len": 3
+},
+"RX12V3C2": {
+"start": 1303,
+"end": 1305,
+"len": 3
+},
+"RX12V3C3": {
+"start": 1306,
+"end": 1308,
+"len": 3
+},
+"RX12V3C4": {
+"start": 1309,
+"end": 1311,
+"len": 3
+},
+"DRUGID13": {
+"start": 1312,
+"end": 1317,
+"len": 6
+},
+"PRESCR13": {
+"start": 1318,
+"end": 1318,
+"len": 1
+},
+"CONTSUB13": {
+"start": 1319,
+"end": 1319,
+"len": 1
+},
+"COMSTAT13": {
+"start": 1320,
+"end": 1320,
+"len": 1
+},
+"RX13CAT1": {
+"start": 1321,
+"end": 1323,
+"len": 3
+},
+"RX13CAT2": {
+"start": 1324,
+"end": 1326,
+"len": 3
+},
+"RX13CAT3": {
+"start": 1327,
+"end": 1329,
+"len": 3
+},
+"RX13CAT4": {
+"start": 1330,
+"end": 1332,
+"len": 3
+},
+"DRUGID14": {
+"start": 1369,
+"end": 1374,
+"len": 6
+},
+"PRESCR14": {
+"start": 1375,
+"end": 1375,
+"len": 1
+},
+"CONTSUB14": {
+"start": 1376,
+"end": 1376,
+"len": 1
+},
+"COMSTAT14": {
+"start": 1377,
+"end": 1377,
+"len": 1
+},
+"RX14CAT1": {
+"start": 1378,
+"end": 1380,
+"len": 3
+},
+"RX14CAT2": {
+"start": 1381,
+"end": 1383,
+"len": 3
+},
+"RX14CAT3": {
+"start": 1384,
+"end": 1386,
+"len": 3
+},
+"RX14CAT4": {
+"start": 1387,
+"end": 1389,
+"len": 3
+},
+"DRUGID15": {
+"start": 1426,
+"end": 1431,
+"len": 6
+},
+"PRESCR15": {
+"start": 1432,
+"end": 1432,
+"len": 1
+},
+"CONTSUB15": {
+"start": 1433,
+"end": 1433,
+"len": 1
+},
+"COMSTAT15": {
+"start": 1434,
+"end": 1434,
+"len": 1
+},
+"RX15CAT1": {
+"start": 1435,
+"end": 1437,
+"len": 3
+},
+"RX15CAT2": {
+"start": 1438,
+"end": 1440,
+"len": 3
+},
+"RX15CAT3": {
+"start": 1441,
+"end": 1443,
+"len": 3
+},
+"RX15CAT4": {
+"start": 1444,
+"end": 1446,
+"len": 3
+},
+"DRUGID16": {
+"start": 1483,
+"end": 1488,
+"len": 6
+},
+"PRESCR16": {
+"start": 1489,
+"end": 1489,
+"len": 1
+},
+"CONTSUB16": {
+"start": 1490,
+"end": 1490,
+"len": 1
+},
+"COMSTAT16": {
+"start": 1491,
+"end": 1491,
+"len": 1
+},
+"RX16CAT1": {
+"start": 1492,
+"end": 1494,
+"len": 3
+},
+"RX16CAT2": {
+"start": 1495,
+"end": 1497,
+"len": 3
+},
+"RX16CAT3": {
+"start": 1498,
+"end": 1500,
+"len": 3
+},
+"RX16CAT4": {
+"start": 1501,
+"end": 1503,
+"len": 3
+},
+"DRUGID17": {
+"start": 1540,
+"end": 1545,
+"len": 6
+},
+"PRESCR17": {
+"start": 1546,
+"end": 1546,
+"len": 1
+},
+"CONTSUB17": {
+"start": 1547,
+"end": 1547,
+"len": 1
+},
+"COMSTAT17": {
+"start": 1548,
+"end": 1548,
+"len": 1
+},
+"RX17CAT1": {
+"start": 1549,
+"end": 1551,
+"len": 3
+},
+"RX17CAT2": {
+"start": 1552,
+"end": 1554,
+"len": 3
+},
+"RX17CAT3": {
+"start": 1555,
+"end": 1557,
+"len": 3
+},
+"RX17CAT4": {
+"start": 1558,
+"end": 1560,
+"len": 3
+},
+"DRUGID18": {
+"start": 1597,
+"end": 1602,
+"len": 6
+},
+"PRESCR18": {
+"start": 1603,
+"end": 1603,
+"len": 1
+},
+"CONTSUB18": {
+"start": 1604,
+"end": 1604,
+"len": 1
+},
+"COMSTAT18": {
+"start": 1605,
+"end": 1605,
+"len": 1
+},
+"RX18CAT1": {
+"start": 1606,
+"end": 1608,
+"len": 3
+},
+"RX18CAT2": {
+"start": 1609,
+"end": 1611,
+"len": 3
+},
+"RX18CAT3": {
+"start": 1612,
+"end": 1614,
+"len": 3
+},
+"RX18CAT4": {
+"start": 1615,
+"end": 1617,
+"len": 3
+},
+"DRUGID19": {
+"start": 1654,
+"end": 1659,
+"len": 6
+},
+"PRESCR19": {
+"start": 1660,
+"end": 1660,
+"len": 1
+},
+"CONTSUB19": {
+"start": 1661,
+"end": 1661,
+"len": 1
+},
+"COMSTAT19": {
+"start": 1662,
+"end": 1662,
+"len": 1
+},
+"RX19CAT1": {
+"start": 1663,
+"end": 1665,
+"len": 3
+},
+"RX19CAT2": {
+"start": 1666,
+"end": 1668,
+"len": 3
+},
+"RX19CAT3": {
+"start": 1669,
+"end": 1671,
+"len": 3
+},
+"RX19CAT4": {
+"start": 1672,
+"end": 1674,
+"len": 3
+},
+"DRUGID20": {
+"start": 1711,
+"end": 1716,
+"len": 6
+},
+"PRESCR20": {
+"start": 1717,
+"end": 1717,
+"len": 1
+},
+"CONTSUB20": {
+"start": 1718,
+"end": 1718,
+"len": 1
+},
+"COMSTAT20": {
+"start": 1719,
+"end": 1719,
+"len": 1
+},
+"RX20CAT1": {
+"start": 1720,
+"end": 1722,
+"len": 3
+},
+"RX20CAT2": {
+"start": 1723,
+"end": 1725,
+"len": 3
+},
+"RX20CAT3": {
+"start": 1726,
+"end": 1728,
+"len": 3
+},
+"RX20CAT4": {
+"start": 1729,
+"end": 1731,
+"len": 3
+},
+"DRUGID21": {
+"start": 1768,
+"end": 1773,
+"len": 6
+},
+"PRESCR21": {
+"start": 1774,
+"end": 1774,
+"len": 1
+},
+"CONTSUB21": {
+"start": 1775,
+"end": 1775,
+"len": 1
+},
+"COMSTAT21": {
+"start": 1776,
+"end": 1776,
+"len": 1
+},
+"RX21CAT1": {
+"start": 1777,
+"end": 1779,
+"len": 3
+},
+"RX21CAT2": {
+"start": 1780,
+"end": 1782,
+"len": 3
+},
+"RX21CAT3": {
+"start": 1783,
+"end": 1785,
+"len": 3
+},
+"RX21CAT4": {
+"start": 1786,
+"end": 1788,
+"len": 3
+},
+"DRUGID22": {
+"start": 1825,
+"end": 1830,
+"len": 6
+},
+"PRESCR22": {
+"start": 1831,
+"end": 1831,
+"len": 1
+},
+"CONTSUB22": {
+"start": 1832,
+"end": 1832,
+"len": 1
+},
+"COMSTAT22": {
+"start": 1833,
+"end": 1833,
+"len": 1
+},
+"RX22CAT1": {
+"start": 1834,
+"end": 1836,
+"len": 3
+},
+"RX22CAT2": {
+"start": 1837,
+"end": 1839,
+"len": 3
+},
+"RX22CAT3": {
+"start": 1840,
+"end": 1842,
+"len": 3
+},
+"RX22CAT4": {
+"start": 1843,
+"end": 1845,
+"len": 3
+},
+"DRUGID23": {
+"start": 1882,
+"end": 1887,
+"len": 6
+},
+"PRESCR23": {
+"start": 1888,
+"end": 1888,
+"len": 1
+},
+"CONTSUB23": {
+"start": 1889,
+"end": 1889,
+"len": 1
+},
+"COMSTAT23": {
+"start": 1890,
+"end": 1890,
+"len": 1
+},
+"RX23CAT1": {
+"start": 1891,
+"end": 1893,
+"len": 3
+},
+"RX23CAT2": {
+"start": 1894,
+"end": 1896,
+"len": 3
+},
+"RX23CAT3": {
+"start": 1897,
+"end": 1899,
+"len": 3
+},
+"RX23CAT4": {
+"start": 1900,
+"end": 1902,
+"len": 3
+},
+"DRUGID24": {
+"start": 1939,
+"end": 1944,
+"len": 6
+},
+"PRESCR24": {
+"start": 1945,
+"end": 1945,
+"len": 1
+},
+"CONTSUB24": {
+"start": 1946,
+"end": 1946,
+"len": 1
+},
+"COMSTAT24": {
+"start": 1947,
+"end": 1947,
+"len": 1
+},
+"RX24CAT1": {
+"start": 1948,
+"end": 1950,
+"len": 3
+},
+"RX24CAT2": {
+"start": 1951,
+"end": 1953,
+"len": 3
+},
+"RX24CAT3": {
+"start": 1954,
+"end": 1956,
+"len": 3
+},
+"RX24CAT4": {
+"start": 1957,
+"end": 1959,
+"len": 3
+},
+"DRUGID25": {
+"start": 1996,
+"end": 2001,
+"len": 6
+},
+"PRESCR25": {
+"start": 2002,
+"end": 2002,
+"len": 1
+},
+"CONTSUB25": {
+"start": 2003,
+"end": 2003,
+"len": 1
+},
+"COMSTAT25": {
+"start": 2004,
+"end": 2004,
+"len": 1
+},
+"RX25CAT1": {
+"start": 2005,
+"end": 2007,
+"len": 3
+},
+"RX25CAT2": {
+"start": 2008,
+"end": 2010,
+"len": 3
+},
+"RX25CAT3": {
+"start": 2011,
+"end": 2013,
+"len": 3
+},
+"RX25CAT4": {
+"start": 2014,
+"end": 2016,
+"len": 3
+},
+"DRUGID26": {
+"start": 2053,
+"end": 2058,
+"len": 6
+},
+"PRESCR26": {
+"start": 2059,
+"end": 2059,
+"len": 1
+},
+"CONTSUB26": {
+"start": 2060,
+"end": 2060,
+"len": 1
+},
+"COMSTAT26": {
+"start": 2061,
+"end": 2061,
+"len": 1
+},
+"RX26CAT1": {
+"start": 2062,
+"end": 2064,
+"len": 3
+},
+"RX26CAT2": {
+"start": 2065,
+"end": 2067,
+"len": 3
+},
+"RX26CAT3": {
+"start": 2068,
+"end": 2070,
+"len": 3
+},
+"RX26CAT4": {
+"start": 2071,
+"end": 2073,
+"len": 3
+},
+"DRUGID27": {
+"start": 2110,
+"end": 2115,
+"len": 6
+},
+"PRESCR27": {
+"start": 2116,
+"end": 2116,
+"len": 1
+},
+"CONTSUB27": {
+"start": 2117,
+"end": 2117,
+"len": 1
+},
+"COMSTAT27": {
+"start": 2118,
+"end": 2118,
+"len": 1
+},
+"RX27CAT1": {
+"start": 2119,
+"end": 2121,
+"len": 3
+},
+"RX27CAT2": {
+"start": 2122,
+"end": 2124,
+"len": 3
+},
+"RX27CAT3": {
+"start": 2125,
+"end": 2127,
+"len": 3
+},
+"RX27CAT4": {
+"start": 2128,
+"end": 2130,
+"len": 3
+},
+"DRUGID28": {
+"start": 2167,
+"end": 2172,
+"len": 6
+},
+"PRESCR28": {
+"start": 2173,
+"end": 2173,
+"len": 1
+},
+"CONTSUB28": {
+"start": 2174,
+"end": 2174,
+"len": 1
+},
+"COMSTAT28": {
+"start": 2175,
+"end": 2175,
+"len": 1
+},
+"RX28CAT1": {
+"start": 2176,
+"end": 2178,
+"len": 3
+},
+"RX28CAT2": {
+"start": 2179,
+"end": 2181,
+"len": 3
+},
+"RX28CAT3": {
+"start": 2182,
+"end": 2184,
+"len": 3
+},
+"RX28CAT4": {
+"start": 2185,
+"end": 2187,
+"len": 3
+},
+"DRUGID29": {
+"start": 2224,
+"end": 2229,
+"len": 6
+},
+"PRESCR29": {
+"start": 2230,
+"end": 2230,
+"len": 1
+},
+"CONTSUB29": {
+"start": 2231,
+"end": 2231,
+"len": 1
+},
+"COMSTAT29": {
+"start": 2232,
+"end": 2232,
+"len": 1
+},
+"RX29CAT1": {
+"start": 2233,
+"end": 2235,
+"len": 3
+},
+"RX29CAT2": {
+"start": 2236,
+"end": 2238,
+"len": 3
+},
+"RX29CAT3": {
+"start": 2239,
+"end": 2241,
+"len": 3
+},
+"RX29CAT4": {
+"start": 2242,
+"end": 2244,
+"len": 3
+},
+"DRUGID30": {
+"start": 2281,
+"end": 2286,
+"len": 6
+},
+"PRESCR30": {
+"start": 2287,
+"end": 2287,
+"len": 1
+},
+"CONTSUB30": {
+"start": 2288,
+"end": 2288,
+"len": 1
+},
+"COMSTAT30": {
+"start": 2289,
+"end": 2289,
+"len": 1
+},
+"RX30CAT1": {
+"start": 2290,
+"end": 2292,
+"len": 3
+},
+"RX30CAT2": {
+"start": 2293,
+"end": 2295,
+"len": 3
+},
+"RX30CAT3": {
+"start": 2296,
+"end": 2298,
+"len": 3
+},
+"RX30CAT4": {
+"start": 2299,
+"end": 2301,
+"len": 3
+},
+"SETTYPE": {
+"start": 2338,
+"end": 2338,
+"len": 1
+},
+"YEAR": {
+"start": 2339,
+"end": 2342,
+"len": 4
+},
+"CSTRATM": {
+"start": 2343,
+"end": 2350,
+"len": 8
+},
+"CPSUM": {
+"start": 2351,
+"end": 2356,
+"len": 6
+},
+"PATWT": {
+"start": 2357,
+"end": 2367,
+"len": 11
+},
+"EDWT": {
+"start": 2368,
+"end": 2376,
+"len": 9
+},
+"BOARDED": {
+"start": 2377,
+"end": 2380,
+"len": 4
+},
+"COVID_VALIDATION": {
+"start": 2381,
+"end": 2382,
+"len": 2
+}
+}

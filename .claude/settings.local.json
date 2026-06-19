@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python -c ' *)",
+      "Bash(curl -s --max-time 120 -o doc21-ed-508.pdf \"https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/NHAMCS/doc21-ed-508.pdf\")",
+      "Bash(python src/load_nhamcs.py)",
+      "Bash(export KAGGLE_CONFIG_DIR=\"D:/kaggle/Triagegeist/.kaggle\")",
+      "Bash(python -m kaggle --version)",
+      "Bash(python -m kaggle config view)",
+      "Bash(python -m kaggle kernels list --competition triagegeist --page-size 50)",
+      "Bash(grep -q \"=== DONE ===\" artifacts/nb_exec2.log)",
+      "Bash(break)"
+    ]
+  }
+}
