@@ -353,27 +353,38 @@ data; the modelling shown here is ready for it. We anchor on real data next.
 
 # ---------------------------------------------------------------- M5 NHAMCS
 md(r"""
-## 7. Module 5 — External validation on real NHAMCS data
+## 7. Module 5 — Real-world validation on NHAMCS (CDC)
 
 We parse the **CDC NHAMCS ED public-use files (2021–2022)** — fixed-width ASCII,
-column positions from the official codebook — and run the *same* structured
-acuity model. The target is `IMMEDR` (real triage immediacy, 1–5). If internet is
-disabled, this cell skips cleanly; to force it, attach a parsed copy or enable
-internet. (Loader mirrors `src/load_nhamcs.py` in the repo.)
+positions from the official codebook (admission flags shift +2 bytes in 2022, so
+each year is parsed with its own layout) — and run two real-data checks:
+
+1. **Acuity reality check.** The same structured model on real `IMMEDR` labels —
+   exposing how inflated the synthetic κ is.
+2. **The waiting-room watch, on real outcomes.** Does triage data flag real
+   *hospital admission* among patients triaged as *lower acuity*? This is the
+   decisive test of whether our tool's premise survives outside synthetic data.
+
+If internet is disabled the cell skips cleanly (reference numbers are printed).
 """)
 code(r"""
-# Hardcoded codebook positions (1-based inclusive); identical for 2021 & 2022 in this range.
-NH = {"IMMEDR":(67,68),"AGE":(16,18),"SEX":(25,25),"TEMPF":(48,51),"PULSE":(52,54),
-      "RESPR":(55,57),"BPSYS":(58,60),"BPDIAS":(61,63),"POPCT":(64,66),
-      "PAINSCALE":(69,70),"ARREMS":(33,34),"SEEN72":(71,72),"RFV1":(73,77)}
+# Codebook positions (1-based inclusive). Front-half vars are identical across
+# years; the hospital-admission flags shift +2 bytes in 2022 (two COVID items
+# were inserted), so we parse each year with its own layout.
+COMMON = {"IMMEDR":(67,68),"AGE":(16,18),"SEX":(25,25),"TEMPF":(48,51),"PULSE":(52,54),
+          "RESPR":(55,57),"BPSYS":(58,60),"BPDIAS":(61,63),"POPCT":(64,66),
+          "PAINSCALE":(69,70),"ARREMS":(33,34),"SEEN72":(71,72),"RFV1":(73,77)}
+ADM = {2021:{"ADMITHOS":(497,497),"OBSHOS":(498,498)},
+       2022:{"ADMITHOS":(499,499),"OBSHOS":(500,500)}}
 BASE = "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/NHAMCS"
 
-def load_nhamcs_year(zipname):
+def load_nhamcs_year(year, zipname):
     raw = urllib.request.urlopen(f"{BASE}/{zipname}", timeout=60).read()
     name = zipfile.ZipFile(io.BytesIO(raw)).namelist()[0]
     txt = zipfile.ZipFile(io.BytesIO(raw)).read(name)
-    colspecs = [(s-1, e) for s,e in NH.values()]
-    d = pd.read_fwf(io.BytesIO(txt), colspecs=colspecs, names=list(NH), dtype=str)
+    spec = {**COMMON, **ADM[year]}
+    colspecs = [(s-1, e) for s,e in spec.values()]
+    d = pd.read_fwf(io.BytesIO(txt), colspecs=colspecs, names=list(spec), dtype=str)
     return d.apply(pd.to_numeric, errors="coerce")
 
 def clean_nhamcs(d):
@@ -387,35 +398,68 @@ def clean_nhamcs(d):
     d.loc[d["PAINSCALE"]>10,"PAINSCALE"]=np.nan
     for c in ["SEX","ARREMS","SEEN72","AGE"]: d.loc[d[c].isin([-9,-8,-7]),c]=np.nan
     d.loc[d["RFV1"]<0,"RFV1"]=np.nan; d["RFV1_module"]=(d["RFV1"]//10000)
+    d["admit"] = ((d["ADMITHOS"]==1) | (d["OBSHOS"]==1)).astype(int)  # real admission outcome
     return d
 
+FEATS = ["AGE","SEX","TEMPF","PULSE","RESPR","BPSYS","BPDIAS","POPCT",
+         "PAINSCALE","ARREMS","SEEN72","RFV1_module"]
 try:
-    nd = clean_nhamcs(pd.concat([load_nhamcs_year("ed2021.zip"),
-                                 load_nhamcs_year("ED2022.zip")], ignore_index=True))
-    feats = ["AGE","SEX","TEMPF","PULSE","RESPR","BPSYS","BPDIAS","POPCT",
-             "PAINSCALE","ARREMS","SEEN72","RFV1_module"]
-    Xn = nd[feats]; yn = nd["IMMEDR"].astype(int).values
+    nd = clean_nhamcs(pd.concat([load_nhamcs_year(2021,"ed2021.zip"),
+                                 load_nhamcs_year(2022,"ED2022.zip")], ignore_index=True))
+    Xn = nd[FEATS]; yn = nd["IMMEDR"].astype(int).values
+    # (1) acuity reality check
     oof = np.zeros(len(yn))
     for tr, va in StratifiedKFold(5, shuffle=True, random_state=SEED).split(Xn, yn):
         m = lgbm(); m.fit(Xn.iloc[tr], yn[tr]); oof[va]=m.predict(Xn.iloc[va])
     nh_acc, nh_qwk = accuracy_score(yn,oof), cohen_kappa_score(yn,oof,weights="quadratic")
-    print(f"NHAMCS real (n={len(yn):,}):  accuracy={nh_acc:.3f}  QWK={nh_qwk:.3f}")
+    print(f"[acuity] NHAMCS real (n={len(yn):,}): accuracy={nh_acc:.3f}  QWK={nh_qwk:.3f}")
+
+    # (2) THE WAITING-ROOM WATCH ON REAL ADMISSION OUTCOMES
+    ya = nd["admit"].values; oa = np.zeros(len(ya)); spw=(ya==0).sum()/(ya==1).sum()
+    for tr, va in StratifiedKFold(5, shuffle=True, random_state=SEED).split(Xn, ya):
+        m = lgb.LGBMClassifier(n_estimators=400, learning_rate=0.03, num_leaves=48,
+                               subsample=0.8, colsample_bytree=0.8, min_child_samples=40,
+                               scale_pos_weight=spw, random_state=SEED, verbose=-1)
+        m.fit(Xn.iloc[tr], ya[tr]); oa[va]=m.predict_proba(Xn.iloc[va])[:,1]
+    lowr = nd["IMMEDR"].isin([3,4,5]).values
+    auc_low_real = roc_auc_score(ya[lowr], oa[lowr])
+    pr, yr = oa[lowr], ya[lowr]; fl = pr >= np.quantile(pr, 0.8)
+    print(f"[watch ] real admission rate={ya.mean():.3f}; within LOW-acuity (n={lowr.sum():,}, base {yr.mean():.3f}): "
+          f"AUC={auc_low_real:.3f}")
+    print(f"[watch ] flag top 20%: precision={yr[fl].mean():.2f}  recall={yr[fl].sum()/yr.sum():.2f}  "
+          f"lift={yr[fl].mean()/yr.mean():.1f}x")
     NHAMCS_OK = True
 except Exception as e:
     print("NHAMCS validation skipped (no internet / fetch failed):", type(e).__name__, e)
-    print("Reference result from the repo run: n=20,702, accuracy=0.542, QWK=0.269")
-    nh_acc, nh_qwk, NHAMCS_OK = 0.542, 0.269, False
+    print("Reference repo run: acuity acc=0.540 QWK=0.265; watch within low-acuity AUC=0.777, top20% recall=0.57 lift=2.9x")
+    nh_qwk, auc_low_real = 0.265, 0.777; NHAMCS_OK = False
 
-# Synthetic vs real — the punchline
-fig, ax = plt.subplots(figsize=(6,3.4))
+# Two-panel punchline: acuity illusion (left) + the tool survives on real data (right)
+fig, ax = plt.subplots(1, 2, figsize=(11, 3.6))
 labels = ["Synthetic\n(in-template)","Synthetic\n(GroupKFold)","Real NHAMCS"]
 vals = [k_skf, k_gkf, nh_qwk]
-ax.bar(labels, vals, color=["#e23b3b","#f08a3c","#2b8a3e"])
-ax.axhspan(0.6, 0.8, color="gray", alpha=.2, label="human inter-rater κ (0.6–0.8)")
-ax.set_ylabel("quadratic-weighted κ"); ax.set_ylim(0,1)
-ax.set_title("Acuity agreement: synthetic illusion vs real-world ceiling"); ax.legend()
-for i,v in enumerate(vals): ax.text(i, v+.02, f"{v:.2f}", ha="center")
+ax[0].bar(labels, vals, color=["#e23b3b","#f08a3c","#2b8a3e"])
+ax[0].axhspan(0.6, 0.8, color="gray", alpha=.2, label="human ceiling κ 0.6–0.8")
+ax[0].set_ylabel("acuity κ (quadratic)"); ax[0].set_ylim(0,1)
+ax[0].set_title("Acuity: synthetic illusion vs real ceiling"); ax[0].legend(fontsize=8)
+for i,v in enumerate(vals): ax[0].text(i, v+.02, f"{v:.2f}", ha="center")
+ax[1].bar(["Synthetic\nESI 3-5","Real NHAMCS\nIMMEDR 3-5"], [auc_low, auc_low_real],
+          color=["#2b6cb0","#2b8a3e"]); ax[1].set_ylim(0.5,0.85)
+ax[1].set_ylabel("admission/escalation AUC"); ax[1].set_title("Waiting-room watch holds on REAL data")
+for i,v in enumerate([auc_low, auc_low_real]): ax[1].text(i, v+.01, f"{v:.2f}", ha="center")
 plt.tight_layout(); plt.show()
+""")
+
+md(r"""
+**The decisive result.** Two things happen on real data. (i) Acuity κ collapses
+from 0.93 to ≈ 0.27 — the synthetic agreement was an illusion. (ii) **The
+waiting-room watch survives, and strengthens:** among real patients triaged
+*lower acuity* (IMMEDR 3–5), triage data predicts genuine hospital admission at
+**AUC ≈ 0.78**, and flagging the top 20% by risk catches **≈ 57% of those
+admissions at ~2.9× precision** (vs 1.75× on synthetic). The clean separation is
+the whole thesis: **the acuity *label* is corrupted by leakage and should not be
+chased, but the deterioration *signal* is real and transferable — so build the
+second-read watch, not a higher-accuracy acuity mimic.**
 """)
 
 # ---------------------------------------------------------------- submission

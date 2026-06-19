@@ -95,12 +95,17 @@ near-random (AUC 0.61) — who *leaves* is operational, not clinical, an honest
 boundary on intake data. Richer deterioration prediction will need real,
 longitudinally-linked ED data; the modelling shown here is ready for it.
 
-**Module 5 — Reality check.** Running the *identical* structured model on
-**20,702 real NHAMCS visits** yields accuracy **0.54**, **κ = 0.27** — far below
-the synthetic κ 0.93 and squarely beneath the human ceiling, exactly as real
-triage should behave. The side-by-side κ chart (synthetic in-template / synthetic
-GroupKFold / real NHAMCS) is the paper's thesis in one figure: **synthetic
-illusion versus real-world ceiling.**
+**Module 5 — Real data settles it.** On **20,702 real NHAMCS visits** two things
+happen. (i) The acuity κ collapses from 0.93 to **0.27** (accuracy 0.54) — the
+synthetic agreement was an illusion. (ii) **The waiting-room watch survives and
+strengthens.** Using real hospital-admission flags (`ADMITHOS`/`OBSHOS`; each
+year parsed with its own layout, since the flag shifts +2 bytes in 2022), triage
+data predicts genuine admission among *lower-acuity* patients (IMMEDR 3–5) at
+**AUC 0.78** — flagging the top 20% by risk catches **57% of those admissions at
+2.9× precision**, *better* than on synthetic data (1.75×). This is the thesis in
+one result: **the acuity label is corrupted and should not be chased, but the
+deterioration signal is real and transferable — so build the second-read watch,
+not a higher-accuracy acuity mimic.**
 
 ## Insight and impact
 
