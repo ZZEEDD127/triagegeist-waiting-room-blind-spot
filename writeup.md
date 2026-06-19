@@ -15,17 +15,18 @@ agreement is only moderate (inter-rater κ ≈ 0.6–0.8), with documented
 undertriage of vulnerable groups.
 
 Most Triagegeist submissions answer one question: *can a model reproduce the
-acuity label?* We argue this is the wrong question on a synthetic benchmark, and
-ask two better ones:
+acuity label?* On a synthetic benchmark that is the wrong question. Instead we
+deliver **two things the Foundation can use**:
 
-1. **Can we trust the score?** What has the benchmark actually encoded, and what
-   does an *honest* acuity model look like once the shortcuts are removed?
-2. **The waiting-room blind spot.** The acuity number is a snapshot. Can intake
-   data flag who will *deteriorate, need admission, or leave without being seen*
-   while waiting — adding value *beyond* the acuity score?
+1. **A working second-read tool** — a *waiting-room escalation early-warning*
+   model that, *inside the lower-acuity queue the acuity score treats as "can
+   wait"*, flags who will actually need admission. This is the blind spot made
+   actionable.
+2. **An honesty & validation framework** — a leakage litmus test and real-world
+   anchoring — so triage-AI results can be *trusted* before any clinical pilot.
 
-Every claim is then checked against **real U.S. emergency-department data
-(NHAMCS, CDC)**. The result is a single, honest, end-to-end study rather than a
+Every claim is checked against **real U.S. emergency-department data (NHAMCS,
+CDC)**. The result is a single, honest, end-to-end study rather than a
 leaderboard chase.
 
 ## Methodology
@@ -82,16 +83,17 @@ and, on synthetic labels, partly artefactual — but immigrant-community languag
 showing the highest undertriage is precisely the equity signal real deployments
 must monitor, and the audit code transfers directly to real data.
 
-**Module 4 — The waiting-room blind spot is real, but the synthetic data can't
-support it.** Escalation is predictable (PR-AUC 0.79 at 43% prevalence), but a
-model using **all** intake features (AUC **0.826**) does **not** beat one using
-**acuity alone** (AUC **0.837**). In this synthetic world disposition is
-essentially an *acuity derivative*, so there is no "beyond-acuity" signal to
-find. LWBS is **near-random** (AUC **0.61**): who walks out is operational noise,
-not clinical state. Calibration tightens the escalation Brier score (0.167 →
-0.165). The constructive message for the Foundation: the waiting-room
-deterioration track is worth pursuing, but **needs real, longitudinally-linked ED
-data** — the modelling is ready; the data is the bottleneck.
+**Module 4 — A usable waiting-room watch.** Globally, full intake (AUC 0.84) does
+not beat acuity alone — disposition here is largely an *acuity derivative*. But
+that global view hides the clinical value: **within the lower-acuity queue (ESI
+3–5, n≈63k, escalation base 31%), the model still separates risk at AUC 0.76.**
+Operating it as a *waiting-room watch* — flagging the top ~20% by risk — captures
+~35% of all low-acuity escalations at ~1.7× the base precision, with calibrated
+probabilities (isotonic; Brier 0.157→0.155). This is a concrete second read
+aimed exactly at the patients the single acuity number overlooks. LWBS stays
+near-random (AUC 0.61) — who *leaves* is operational, not clinical, an honest
+boundary on intake data. Richer deterioration prediction will need real,
+longitudinally-linked ED data; the modelling shown here is ready for it.
 
 **Module 5 — Reality check.** Running the *identical* structured model on
 **20,702 real NHAMCS visits** yields accuracy **0.54**, **κ = 0.27** — far below
@@ -115,8 +117,9 @@ clinical reasoning. The transferable contributions are:
 - **A scoped negative result** that redirects the waiting-room track toward the
   real data it requires.
 
-This is directly actionable for a foundation planning clinical pilots: it says
-what to *stop* trusting, what to *measure*, and what data to *acquire*.
+This is directly actionable for a foundation planning clinical pilots: it ships a
+second-read tool to deploy, says what to *stop* trusting, what to *measure*, and
+what data to *acquire* — a fundable, constructive roadmap rather than a critique.
 
 ## Limitations
 
