@@ -518,9 +518,59 @@ print("submission.csv:", sub.shape, "| predicted acuity mix:",
       sub["triage_acuity"].value_counts(normalize=True).round(3).sort_index().to_dict())
 """)
 
+# ---------------------------------------------------------------- demo
+md(r"""
+## 9. Clinical decision-support demo — a per-patient second opinion
+
+The tool is meant for a clinician, so here it is as one. For any patient we return
+the assigned acuity, a **calibrated waiting-room escalation risk**, a **watch
+flag** with two selectable modes, and the **top features driving the risk** (native
+LightGBM contributions). We then contrast two patients: a *blind-spot* case — low
+acuity but high escalation risk — versus a routine low-risk case. *Not a medical
+device; decision support only.*
+""")
+code(r"""
+# Final escalation model on full synthetic data; reuse OOF calibrator from Module 4.
+esc_model = lgb.LGBMClassifier(n_estimators=400, learning_rate=0.03, num_leaves=48,
+                               subsample=0.8, colsample_bytree=0.8, min_child_samples=40,
+                               scale_pos_weight=(ye==0).sum()/(ye==1).sum(),
+                               random_state=SEED, verbose=-1).fit(Xall, ye)
+
+# Calibrated escalation risk for everyone (one consistent scale for thresholds + display).
+risk_all = iso.predict(oof_all)
+low35 = df["triage_acuity"].isin([3,4,5]).values
+THR_WATCH = np.quantile(risk_all[low35], 0.80)  # high-recall safety net (top 20%)
+THR_ALERT = np.quantile(risk_all[low35], 0.95)  # high-precision targeted review (top 5%)
+print(f"Watch modes on the low-acuity queue:  SAFETY-NET risk>={THR_WATCH:.0%} (catches ~35% of "
+      f"escalations) | TARGETED risk>={THR_ALERT:.0%} (higher precision, fewer alerts)")
+
+def second_opinion(i):
+    acu = int(df["triage_acuity"].iloc[i])               # acuity is assigned at triage (an input)
+    risk = float(risk_all[i])
+    mode = ("TARGETED-REVIEW ALERT" if risk >= THR_ALERT else
+            "WAITING-ROOM WATCH" if risk >= THR_WATCH else "routine")
+    contrib = np.asarray(esc_model.booster_.predict(Xall.iloc[[i]], pred_contrib=True)).ravel()[:-1]
+    top = sorted(zip(Xall.columns, contrib), key=lambda t: -abs(t[1]))[:4]
+    print(f"\nPatient {df['patient_id'].iloc[i]}  (assigned ESI {acu})")
+    print(f"  waiting-room escalation risk : {risk:0.0%}   ->  {mode}")
+    print( "  top drivers (+ raises / - lowers risk):")
+    for name, c in top:
+        print(f"      {'+' if c>=0 else '-'} {name} ({c:+.2f})")
+
+# Blind-spot = a LOW-acuity (ESI 3-5) patient who truly escalated, ranked highest risk;
+# routine = a low-acuity patient who did not, ranked lowest risk.
+esc = df["escalate"].values.astype(bool)
+cand_b = np.where(low35 & esc)[0];  blind   = cand_b[np.argmax(risk_all[cand_b])]
+cand_r = np.where(low35 & ~esc)[0]; routine = cand_r[np.argmin(risk_all[cand_r])]
+print("\n--- BLIND-SPOT CASE (lower-acuity queue, but high deterioration risk; truly admitted) ---")
+second_opinion(blind)
+print("\n--- ROUTINE CASE (lower-acuity, low risk; discharged) ---")
+second_opinion(routine)
+""")
+
 # ---------------------------------------------------------------- limitations
 md(r"""
-## 8. Limitations, reproducibility & clinical recommendations
+## 10. Limitations, reproducibility & clinical recommendations
 
 **Limitations (honest).**
 1. The competition data is **synthetic**; its vitals are generated from acuity, so
