@@ -1,0 +1,18 @@
+merged training frame: (80000, 67) | acuity prevalence: {1: 0.04, 2: 0.168, 3: 0.362, 4: 0.288, 5: 0.142}
+[cell 0] OK
+Correlation with triage_acuity: {'ed_los_hours': np.float64(-0.757), 'news2_score': np.float64(-0.815), 'shock_index': np.float64(-0.632), 'gcs_total': np.float64(0.657)}
+Unique complaints: 4949
+Mean within-complaint acuity purity: 0.9993
+Share of complaints that FULLY determine acuity: 99.7%
+[cell 1] OK
+StratifiedKFold (in-template)          acc=0.857  QWK=0.931  undertriage=0.074  high-acuity recall=0.982  missed_high=295
+GroupKFold by complaint (out-of-template) acc=0.858  QWK=0.931  undertriage=0.073  high-acuity recall=0.982  missed_high=294
+[cell 2] ERROR: UnicodeEncodeError: 'charmap' codec can't encode character '\u2248' in position 57: character maps to <undefined>
+Traceback (most recent call last):
+  File "<stdin>", line 10, in <module>
+  File "<string>", line 42, in <module>
+  File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2248' in position 57: character maps to <undefined>
+=== DONE ===

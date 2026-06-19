@@ -1,0 +1,76 @@
+{
+  "forensics": {
+    "leak_corr": {
+      "ed_los_hours": -0.757,
+      "news2_score": -0.815,
+      "shock_index": -0.632,
+      "gcs_total": 0.657
+    },
+    "complaint_acuity_purity": 0.9993,
+    "complaint_fully_determine_acuity": 0.997,
+    "n_unique_complaints": 4949
+  },
+  "acuity": {
+    "stratified": {
+      "accuracy": 0.8567,
+      "qwk": 0.931,
+      "undertriage_rate": 0.0745,
+      "overtriage_rate": 0.0688,
+      "high_acuity_recall(1-2)": 0.9823,
+      "n_missed_high_acuity": 295
+    },
+    "groupkfold_by_complaint": {
+      "accuracy": 0.8577,
+      "qwk": 0.9314,
+      "undertriage_rate": 0.0734,
+      "overtriage_rate": 0.0689,
+      "high_acuity_recall(1-2)": 0.9824,
+      "n_missed_high_acuity": 294
+    }
+  },
+  "fairness": {
+    "language": {
+      "Arabic": 0.0834,
+      "English": 0.0764,
+      "Somali": 0.0754,
+      "Swedish": 0.0749,
+      "Other": 0.0738,
+      "Finnish": 0.0736,
+      "Russian": 0.0734,
+      "Estonian": 0.0725
+    },
+    "insurance_type": {
+      "military": 0.0763,
+      "public": 0.075,
+      "private": 0.0737,
+      "none": 0.0725,
+      "unknown": 0.0721
+    },
+    "sex": {
+      "Other": 0.0867,
+      "F": 0.0742,
+      "M": 0.0741
+    },
+    "age_group": {
+      "young_adult": 0.0767,
+      "middle_aged": 0.0743,
+      "elderly": 0.0734,
+      "pediatric": 0.0705
+    }
+  },
+  "waiting_room": {
+    "escalate_auc_acuity_only": 0.8367,
+    "escalate_auc_full_intake": 0.8264,
+    "escalate_pr_auc_full": 0.7888,
+    "escalate_prevalence": 0.4319,
+    "brier_raw": 0.1672,
+    "brier_calibrated": 0.1645,
+    "lwbs_auc": 0.6103,
+    "lwbs_prevalence": 0.0457
+  },
+  "nhamcs": {
+    "n": 20702,
+    "accuracy": 0.5417,
+    "qwk": 0.2691
+  }
+}

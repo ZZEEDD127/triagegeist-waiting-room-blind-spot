@@ -1,0 +1,3218 @@
+{
+"VMONTH": {
+"start": 1,
+"end": 2,
+"len": 2,
+"desc": "MONTH OF VISIT"
+},
+"VDAYR": {
+"start": 3,
+"end": 3,
+"len": 1,
+"desc": "DAY OF WEEK OF VISIT"
+},
+"ARRTIME": {
+"start": 4,
+"end": 7,
+"len": 4,
+"desc": "ARRIVAL TIME (military time)"
+},
+"WAITTIME": {
+"start": 8,
+"end": 11,
+"len": 4,
+"desc": "WAITING TIME TO FIRST PROVIDER"
+},
+"LOV": {
+"start": 12,
+"end": 15,
+"len": 4,
+"desc": "LENGTH OF VISIT (minutes)"
+},
+"AGE": {
+"start": 16,
+"end": 18,
+"len": 3,
+"desc": "PATIENT AGE (IN YEARS; DERIVED FROM DATE OF VISIT"
+},
+"AGER": {
+"start": 19,
+"end": 19,
+"len": 1,
+"desc": "AGE RECODE"
+},
+"AGEDAYS": {
+"start": 20,
+"end": 22,
+"len": 3,
+"desc": "AGE IN DAYS FOR PATIENTS LESS THAN ONE YEAR"
+},
+"RESIDNCE": {
+"start": 23,
+"end": 24,
+"len": 2,
+"desc": "PATIENT RESIDENCE"
+},
+"SEX": {
+"start": 25,
+"end": 25,
+"len": 1,
+"desc": "SEX"
+},
+"ETHUN": {
+"start": 26,
+"end": 27,
+"len": 2,
+"desc": "ETHNICITY (UNIMPUTED)"
+},
+"ETHIM": {
+"start": 28,
+"end": 28,
+"len": 1,
+"desc": "ETHNICITY (WITH MISSING DATA IMPUTED)"
+},
+"RACEUN": {
+"start": 29,
+"end": 30,
+"len": 2,
+"desc": "RACE (UNIMPUTED)"
+},
+"RACER": {
+"start": 31,
+"end": 31,
+"len": 1,
+"desc": "RACE (WITH MISSING DATA IMPUTED)"
+},
+"RACERETH": {
+"start": 32,
+"end": 32,
+"len": 1,
+"desc": "RACE/ETHNICITY (WITH MISSING DATA IMPUTED)"
+},
+"ARREMS": {
+"start": 33,
+"end": 34,
+"len": 2,
+"desc": "Arrival by ambulance"
+},
+"AMBTRANSFER": {
+"start": 35,
+"end": 36,
+"len": 2,
+"desc": "If \u201cYes\u201d to Arrival by Ambulance, was the patient"
+},
+"NOPAY": {
+"start": 37,
+"end": 37,
+"len": 1,
+"desc": "No answer to expected source of payment item"
+},
+"PAYPRIV": {
+"start": 38,
+"end": 38,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS VISIT:"
+},
+"PAYMCARE": {
+"start": 39,
+"end": 39,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS"
+},
+"PAYMCAID": {
+"start": 40,
+"end": 40,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS"
+},
+"PAYWKCMP": {
+"start": 41,
+"end": 41,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS"
+},
+"PAYSELF": {
+"start": 42,
+"end": 42,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS"
+},
+"PAYNOCHG": {
+"start": 43,
+"end": 43,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS"
+},
+"PAYOTH": {
+"start": 44,
+"end": 44,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS VISIT:"
+},
+"PAYDK": {
+"start": 45,
+"end": 45,
+"len": 1,
+"desc": "EXPECTED SOURCE(S) OF PAYMENT FOR THIS VISIT:"
+},
+"PAYTYPER": {
+"start": 46,
+"end": 47,
+"len": 2,
+"desc": "RECODED PRIMARY EXPECTED SOURCE OF"
+},
+"TEMPF": {
+"start": 48,
+"end": 51,
+"len": 4,
+"desc": "TEMPERATURE. There is an implied decimal between t"
+},
+"PULSE": {
+"start": 52,
+"end": 54,
+"len": 3,
+"desc": "HEART RATE"
+},
+"RESPR": {
+"start": 55,
+"end": 57,
+"len": 3,
+"desc": "RESPIRATORY RATE"
+},
+"BPSYS": {
+"start": 58,
+"end": 60,
+"len": 3,
+"desc": "SYSTOLIC BLOOD PRESSURE"
+},
+"BPDIAS": {
+"start": 61,
+"end": 63,
+"len": 3,
+"desc": "DIASTOLIC BLOOD PRESSURE"
+},
+"POPCT": {
+"start": 64,
+"end": 66,
+"len": 3,
+"desc": "PULSE OXIMETRY (percent)"
+},
+"IMMEDR": {
+"start": 67,
+"end": 68,
+"len": 2,
+"desc": "IMMEDIACY WITH WHICH PATIENT SHOULD BE SEEN"
+},
+"PAINSCALE": {
+"start": 69,
+"end": 70,
+"len": 2,
+"desc": "PAIN SCALE"
+},
+"SEEN72": {
+"start": 71,
+"end": 72,
+"len": 2,
+"desc": "WAS PATIENT SEEN IN THIS ED WITHIN THE"
+},
+"RFV1": {
+"start": 73,
+"end": 77,
+"len": 5,
+"desc": "REASON # 1"
+},
+"RFV2": {
+"start": 78,
+"end": 82,
+"len": 5,
+"desc": "REASON # 2"
+},
+"RFV3": {
+"start": 83,
+"end": 87,
+"len": 5,
+"desc": "REASON # 3"
+},
+"RFV4": {
+"start": 88,
+"end": 92,
+"len": 5,
+"desc": "REASON # 4"
+},
+"RFV5": {
+"start": 93,
+"end": 97,
+"len": 5,
+"desc": "REASON # 5"
+},
+"EPISODE": {
+"start": 98,
+"end": 99,
+"len": 2,
+"desc": "EPISODE OF CARE"
+},
+"INJURY": {
+"start": 100,
+"end": 101,
+"len": 2,
+"desc": "IS THIS VISIT RELATED TO AN INJURY/TRAUMA,"
+},
+"INJPOISAD": {
+"start": 102,
+"end": 103,
+"len": 2,
+"desc": "IS THIS VISIT RELATED TO AN INJURY/TRAUMA,"
+},
+"CAUSE1": {
+"start": 110,
+"end": 113,
+"len": 4,
+"desc": "CAUSE #1 (ICD -10-CM, V-Y Codes)"
+},
+"CAUSE2": {
+"start": 114,
+"end": 117,
+"len": 4,
+"desc": "CAUSE #2 (ICD -10-CM, V-Y codes)"
+},
+"CAUSE3": {
+"start": 118,
+"end": 121,
+"len": 4,
+"desc": "CAUSE #3 (ICD -10-CM, V-Y codes)"
+},
+"DIAG1": {
+"start": 122,
+"end": 125,
+"len": 4,
+"desc": "DIAGNOSIS #1 (ICD-10-CM) There is an"
+},
+"DIAG2": {
+"start": 126,
+"end": 129,
+"len": 4,
+"desc": "DIAGNOSIS # 2 (ICD-10-CM) There is an"
+},
+"DIAG4": {
+"start": 134,
+"end": 137,
+"len": 4,
+"desc": "DIAGNOSIS # 4 (ICD-10-CM) There is an"
+},
+"DIAG5": {
+"start": 138,
+"end": 141,
+"len": 4,
+"desc": "DIAGNOSIS # 5 (ICD-10-CM) There is an"
+},
+"PRDIAG1": {
+"start": 142,
+"end": 143,
+"len": 2,
+"desc": "IS DIAGNOSIS #1 PROBABLE, QUESTIONABLE, OR"
+},
+"PRDIAG2": {
+"start": 144,
+"end": 145,
+"len": 2,
+"desc": "IS DIAGNOSIS #2 PROBABLE, QUESTIONABLE, OR"
+},
+"PRDIAG3": {
+"start": 146,
+"end": 147,
+"len": 2,
+"desc": "IS DIAGNOSIS #3 PROBABLE, QUESTIONABLE, OR"
+},
+"PRDIAG4": {
+"start": 148,
+"end": 149,
+"len": 2,
+"desc": "IS DIAGNOSIS #4 PROBABLE, QUESTIONABLE, OR"
+},
+"PRDIAG5": {
+"start": 150,
+"end": 151,
+"len": 2,
+"desc": "IS DIAGNOSIS #5 PROBABLE, QUESTIONABLE, OR"
+},
+"NOCHRON": {
+"start": 174,
+"end": 174,
+"len": 1,
+"desc": "None of the above"
+},
+"TOTCHRON": {
+"start": 175,
+"end": 176,
+"len": 2,
+"desc": "Total number of chronic conditions"
+},
+"DIAGSCRN": {
+"start": 177,
+"end": 177,
+"len": 1,
+"desc": "Were diagnostic services ordered or provided at th"
+},
+"ABG": {
+"start": 178,
+"end": 178,
+"len": 1,
+"desc": "Arterial blood gases (ABG)"
+},
+"BAC": {
+"start": 179,
+"end": 179,
+"len": 1,
+"desc": "BAC (blood alcohol concentration)"
+},
+"BMP": {
+"start": 180,
+"end": 180,
+"len": 1,
+"desc": "Basic metabolic panel"
+},
+"BNP": {
+"start": 181,
+"end": 181,
+"len": 1,
+"desc": "BNP (Brain natriuretic peptide)"
+},
+"BUNCREAT": {
+"start": 182,
+"end": 182,
+"len": 1,
+"desc": "Creatinine/Renal function panel"
+},
+"CARDENZ": {
+"start": 183,
+"end": 183,
+"len": 1,
+"desc": "Cardiac enzymes"
+},
+"CBC": {
+"start": 184,
+"end": 184,
+"len": 1,
+"desc": "CBC (Complete blood count)"
+},
+"CMP": {
+"start": 185,
+"end": 185,
+"len": 1,
+"desc": "Comprehensive metabolic panel"
+},
+"BLOODCX": {
+"start": 186,
+"end": 186,
+"len": 1,
+"desc": "Culture, blood"
+},
+"TRTCX": {
+"start": 187,
+"end": 187,
+"len": 1,
+"desc": "Culture, throat"
+},
+"URINECX": {
+"start": 188,
+"end": 188,
+"len": 1,
+"desc": "Culture, urine"
+},
+"WOUNDCX": {
+"start": 189,
+"end": 189,
+"len": 1,
+"desc": "Culture, wound"
+},
+"OTHCX": {
+"start": 190,
+"end": 190,
+"len": 1,
+"desc": "Culture, other"
+},
+"DDIMER": {
+"start": 191,
+"end": 191,
+"len": 1,
+"desc": "D-dimer"
+},
+"ELECTROL": {
+"start": 192,
+"end": 192,
+"len": 1,
+"desc": "Electrolytes"
+},
+"GLUCOSE": {
+"start": 193,
+"end": 193,
+"len": 1,
+"desc": "Glucose, serum"
+},
+"LACTATE": {
+"start": 194,
+"end": 194,
+"len": 1,
+"desc": "Lactate"
+},
+"LFT": {
+"start": 195,
+"end": 195,
+"len": 1,
+"desc": "Liver enzymes/Hepatic function panel"
+},
+"PTTINR": {
+"start": 196,
+"end": 196,
+"len": 1,
+"desc": "Prothrombin time (PT/PTT/INR)"
+},
+"OTHERBLD": {
+"start": 197,
+"end": 197,
+"len": 1,
+"desc": "Other blood test"
+},
+"CARDMON": {
+"start": 198,
+"end": 198,
+"len": 1,
+"desc": "Cardiac monitor"
+},
+"EKG": {
+"start": 199,
+"end": 199,
+"len": 1,
+"desc": "EKG/ECG"
+},
+"HIVTEST": {
+"start": 200,
+"end": 200,
+"len": 1,
+"desc": "HIV test"
+},
+"FLUTEST": {
+"start": 201,
+"end": 201,
+"len": 1,
+"desc": "Influenza test"
+},
+"PREGTEST": {
+"start": 202,
+"end": 202,
+"len": 1,
+"desc": "Pregnancy/HCG test"
+},
+"TOXSCREN": {
+"start": 203,
+"end": 203,
+"len": 1,
+"desc": "Toxicology screen"
+},
+"URINE": {
+"start": 204,
+"end": 204,
+"len": 1,
+"desc": "Urinalysis (UA) or urine dipstick"
+},
+"OTHRTEST": {
+"start": 205,
+"end": 205,
+"len": 1,
+"desc": "Other test/service"
+},
+"ANYIMAGE": {
+"start": 206,
+"end": 206,
+"len": 1,
+"desc": "Any imaging"
+},
+"XRAY": {
+"start": 207,
+"end": 207,
+"len": 1,
+"desc": "X-ray"
+},
+"CATSCAN": {
+"start": 208,
+"end": 208,
+"len": 1,
+"desc": "CT scan (any)"
+},
+"CTCONTRAST": {
+"start": 209,
+"end": 210,
+"len": 2,
+"desc": "Was CT Scan ordered/provided with intravenous"
+},
+"CTAB": {
+"start": 211,
+"end": 211,
+"len": 1,
+"desc": "CT scan \u2013 abdomen/pelvis"
+},
+"MRICONTRAST": {
+"start": 217,
+"end": 218,
+"len": 2,
+"desc": "Was MRI ordered/provided with intravenous (IV)"
+},
+"TOTDIAG": {
+"start": 223,
+"end": 224,
+"len": 2,
+"desc": "TOTAL NUMBER OF DIAGNOSTIC SERVICES"
+},
+"PROC": {
+"start": 225,
+"end": 225,
+"len": 1,
+"desc": "Were procedures provided at this visit?"
+},
+"MED": {
+"start": 242,
+"end": 242,
+"len": 1,
+"desc": "WERE MEDICATIONS OR IMMUNIZATIONS GIVEN AT"
+},
+"MED1": {
+"start": 243,
+"end": 247,
+"len": 5,
+"desc": "MEDICATION #1"
+},
+"MED2": {
+"start": 248,
+"end": 252,
+"len": 5,
+"desc": "MEDICATION #2"
+},
+"MED3": {
+"start": 253,
+"end": 257,
+"len": 5,
+"desc": "MEDICATION #3"
+},
+"MED4": {
+"start": 258,
+"end": 262,
+"len": 5,
+"desc": "MEDICATION #4"
+},
+"MED5": {
+"start": 263,
+"end": 267,
+"len": 5,
+"desc": "MEDICATION #5"
+},
+"MED6": {
+"start": 268,
+"end": 272,
+"len": 5,
+"desc": "MEDICATION #6"
+},
+"MED7": {
+"start": 273,
+"end": 277,
+"len": 5,
+"desc": "MEDICATION #7"
+},
+"MED8": {
+"start": 278,
+"end": 282,
+"len": 5,
+"desc": "MEDICATION #8"
+},
+"MED9": {
+"start": 283,
+"end": 287,
+"len": 5,
+"desc": "MEDICATION #9"
+},
+"MED10": {
+"start": 288,
+"end": 292,
+"len": 5,
+"desc": "MEDICATION #10"
+},
+"MED11": {
+"start": 293,
+"end": 297,
+"len": 5,
+"desc": "MEDICATION #11"
+},
+"MED12": {
+"start": 298,
+"end": 302,
+"len": 5,
+"desc": "MEDICATION #12"
+},
+"MED13": {
+"start": 303,
+"end": 307,
+"len": 5,
+"desc": "MEDICATION #13"
+},
+"MED14": {
+"start": 308,
+"end": 312,
+"len": 5,
+"desc": "MEDICATION #14"
+},
+"MED15": {
+"start": 313,
+"end": 317,
+"len": 5,
+"desc": "MEDICATION #15"
+},
+"MED16": {
+"start": 318,
+"end": 322,
+"len": 5,
+"desc": "MEDICATION #16"
+},
+"MED17": {
+"start": 323,
+"end": 327,
+"len": 5,
+"desc": "MEDICATION #17"
+},
+"MED18": {
+"start": 328,
+"end": 332,
+"len": 5,
+"desc": "MEDICATION #18"
+},
+"MED19": {
+"start": 333,
+"end": 337,
+"len": 5,
+"desc": "MEDICATION #19"
+},
+"MED20": {
+"start": 338,
+"end": 342,
+"len": 5,
+"desc": "MEDICATION #20"
+},
+"MED21": {
+"start": 343,
+"end": 347,
+"len": 5,
+"desc": "MEDICATION #21"
+},
+"MED22": {
+"start": 348,
+"end": 352,
+"len": 5,
+"desc": "MEDICATION #22"
+},
+"MED23": {
+"start": 353,
+"end": 357,
+"len": 5,
+"desc": "MEDICATION #23"
+},
+"MED24": {
+"start": 358,
+"end": 362,
+"len": 5,
+"desc": "MEDICATION #24"
+},
+"MED25": {
+"start": 363,
+"end": 367,
+"len": 5,
+"desc": "MEDICATION #25"
+},
+"MED26": {
+"start": 368,
+"end": 372,
+"len": 5,
+"desc": "MEDICATION #26"
+},
+"MED27": {
+"start": 373,
+"end": 377,
+"len": 5,
+"desc": "MEDICATION #27"
+},
+"MED28": {
+"start": 378,
+"end": 382,
+"len": 5,
+"desc": "MEDICATION #28"
+},
+"MED29": {
+"start": 383,
+"end": 387,
+"len": 5,
+"desc": "MEDICATION #29"
+},
+"MED30": {
+"start": 388,
+"end": 392,
+"len": 5,
+"desc": "MEDICATION #30"
+},
+"GPMED1": {
+"start": 393,
+"end": 394,
+"len": 2,
+"desc": "Was medication #1 given in ED or Rx at discharge?"
+},
+"GPMED2": {
+"start": 395,
+"end": 396,
+"len": 2,
+"desc": "Was medication #2 given in ED or Rx at discharge?"
+},
+"GPMED3": {
+"start": 397,
+"end": 398,
+"len": 2,
+"desc": "Was medication #3 given in ED or Rx at discharge?"
+},
+"GPMED4": {
+"start": 399,
+"end": 400,
+"len": 2,
+"desc": "Was medication #4 given in ED or Rx at discharge?"
+},
+"GPMED5": {
+"start": 401,
+"end": 402,
+"len": 2,
+"desc": "Was medication #5 given in ED or Rx at discharge?"
+},
+"GPMED6": {
+"start": 403,
+"end": 404,
+"len": 2,
+"desc": "Was medication #6 given in ED or Rx at discharge?"
+},
+"GPMED7": {
+"start": 405,
+"end": 406,
+"len": 2,
+"desc": "Was medication #7 given in ED or Rx at discharge?"
+},
+"GPMED8": {
+"start": 407,
+"end": 408,
+"len": 2,
+"desc": "Was medication #8 given in ED or Rx at discharge?"
+},
+"GPMED9": {
+"start": 409,
+"end": 410,
+"len": 2,
+"desc": "Was medication #9 given in ED or Rx at discharge?"
+},
+"GPMED10": {
+"start": 411,
+"end": 412,
+"len": 2,
+"desc": "Was medication #10 given in ED or Rx at discharge?"
+},
+"GPMED11": {
+"start": 413,
+"end": 414,
+"len": 2,
+"desc": "Was medication #11 given in ED or Rx at discharge?"
+},
+"GPMED12": {
+"start": 415,
+"end": 416,
+"len": 2,
+"desc": "Was medication #12 given in ED or Rx at discharge?"
+},
+"GPMED13": {
+"start": 417,
+"end": 418,
+"len": 2,
+"desc": "Was medication #13 given in ED or Rx at discharge?"
+},
+"GPMED14": {
+"start": 419,
+"end": 420,
+"len": 2,
+"desc": "Was medication #14 given in ED or Rx at discharge?"
+},
+"GPMED15": {
+"start": 421,
+"end": 422,
+"len": 2,
+"desc": "Was medication #15 given in ED or Rx at discharge?"
+},
+"GPMED16": {
+"start": 423,
+"end": 424,
+"len": 2,
+"desc": "Was medication #16 given in ED or Rx at discharge?"
+},
+"GPMED17": {
+"start": 425,
+"end": 426,
+"len": 2,
+"desc": "Was medication #17 given in ED or Rx at discharge?"
+},
+"GPMED18": {
+"start": 427,
+"end": 428,
+"len": 2,
+"desc": "Was medication #18 given in ED or Rx at discharge?"
+},
+"GPMED19": {
+"start": 429,
+"end": 430,
+"len": 2,
+"desc": "Was medication #19 given in ED or Rx at discharge?"
+},
+"GPMED20": {
+"start": 431,
+"end": 432,
+"len": 2,
+"desc": "Was medication #20 given in ED or Rx at discharge?"
+},
+"GPMED21": {
+"start": 433,
+"end": 434,
+"len": 2,
+"desc": "Was medication #21 given in ED or Rx at discharge?"
+},
+"GPMED22": {
+"start": 435,
+"end": 436,
+"len": 2,
+"desc": "Was medication #22 given in ED or Rx at discharge?"
+},
+"GPMED23": {
+"start": 437,
+"end": 438,
+"len": 2,
+"desc": "Was medication #23 given in ED or Rx at discharge?"
+},
+"GPMED24": {
+"start": 439,
+"end": 440,
+"len": 2,
+"desc": "Was medication #24 given in ED or Rx at discharge?"
+},
+"GPMED25": {
+"start": 441,
+"end": 442,
+"len": 2,
+"desc": "Was medication #25 given in ED or Rx at discharge?"
+},
+"GPMED26": {
+"start": 443,
+"end": 444,
+"len": 2,
+"desc": "Was medication #26 given in ED or Rx at discharge?"
+},
+"GPMED27": {
+"start": 445,
+"end": 446,
+"len": 2,
+"desc": "Was medication #27 given in ED or Rx at discharge?"
+},
+"GPMED28": {
+"start": 447,
+"end": 448,
+"len": 2,
+"desc": "Was medication #28 given in ED or Rx at discharge?"
+},
+"GPMED29": {
+"start": 449,
+"end": 450,
+"len": 2,
+"desc": "Was medication #29 given in ED or Rx at discharge?"
+},
+"GPMED30": {
+"start": 451,
+"end": 452,
+"len": 2,
+"desc": "Was medication #30 given in ED or Rx at discharge?"
+},
+"NUMGIV": {
+"start": 453,
+"end": 454,
+"len": 2,
+"desc": "NUMBER OF MEDICATIONS GIVEN IN ED"
+},
+"NUMDIS": {
+"start": 455,
+"end": 456,
+"len": 2,
+"desc": "NUMBER OF MEDICATIONS PRESCRIBED AT"
+},
+"NUMMED": {
+"start": 457,
+"end": 458,
+"len": 2,
+"desc": "NUMBER OF MEDICATIONS CODED"
+},
+"VITALSD": {
+"start": 459,
+"end": 460,
+"len": 2,
+"desc": "Does the chart contain vital signs taken after tri"
+},
+"TEMPDF": {
+"start": 461,
+"end": 464,
+"len": 4,
+"desc": "Vitals taken after triage: Temperature in Fahrenhe"
+},
+"PULSED": {
+"start": 465,
+"end": 467,
+"len": 3,
+"desc": "Vitals taken after triage: Heart rate (beats per m"
+},
+"RESPRD": {
+"start": 468,
+"end": 470,
+"len": 3,
+"desc": "Vitals taken after triage: Respiratory rate (breat"
+},
+"BPSYSD": {
+"start": 471,
+"end": 473,
+"len": 3,
+"desc": "Vitals taken after triage: Systolic blood pressure"
+},
+"BPDIASD": {
+"start": 474,
+"end": 476,
+"len": 3,
+"desc": "Vitals taken after triage: Diastolic blood pressur"
+},
+"NOPROVID": {
+"start": 477,
+"end": 477,
+"len": 1,
+"desc": "No answer to item"
+},
+"ATTPHYS": {
+"start": 478,
+"end": 478,
+"len": 1,
+"desc": "ED attending physician"
+},
+"RESINT": {
+"start": 479,
+"end": 479,
+"len": 1,
+"desc": "ED resident/intern"
+},
+"CONSULT": {
+"start": 480,
+"end": 480,
+"len": 1,
+"desc": "Consulting physician"
+},
+"RNLPN": {
+"start": 481,
+"end": 481,
+"len": 1,
+"desc": "RN/LPN"
+},
+"NURSEPR": {
+"start": 482,
+"end": 482,
+"len": 1,
+"desc": "Nurse practitioner"
+},
+"PHYSASST": {
+"start": 483,
+"end": 483,
+"len": 1,
+"desc": "Physician assistant"
+},
+"EMT": {
+"start": 484,
+"end": 484,
+"len": 1,
+"desc": "EMT"
+},
+"MHPROV": {
+"start": 485,
+"end": 485,
+"len": 1,
+"desc": "Other mental health provider"
+},
+"OTHPROV": {
+"start": 486,
+"end": 486,
+"len": 1,
+"desc": "Other provider"
+},
+"ADMIT": {
+"start": 503,
+"end": 504,
+"len": 2,
+"desc": "Admitted to:"
+},
+"ADMTPHYS": {
+"start": 505,
+"end": 506,
+"len": 2,
+"desc": "Admitting physician"
+},
+"LOS": {
+"start": 507,
+"end": 508,
+"len": 2,
+"desc": "Length of stay in hospital (days)"
+},
+"HDDIAG1": {
+"start": 509,
+"end": 512,
+"len": 4,
+"desc": "HOSPITAL DISCHARGE DIAGNOSIS #1 (ICD-10-CM)"
+},
+"HDDIAG2": {
+"start": 513,
+"end": 516,
+"len": 4,
+"desc": "HOSPITAL DISCHARGE DIAGNOSIS #2 (ICD-10-CM)"
+},
+"HDDIAG3": {
+"start": 517,
+"end": 520,
+"len": 4,
+"desc": "HOSPITAL DISCHARGE DIAGNOSIS #3 (ICD-10-CM)"
+},
+"HDDIAG4": {
+"start": 521,
+"end": 524,
+"len": 4,
+"desc": "HOSPITAL DISCHARGE DIAGNOSIS #4 (ICD-10-CM)"
+},
+"HDDIAG5": {
+"start": 525,
+"end": 528,
+"len": 4,
+"desc": "HOSPITAL DISCHARGE DIAGNOSIS #5 (ICD-10-CM)"
+},
+"HDSTAT": {
+"start": 529,
+"end": 530,
+"len": 2,
+"desc": "Hospital discharge status"
+},
+"ADISP": {
+"start": 531,
+"end": 532,
+"len": 2,
+"desc": "Disposition of live discharges"
+},
+"OBSSTAY": {
+"start": 533,
+"end": 536,
+"len": 4,
+"desc": "Length of stay in observation unit (minutes) (for "
+},
+"STAY24": {
+"start": 537,
+"end": 537,
+"len": 1,
+"desc": "ED discharge greater than 24 hours"
+},
+"AGEFL": {
+"start": 538,
+"end": 539,
+"len": 2,
+"desc": "Was patient age imputed, calculated or reported?"
+},
+"BDATEFL": {
+"start": 540,
+"end": 540,
+"len": 1,
+"desc": "Was patient birth date imputed?"
+},
+"SEXFL": {
+"start": 541,
+"end": 541,
+"len": 1,
+"desc": "Was patient sex imputed?"
+},
+"ETHNICFL": {
+"start": 542,
+"end": 542,
+"len": 1,
+"desc": "Was patient ethnicity imputed?"
+},
+"RACERFL": {
+"start": 543,
+"end": 543,
+"len": 1,
+"desc": "Was patient race imputed?"
+},
+"HOSPCODE": {
+"start": 544,
+"end": 546,
+"len": 3,
+"desc": "HOSPITAL CODE"
+},
+"PATCODE": {
+"start": 547,
+"end": 549,
+"len": 3,
+"desc": "PATIENT CODE - A number assigned to identify each"
+},
+"EMRED": {
+"start": 550,
+"end": 551,
+"len": 2,
+"desc": "DOES YOUR ED USE AN ELECTRONIC HEALTH"
+},
+"HHSMUE": {
+"start": 552,
+"end": 553,
+"len": 2,
+"desc": "DOES YOUR CURRENT SYSTEM MEET MEANINGFUL"
+},
+"EHRINSE": {
+"start": 554,
+"end": 555,
+"len": 2,
+"desc": "DOES YOUR ED HAVE PLANS FOR INSTALLING A NEW"
+},
+"EDINFO": {
+"start": 558,
+"end": 559,
+"len": 2,
+"desc": "WHEN PATIENTS ARRIVE AT THE ED, ARE YOU ABLE"
+},
+"OBSCLIN": {
+"start": 560,
+"end": 561,
+"len": 2,
+"desc": "DOES YOUR ED HAVE AN OBSERVATION OR"
+},
+"OBSSEP": {
+"start": 562,
+"end": 563,
+"len": 2,
+"desc": "IF YES TO DOES YOUR ED HAVE AN OBERVATION OR"
+},
+"OBSPHYSED": {
+"start": 564,
+"end": 565,
+"len": 2,
+"desc": "ED physicians, APRN, PA"
+},
+"OBSHOSP": {
+"start": 566,
+"end": 567,
+"len": 2,
+"desc": "Hospitalists"
+},
+"OBSPHYSOT": {
+"start": 568,
+"end": 569,
+"len": 2,
+"desc": "Other physicians, APRN, PA"
+},
+"OBSPHYSUN": {
+"start": 570,
+"end": 571,
+"len": 2,
+"desc": "Unknown"
+},
+"BOARD": {
+"start": 572,
+"end": 573,
+"len": 2,
+"desc": "ARE ADMITTED ED PATIENTS EVER \u201cBOARDED\u201d FOR"
+},
+"BOARDHOS": {
+"start": 574,
+"end": 575,
+"len": 2,
+"desc": "DOES YOUR ED ALLOW SOME ADMITTED"
+},
+"AMBDIV": {
+"start": 576,
+"end": 577,
+"len": 2,
+"desc": "DID YOUR ED GO ON AMBULANCE DIVERSION IN"
+},
+"TOTHRDIVR": {
+"start": 578,
+"end": 579,
+"len": 2,
+"desc": "WHAT IS THE TOTAL NUMBER OF HOURS YOUR"
+},
+"REGDIV": {
+"start": 580,
+"end": 581,
+"len": 2,
+"desc": "IS AMBULANCE DIVERSION ACTIVELY MANAGED ON"
+},
+"ADMDIV": {
+"start": 582,
+"end": 583,
+"len": 2,
+"desc": "DOES YOUR HOSPITAL CONTINUE TO ADMIT"
+},
+"INCSHX": {
+"start": 584,
+"end": 585,
+"len": 2,
+"desc": "IN THE LAST TWO YEARS, DID YOUR ED INCREASE"
+},
+"INCPHYS": {
+"start": 586,
+"end": 587,
+"len": 2,
+"desc": "IN THE LAST TWO YEARS, DID YOUR ED\u2019S"
+},
+"EXPSPACE": {
+"start": 588,
+"end": 589,
+"len": 2,
+"desc": "DO YOU HAVE PLANS TO EXPAND YOUR ED\u2019S"
+},
+"BEDREG": {
+"start": 590,
+"end": 591,
+"len": 2,
+"desc": "Bedside registration"
+},
+"KIOSELCHK": {
+"start": 592,
+"end": 593,
+"len": 2,
+"desc": "Kiosk self check-in"
+},
+"CATRIAGE": {
+"start": 594,
+"end": 595,
+"len": 2,
+"desc": "Computer-assisted triage"
+},
+"IMBED": {
+"start": 596,
+"end": 597,
+"len": 2,
+"desc": "Immediate bedding (no triage when ED is not at cap"
+},
+"ADVTRIAG": {
+"start": 598,
+"end": 599,
+"len": 2,
+"desc": "Advanced triage (triage-based care) protocols"
+},
+"PHYSPRACTRIA": {
+"start": 600,
+"end": 601,
+"len": 2,
+"desc": "Physician/practitioner at triage"
+},
+"FASTTRAK": {
+"start": 602,
+"end": 603,
+"len": 2,
+"desc": "Separate fast track unit for non-urgent care"
+},
+"EDPTOR": {
+"start": 604,
+"end": 605,
+"len": 2,
+"desc": "Separate operating room dedicated to ED patients"
+},
+"DASHBORD": {
+"start": 606,
+"end": 607,
+"len": 2,
+"desc": "Electronic dashboard (i.e., displays updated patie"
+},
+"RFID": {
+"start": 608,
+"end": 609,
+"len": 2,
+"desc": "Radio frequency identification (RFID) tracking (i."
+},
+"WIRELESS": {
+"start": 610,
+"end": 611,
+"len": 2,
+"desc": "Wireless communication devices by providers"
+},
+"ZONENURS": {
+"start": 612,
+"end": 613,
+"len": 2,
+"desc": "Zone nursing (i.e., all of a nurse\u2019s patients are "
+},
+"POOLNURS": {
+"start": 614,
+"end": 615,
+"len": 2,
+"desc": "\u201cPool\u201d nurses (i.e., nurses that can be pulled to "
+},
+"SURGDAY": {
+"start": 616,
+"end": 617,
+"len": 2,
+"desc": "HOW MANY DAYS IN A WEEK ARE INPATIENT"
+},
+"BEDCZAR": {
+"start": 618,
+"end": 619,
+"len": 2,
+"desc": "DOES YOUR HOSPITAL HAVE A BED"
+},
+"BEDDATA": {
+"start": 620,
+"end": 621,
+"len": 2,
+"desc": "HOW OFTEN ARE HOSPITAL BED CENSUS DATA"
+},
+"HLIST": {
+"start": 622,
+"end": 623,
+"len": 2,
+"desc": "DOES YOUR HOSPITAL HAVE HOSPITALISTS ON"
+},
+"HLISTED": {
+"start": 624,
+"end": 625,
+"len": 2,
+"desc": "DO THE HOSPITALISTS ON STAFF AT YOUR"
+},
+"EMEDRES": {
+"start": 626,
+"end": 627,
+"len": 2,
+"desc": "DOES YOUR HOSPITAL HAVE AN EMERGENCY"
+},
+"REGION": {
+"start": 628,
+"end": 628,
+"len": 1,
+"desc": "GEOGRAPHIC REGION (Based on actual location of the"
+},
+"MSA": {
+"start": 629,
+"end": 629,
+"len": 1,
+"desc": "METROPOLITAN STATISTICAL AREA STATUS (Based on"
+},
+"DRUGID1": {
+"start": 630,
+"end": 635,
+"len": 6,
+"desc": "DRUG ID (See page 208 for more information.)"
+},
+"PRESCR1": {
+"start": 636,
+"end": 636,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB1": {
+"start": 637,
+"end": 637,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT1": {
+"start": 638,
+"end": 638,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX1CAT1": {
+"start": 639,
+"end": 641,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1"
+},
+"RX1CAT2": {
+"start": 642,
+"end": 644,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX1CAT3": {
+"start": 645,
+"end": 647,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX1CAT4": {
+"start": 648,
+"end": 650,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"RX1V1C1": {
+"start": 651,
+"end": 653,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 1"
+},
+"RX1V1C2": {
+"start": 654,
+"end": 656,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 2"
+},
+"RX1V1C3": {
+"start": 657,
+"end": 659,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 3"
+},
+"RX1V1C4": {
+"start": 660,
+"end": 662,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 4"
+},
+"RX1V2C1": {
+"start": 663,
+"end": 665,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 1"
+},
+"RX1V2C2": {
+"start": 666,
+"end": 668,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 2"
+},
+"RX1V2C3": {
+"start": 669,
+"end": 671,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 3"
+},
+"RX1V2C4": {
+"start": 672,
+"end": 674,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 4"
+},
+"RX1V3C1": {
+"start": 675,
+"end": 677,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 1"
+},
+"RX1V3C2": {
+"start": 678,
+"end": 680,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 2"
+},
+"RX1V3C3": {
+"start": 681,
+"end": 683,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 3"
+},
+"RX1V3C4": {
+"start": 684,
+"end": 686,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID2": {
+"start": 687,
+"end": 692,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR2": {
+"start": 693,
+"end": 693,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB2": {
+"start": 694,
+"end": 694,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT2": {
+"start": 695,
+"end": 695,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX2CAT1": {
+"start": 696,
+"end": 698,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1"
+},
+"RX2CAT2": {
+"start": 699,
+"end": 701,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX2CAT3": {
+"start": 702,
+"end": 704,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX2CAT4": {
+"start": 705,
+"end": 707,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"RX2V1C1": {
+"start": 708,
+"end": 710,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 1"
+},
+"RX2V1C2": {
+"start": 711,
+"end": 713,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 2"
+},
+"RX2V1C3": {
+"start": 714,
+"end": 716,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 3"
+},
+"RX2V1C4": {
+"start": 717,
+"end": 719,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 4"
+},
+"RX2V2C1": {
+"start": 720,
+"end": 722,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 1"
+},
+"RX2V2C2": {
+"start": 723,
+"end": 725,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 2"
+},
+"RX2V2C4": {
+"start": 729,
+"end": 731,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 4"
+},
+"RX2V3C1": {
+"start": 732,
+"end": 734,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 1"
+},
+"RX2V3C2": {
+"start": 735,
+"end": 737,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 2"
+},
+"RX2V3C3": {
+"start": 738,
+"end": 740,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 3"
+},
+"RX2V3C4": {
+"start": 741,
+"end": 743,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID3": {
+"start": 744,
+"end": 749,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR3": {
+"start": 750,
+"end": 750,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB3": {
+"start": 751,
+"end": 751,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT3": {
+"start": 752,
+"end": 752,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX3CAT1": {
+"start": 753,
+"end": 755,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1"
+},
+"RX3CAT2": {
+"start": 756,
+"end": 758,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX3CAT3": {
+"start": 759,
+"end": 761,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX3CAT4": {
+"start": 762,
+"end": 764,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID4": {
+"start": 801,
+"end": 806,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR4": {
+"start": 807,
+"end": 807,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB4": {
+"start": 808,
+"end": 808,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT4": {
+"start": 809,
+"end": 809,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX4CAT1": {
+"start": 810,
+"end": 812,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1"
+},
+"RX4CAT2": {
+"start": 813,
+"end": 815,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX4CAT3": {
+"start": 816,
+"end": 818,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX4CAT4": {
+"start": 819,
+"end": 821,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"RX4V1C1": {
+"start": 822,
+"end": 824,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 1"
+},
+"RX4V1C2": {
+"start": 825,
+"end": 827,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 2"
+},
+"RX4V1C3": {
+"start": 828,
+"end": 830,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 3"
+},
+"RX4V1C4": {
+"start": 831,
+"end": 833,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 4"
+},
+"RX4V2C1": {
+"start": 834,
+"end": 836,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 1"
+},
+"RX4V2C2": {
+"start": 837,
+"end": 839,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 2"
+},
+"RX4V2C3": {
+"start": 840,
+"end": 842,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 3"
+},
+"RX4V2C4": {
+"start": 843,
+"end": 845,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 4"
+},
+"RX4V3C1": {
+"start": 846,
+"end": 848,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 1"
+},
+"RX4V3C2": {
+"start": 849,
+"end": 851,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 2"
+},
+"RX4V3C3": {
+"start": 852,
+"end": 854,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 3"
+},
+"RX4V3C4": {
+"start": 855,
+"end": 857,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID5": {
+"start": 858,
+"end": 863,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR5": {
+"start": 864,
+"end": 864,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB5": {
+"start": 865,
+"end": 865,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT5": {
+"start": 866,
+"end": 866,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX5CAT1": {
+"start": 867,
+"end": 869,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1"
+},
+"RX5CAT2": {
+"start": 870,
+"end": 872,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX5CAT3": {
+"start": 873,
+"end": 875,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX5CAT4": {
+"start": 876,
+"end": 878,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID6": {
+"start": 915,
+"end": 920,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR6": {
+"start": 921,
+"end": 921,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB6": {
+"start": 922,
+"end": 922,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT6": {
+"start": 923,
+"end": 923,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX6CAT1": {
+"start": 924,
+"end": 926,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1"
+},
+"RX6CAT2": {
+"start": 927,
+"end": 929,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX6CAT3": {
+"start": 930,
+"end": 932,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX6CAT4": {
+"start": 933,
+"end": 935,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"RX6V1C1": {
+"start": 936,
+"end": 938,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 1"
+},
+"RX6V1C2": {
+"start": 939,
+"end": 941,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 2"
+},
+"RX6V1C3": {
+"start": 942,
+"end": 944,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 3"
+},
+"RX6V1C4": {
+"start": 945,
+"end": 947,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 4"
+},
+"RX6V2C1": {
+"start": 948,
+"end": 950,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 1"
+},
+"RX6V2C2": {
+"start": 951,
+"end": 953,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 2"
+},
+"RX6V2C3": {
+"start": 954,
+"end": 956,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 3"
+},
+"RX6V2C4": {
+"start": 957,
+"end": 959,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 4"
+},
+"RX6V3C1": {
+"start": 960,
+"end": 962,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 1"
+},
+"RX6V3C2": {
+"start": 963,
+"end": 965,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 2"
+},
+"RX6V3C3": {
+"start": 966,
+"end": 968,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 3"
+},
+"RX6V3C4": {
+"start": 969,
+"end": 971,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID7": {
+"start": 972,
+"end": 977,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR7": {
+"start": 978,
+"end": 978,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB7": {
+"start": 979,
+"end": 979,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT7": {
+"start": 980,
+"end": 980,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX7CAT1": {
+"start": 981,
+"end": 983,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1"
+},
+"RX7CAT2": {
+"start": 984,
+"end": 986,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX7CAT3": {
+"start": 987,
+"end": 989,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX7CAT4": {
+"start": 990,
+"end": 992,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID8": {
+"start": 1029,
+"end": 1034,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR8": {
+"start": 1035,
+"end": 1035,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB8": {
+"start": 1036,
+"end": 1036,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT8": {
+"start": 1037,
+"end": 1037,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX8CAT1": {
+"start": 1038,
+"end": 1040,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX8CAT2": {
+"start": 1041,
+"end": 1043,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX8CAT3": {
+"start": 1044,
+"end": 1046,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX8CAT4": {
+"start": 1047,
+"end": 1049,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"RX8V1C1": {
+"start": 1050,
+"end": 1052,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 1"
+},
+"RX8V1C2": {
+"start": 1053,
+"end": 1055,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 2"
+},
+"RX8V1C3": {
+"start": 1056,
+"end": 1058,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 3"
+},
+"RX8V1C4": {
+"start": 1059,
+"end": 1061,
+"len": 3,
+"desc": "Level 1 of MULTUM DRUG CATEGORY # 4"
+},
+"RX8V2C1": {
+"start": 1062,
+"end": 1064,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 1"
+},
+"RX8V2C2": {
+"start": 1065,
+"end": 1067,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 2"
+},
+"RX8V2C3": {
+"start": 1068,
+"end": 1070,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 3"
+},
+"RX8V2C4": {
+"start": 1071,
+"end": 1073,
+"len": 3,
+"desc": "Level 2 of MULTUM DRUG CATEGORY # 4"
+},
+"RX8V3C1": {
+"start": 1074,
+"end": 1076,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 1"
+},
+"RX8V3C2": {
+"start": 1077,
+"end": 1079,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 2"
+},
+"RX8V3C3": {
+"start": 1080,
+"end": 1082,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 3"
+},
+"RX8V3C4": {
+"start": 1083,
+"end": 1085,
+"len": 3,
+"desc": "Level 3 of MULTUM DRUG CATEGORY # 4"
+},
+"PRESCR9": {
+"start": 1092,
+"end": 1092,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB9": {
+"start": 1093,
+"end": 1093,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT9": {
+"start": 1094,
+"end": 1094,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX9CAT1": {
+"start": 1095,
+"end": 1097,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX9CAT2": {
+"start": 1098,
+"end": 1100,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX9CAT3": {
+"start": 1101,
+"end": 1103,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX9CAT4": {
+"start": 1104,
+"end": 1106,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID10": {
+"start": 1143,
+"end": 1148,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR10": {
+"start": 1149,
+"end": 1149,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB10": {
+"start": 1150,
+"end": 1150,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT10": {
+"start": 1151,
+"end": 1151,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX10CAT1": {
+"start": 1152,
+"end": 1154,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX10CAT2": {
+"start": 1155,
+"end": 1157,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX10CAT3": {
+"start": 1158,
+"end": 1160,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX10CAT4": {
+"start": 1161,
+"end": 1163,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID11": {
+"start": 1200,
+"end": 1205,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR11": {
+"start": 1206,
+"end": 1206,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB11": {
+"start": 1207,
+"end": 1207,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT11": {
+"start": 1208,
+"end": 1208,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX11CAT1": {
+"start": 1209,
+"end": 1211,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX11CAT2": {
+"start": 1212,
+"end": 1214,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX11CAT3": {
+"start": 1215,
+"end": 1217,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX11CAT4": {
+"start": 1218,
+"end": 1220,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID12": {
+"start": 1257,
+"end": 1262,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR12": {
+"start": 1263,
+"end": 1263,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB12": {
+"start": 1264,
+"end": 1264,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT12": {
+"start": 1265,
+"end": 1265,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX12CAT1": {
+"start": 1266,
+"end": 1268,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX12CAT2": {
+"start": 1269,
+"end": 1271,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX12CAT3": {
+"start": 1272,
+"end": 1274,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX12CAT4": {
+"start": 1275,
+"end": 1277,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID13": {
+"start": 1314,
+"end": 1319,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR13": {
+"start": 1320,
+"end": 1320,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB13": {
+"start": 1321,
+"end": 1321,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT13": {
+"start": 1322,
+"end": 1322,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX13CAT1": {
+"start": 1323,
+"end": 1325,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX13CAT2": {
+"start": 1326,
+"end": 1328,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX13CAT3": {
+"start": 1329,
+"end": 1331,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX13CAT4": {
+"start": 1332,
+"end": 1334,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID14": {
+"start": 1371,
+"end": 1376,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR14": {
+"start": 1377,
+"end": 1377,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB14": {
+"start": 1378,
+"end": 1378,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT14": {
+"start": 1379,
+"end": 1379,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX14CAT1": {
+"start": 1380,
+"end": 1382,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX14CAT2": {
+"start": 1383,
+"end": 1385,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX14CAT3": {
+"start": 1386,
+"end": 1388,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX14CAT4": {
+"start": 1389,
+"end": 1391,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID15": {
+"start": 1428,
+"end": 1433,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR15": {
+"start": 1434,
+"end": 1434,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB15": {
+"start": 1435,
+"end": 1435,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT15": {
+"start": 1436,
+"end": 1436,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX15CAT1": {
+"start": 1437,
+"end": 1439,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX15CAT2": {
+"start": 1440,
+"end": 1442,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX15CAT3": {
+"start": 1443,
+"end": 1445,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX15CAT4": {
+"start": 1446,
+"end": 1448,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID16": {
+"start": 1485,
+"end": 1490,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR16": {
+"start": 1491,
+"end": 1491,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB16": {
+"start": 1492,
+"end": 1492,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT16": {
+"start": 1493,
+"end": 1493,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX16CAT1": {
+"start": 1494,
+"end": 1496,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX16CAT2": {
+"start": 1497,
+"end": 1499,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX16CAT3": {
+"start": 1500,
+"end": 1502,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX16CAT4": {
+"start": 1503,
+"end": 1505,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID17": {
+"start": 1542,
+"end": 1547,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR17": {
+"start": 1548,
+"end": 1548,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB17": {
+"start": 1549,
+"end": 1549,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT17": {
+"start": 1550,
+"end": 1550,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX17CAT1": {
+"start": 1551,
+"end": 1553,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX17CAT2": {
+"start": 1554,
+"end": 1556,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX17CAT3": {
+"start": 1557,
+"end": 1559,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX17CAT4": {
+"start": 1560,
+"end": 1562,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID18": {
+"start": 1599,
+"end": 1604,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR18": {
+"start": 1605,
+"end": 1605,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB18": {
+"start": 1606,
+"end": 1606,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT18": {
+"start": 1607,
+"end": 1607,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX18CAT1": {
+"start": 1608,
+"end": 1610,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX18CAT2": {
+"start": 1611,
+"end": 1613,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX18CAT3": {
+"start": 1614,
+"end": 1616,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX18CAT4": {
+"start": 1617,
+"end": 1619,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID19": {
+"start": 1656,
+"end": 1661,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR19": {
+"start": 1662,
+"end": 1662,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB19": {
+"start": 1663,
+"end": 1663,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT19": {
+"start": 1664,
+"end": 1664,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX19CAT1": {
+"start": 1665,
+"end": 1667,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX19CAT3": {
+"start": 1671,
+"end": 1673,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX19CAT4": {
+"start": 1674,
+"end": 1676,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID20": {
+"start": 1713,
+"end": 1718,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR20": {
+"start": 1719,
+"end": 1719,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB20": {
+"start": 1720,
+"end": 1720,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT20": {
+"start": 1721,
+"end": 1721,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX20CAT1": {
+"start": 1722,
+"end": 1724,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX20CAT2": {
+"start": 1725,
+"end": 1727,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX20CAT3": {
+"start": 1728,
+"end": 1730,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX20CAT4": {
+"start": 1731,
+"end": 1733,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID21": {
+"start": 1770,
+"end": 1775,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR21": {
+"start": 1776,
+"end": 1776,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB21": {
+"start": 1777,
+"end": 1777,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT21": {
+"start": 1778,
+"end": 1778,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX21CAT1": {
+"start": 1779,
+"end": 1781,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX21CAT2": {
+"start": 1782,
+"end": 1784,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"DRUGID22": {
+"start": 1827,
+"end": 1832,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR22": {
+"start": 1833,
+"end": 1833,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB22": {
+"start": 1834,
+"end": 1834,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT22": {
+"start": 1835,
+"end": 1835,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX22CAT1": {
+"start": 1836,
+"end": 1838,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX22CAT2": {
+"start": 1839,
+"end": 1841,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX22CAT3": {
+"start": 1842,
+"end": 1844,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX22CAT4": {
+"start": 1845,
+"end": 1847,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID23": {
+"start": 1884,
+"end": 1889,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR23": {
+"start": 1890,
+"end": 1890,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB23": {
+"start": 1891,
+"end": 1891,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT23": {
+"start": 1892,
+"end": 1892,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX23CAT1": {
+"start": 1893,
+"end": 1895,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX23CAT2": {
+"start": 1896,
+"end": 1898,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX23CAT3": {
+"start": 1899,
+"end": 1901,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX23CAT4": {
+"start": 1902,
+"end": 1904,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID24": {
+"start": 1941,
+"end": 1946,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR24": {
+"start": 1947,
+"end": 1947,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB24": {
+"start": 1948,
+"end": 1948,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT24": {
+"start": 1949,
+"end": 1949,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX24CAT1": {
+"start": 1950,
+"end": 1952,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX24CAT2": {
+"start": 1953,
+"end": 1955,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX24CAT3": {
+"start": 1956,
+"end": 1958,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX24CAT4": {
+"start": 1959,
+"end": 1961,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID25": {
+"start": 1998,
+"end": 2003,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR25": {
+"start": 2004,
+"end": 2004,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB25": {
+"start": 2005,
+"end": 2005,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT25": {
+"start": 2006,
+"end": 2006,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX25CAT1": {
+"start": 2007,
+"end": 2009,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX25CAT2": {
+"start": 2010,
+"end": 2012,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX25CAT3": {
+"start": 2013,
+"end": 2015,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX25CAT4": {
+"start": 2016,
+"end": 2018,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID26": {
+"start": 2055,
+"end": 2060,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR26": {
+"start": 2061,
+"end": 2061,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB26": {
+"start": 2062,
+"end": 2062,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT26": {
+"start": 2063,
+"end": 2063,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX26CAT1": {
+"start": 2064,
+"end": 2066,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX26CAT2": {
+"start": 2067,
+"end": 2069,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX26CAT3": {
+"start": 2070,
+"end": 2072,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX26CAT4": {
+"start": 2073,
+"end": 2075,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID27": {
+"start": 2112,
+"end": 2117,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR27": {
+"start": 2118,
+"end": 2118,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB27": {
+"start": 2119,
+"end": 2119,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT27": {
+"start": 2120,
+"end": 2120,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX27CAT1": {
+"start": 2121,
+"end": 2123,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX27CAT2": {
+"start": 2124,
+"end": 2126,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX27CAT3": {
+"start": 2127,
+"end": 2129,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX27CAT4": {
+"start": 2130,
+"end": 2132,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID28": {
+"start": 2169,
+"end": 2174,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR28": {
+"start": 2175,
+"end": 2175,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB28": {
+"start": 2176,
+"end": 2176,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT28": {
+"start": 2177,
+"end": 2177,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX28CAT1": {
+"start": 2178,
+"end": 2180,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX28CAT2": {
+"start": 2181,
+"end": 2183,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX28CAT3": {
+"start": 2184,
+"end": 2186,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX28CAT4": {
+"start": 2187,
+"end": 2189,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID29": {
+"start": 2226,
+"end": 2231,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR29": {
+"start": 2232,
+"end": 2232,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB29": {
+"start": 2233,
+"end": 2233,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT29": {
+"start": 2234,
+"end": 2234,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX29CAT1": {
+"start": 2235,
+"end": 2237,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX29CAT2": {
+"start": 2238,
+"end": 2240,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX29CAT3": {
+"start": 2241,
+"end": 2243,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX29CAT4": {
+"start": 2244,
+"end": 2246,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"DRUGID30": {
+"start": 2283,
+"end": 2288,
+"len": 6,
+"desc": "Drug ID"
+},
+"PRESCR30": {
+"start": 2289,
+"end": 2289,
+"len": 1,
+"desc": "PRESCRIPTION STATUS CODE"
+},
+"CONTSUB30": {
+"start": 2290,
+"end": 2290,
+"len": 1,
+"desc": "CONTROLLED SUBSTANCE STATUS CODE"
+},
+"COMSTAT30": {
+"start": 2291,
+"end": 2291,
+"len": 1,
+"desc": "COMPOSITION STATUS CODE"
+},
+"RX30CAT1": {
+"start": 2292,
+"end": 2294,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 1 (therapeutic class)"
+},
+"RX30CAT2": {
+"start": 2295,
+"end": 2297,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 2"
+},
+"RX30CAT3": {
+"start": 2298,
+"end": 2300,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 3"
+},
+"RX30CAT4": {
+"start": 2301,
+"end": 2303,
+"len": 3,
+"desc": "MULTUM DRUG CATEGORY # 4"
+},
+"SETTYPE": {
+"start": 2340,
+"end": 2340,
+"len": 1,
+"desc": "SETTING TYPE"
+},
+"YEAR": {
+"start": 2341,
+"end": 2344,
+"len": 4,
+"desc": "SURVEY YEAR (2022)"
+},
+"CSTRATM": {
+"start": 2345,
+"end": 2352,
+"len": 8,
+"desc": "CLUSTERED PSU STRATUM MARKER (masked)"
+},
+"CPSUM": {
+"start": 2353,
+"end": 2358,
+"len": 6,
+"desc": "CLUSTERED PSU MARKER (masked)"
+},
+"PATWT": {
+"start": 2359,
+"end": 2369,
+"len": 11,
+"desc": "PATIENT VISIT WEIGHT (See page 23 in Section I.)"
+},
+"EDWT": {
+"start": 2370,
+"end": 2378,
+"len": 9,
+"desc": "EMERGENCY DEPARTMENT WEIGHT"
+},
+"BOARDED": {
+"start": 2379,
+"end": 2382,
+"len": 4,
+"desc": "Length of time boarded in the ED in minutes."
+}
+}

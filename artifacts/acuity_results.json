@@ -1,0 +1,31 @@
+{
+  "forensics": {
+    "leak_corr": {
+      "ed_los_hours": -0.757,
+      "news2_score": -0.815,
+      "shock_index": -0.632,
+      "gcs_total": 0.657
+    },
+    "complaint_acuity_purity": 0.9993,
+    "complaint_fully_determine_acuity": 0.997,
+    "n_unique_complaints": 4949
+  },
+  "acuity": {
+    "stratified": {
+      "accuracy": 0.8567,
+      "qwk": 0.931,
+      "undertriage_rate": 0.0745,
+      "overtriage_rate": 0.0688,
+      "high_acuity_recall(1-2)": 0.9823,
+      "n_missed_high_acuity": 295
+    },
+    "groupkfold_by_complaint": {
+      "accuracy": 0.8577,
+      "qwk": 0.9314,
+      "undertriage_rate": 0.0734,
+      "overtriage_rate": 0.0689,
+      "high_acuity_recall(1-2)": 0.9824,
+      "n_missed_high_acuity": 294
+    }
+  }
+}
