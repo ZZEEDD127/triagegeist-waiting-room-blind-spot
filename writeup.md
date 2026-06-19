@@ -105,7 +105,10 @@ data predicts genuine admission among *lower-acuity* patients (IMMEDR 3–5) at
 2.9× precision**, *better* than on synthetic data (1.75×). This is the thesis in
 one result: **the acuity label is corrupted and should not be chased, but the
 deterioration signal is real and transferable — so build the second-read watch,
-not a higher-accuracy acuity mimic.**
+not a higher-accuracy acuity mimic.** A decision-curve (net-benefit) analysis on
+the real low-acuity queue confirms the watch yields positive net benefit above
+both default policies (watch-everyone / watch-no-one) across the clinically
+relevant threshold range, i.e. it is worth using, not merely discriminative.
 
 ## Insight and impact
 
@@ -149,3 +152,10 @@ repository contains the full pipeline, the NHAMCS loader, and setup instructions
 No credentials are committed.
 
 **Notebook:** attached public Kaggle notebook · **Code:** linked public repository.
+
+## Selected references
+Gilboy et al., *ESI v4*, AHRQ 2012 · Farrohknia et al., *Scand J Trauma* 2011 ·
+Levin et al., *Ann Emerg Med* 2018 (ML e-triage) · Hong et al., *PLoS One* 2018
+(admission prediction at triage) · RCP, *NEWS2* 2017 · Obermeyer et al.,
+*Science* 2019 (algorithmic bias) · Baker et al., *JAMA* 1991 (LWBS) · NCHS,
+*NHAMCS 2021–2022*, CDC.

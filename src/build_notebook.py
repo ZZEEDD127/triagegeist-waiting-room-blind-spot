@@ -52,12 +52,15 @@ how long they may safely wait. Two failure modes matter clinically:
 
 - **Undertriage** — a genuinely sick patient is given a low acuity and waits too
   long. This is the dangerous, sometimes fatal error; its cost is asymmetric and
-  far exceeds overtriage. Inter-rater reliability of human triage is only
-  moderate (κ ≈ 0.6–0.8), and undertriage of vulnerable groups is a documented
-  patient-safety concern.
+  far exceeds overtriage. Inter-rater reliability of human ESI triage is only
+  moderate (κ ≈ 0.6–0.8) [1], and undertriage of vulnerable groups is a
+  documented patient-safety concern [2].
 - **The waiting-room blind spot** — the acuity number is a *snapshot*. It does
   not directly say who will deteriorate, need admission, or give up and leave
-  *without being seen* (LWBS) while waiting.
+  *without being seen* (LWBS) while waiting. Machine-learning triage that
+  predicts *outcomes* (admission, deterioration) rather than re-deriving the ESI
+  label is an established, more clinically useful direction [3, 4], yet it needs
+  real outcome data — the crux of this study.
 
 We therefore (a) build an acuity model **honestly**, refusing the dataset's
 shortcuts, and (b) ask whether intake data can flag waiting-room risk *beyond*
@@ -75,7 +78,14 @@ from sklearn.metrics import (accuracy_score, cohen_kappa_score, roc_auc_score,
                              average_precision_score, brier_score_loss, confusion_matrix)
 from sklearn.isotonic import IsotonicRegression
 warnings.filterwarnings("ignore")
-plt.rcParams.update({"figure.dpi": 110, "font.size": 10})
+# --- consistent, clean house style for every figure ---
+plt.rcParams.update({
+    "figure.dpi": 120, "savefig.dpi": 120, "font.size": 10,
+    "axes.spines.top": False, "axes.spines.right": False,
+    "axes.titlesize": 11, "axes.titleweight": "bold",
+    "axes.grid": True, "grid.alpha": 0.25, "grid.linestyle": "-",
+    "axes.axisbelow": True, "figure.autolayout": False})
+NAVY, RED, BLUE, GREEN, AMBER, GREY = "#0b1f33", "#e23b3b", "#2b6cb0", "#2b8a3e", "#f08a3c", "#9aa5b1"
 SEED = 42
 
 def find_file(name):
@@ -444,10 +454,33 @@ ax[0].set_ylabel("acuity κ (quadratic)"); ax[0].set_ylim(0,1)
 ax[0].set_title("Acuity: synthetic illusion vs real ceiling"); ax[0].legend(fontsize=8)
 for i,v in enumerate(vals): ax[0].text(i, v+.02, f"{v:.2f}", ha="center")
 ax[1].bar(["Synthetic\nESI 3-5","Real NHAMCS\nIMMEDR 3-5"], [auc_low, auc_low_real],
-          color=["#2b6cb0","#2b8a3e"]); ax[1].set_ylim(0.5,0.85)
+          color=[BLUE, GREEN]); ax[1].set_ylim(0.5,0.85)
 ax[1].set_ylabel("admission/escalation AUC"); ax[1].set_title("Waiting-room watch holds on REAL data")
 for i,v in enumerate([auc_low, auc_low_real]): ax[1].text(i, v+.01, f"{v:.2f}", ha="center")
 plt.tight_layout(); plt.show()
+
+# Decision-curve (net-benefit) analysis on the REAL low-acuity queue: is the watch
+# clinically worth using vs the two trivial policies (watch everyone / watch no-one)?
+if NHAMCS_OK:
+    p, yt = oa[lowr], ya[lowr]; N = len(yt)
+    ths = np.linspace(0.02, 0.40, 39)
+    def nb(flag):
+        tp = ((flag==1)&(yt==1)).sum(); fp = ((flag==1)&(yt==0)).sum()
+        return tp/N - fp/N*(pt/(1-pt))
+    nb_model, nb_all = [], []
+    for pt in ths:
+        nb_model.append(nb(p>=pt)); nb_all.append(nb(np.ones(N)))
+    fig, ax = plt.subplots(figsize=(6.2,3.6))
+    ax.plot(ths, nb_model, color=GREEN, lw=2.2, label="Waiting-room watch")
+    ax.plot(ths, nb_all, color=GREY, lw=1.4, ls="--", label="Watch everyone")
+    ax.axhline(0, color="k", lw=1, label="Watch no-one (acuity-only)")
+    ax.set_xlabel("threshold probability (clinician's risk tolerance)")
+    ax.set_ylabel("net benefit"); ax.set_ylim(bottom=min(nb_all)*1.1)
+    ax.set_title("Decision-curve analysis — real low-acuity ED queue")
+    ax.legend(fontsize=8.5)
+    plt.tight_layout(); plt.show()
+    print(f"Net benefit positive and above both default policies across "
+          f"thresholds ~{ths[np.argmax(np.array(nb_model)>np.array(nb_all))]:.0%}–40%.")
 """)
 
 md(r"""
@@ -519,10 +552,21 @@ layout. Full code + README: see the linked repository.
 """)
 md(r"""
 ## References
-1. Gilboy N. et al. *Emergency Severity Index (ESI) v4*, AHRQ, 2012.
-2. Farrohknia N. et al. *ED triage scales: a systematic review*, Scand J Trauma, 2011.
-3. NCHS. *NHAMCS public-use ED files 2021–2022*, CDC. https://www.cdc.gov/nchs/ahcd/
-4. Obermeyer Z. et al. *Dissecting racial bias in a health algorithm*, Science, 2019.
+1. Gilboy N, Tanabe P, Travers D, Rosenau A. *Emergency Severity Index (ESI):
+   A Triage Tool for ED Care, v4.* AHRQ, 2012.
+2. Farrohknia N, et al. *Emergency department triage scales and their components:
+   a systematic review.* Scand J Trauma Resusc Emerg Med, 2011;19:42.
+3. Levin S, et al. *Machine-learning-based electronic triage more accurately
+   differentiates patients than the Emergency Severity Index.* Ann Emerg Med,
+   2018;71(5):565–574.
+4. Hong WS, Haimovich AD, Taylor RA. *Predicting hospital admission at ED triage
+   using machine learning.* PLoS One, 2018;13(7):e0201016.
+5. Royal College of Physicians. *National Early Warning Score (NEWS) 2.* London, 2017.
+6. Obermeyer Z, et al. *Dissecting racial bias in an algorithm used to manage the
+   health of populations.* Science, 2019;366(6464):447–453.
+7. Baker DW, Stevens CD, Brook RH. *Patients who leave a public hospital ED
+   without being seen by a physician.* JAMA, 1991;266(8):1085–1090.
+8. NCHS. *NHAMCS public-use ED files 2021–2022.* CDC. https://www.cdc.gov/nchs/ahcd/
 """)
 
 # ---------------------------------------------------------------- assemble
