@@ -1,634 +1,199 @@
-"""Generate the self-contained Kaggle notebook notebook/triagegeist.ipynb.
+"""
+Generate notebook/triagegeist.ipynb.
 
-The notebook does NOT import this repo's modules (Kaggle won't have them); every
-cell is self-contained. Data paths auto-resolve to /kaggle/input or local
-comp_data/. NHAMCS validation downloads + parses real CDC files with a hardcoded
-codebook layout, degrading gracefully if offline so the notebook always runs.
+The notebook does not duplicate analysis code. Its first cells write this
+repository's modules (stats.py, load_nhamcs.py, analysis.py, figures.py) into
+the Kaggle working directory with %%writefile, and later cells call them, so
+the notebook and `python src/analysis.py` always produce the same numbers.
 """
 import json
 from pathlib import Path
 
+SRC = Path(__file__).resolve().parent
 cells = []
-def md(s): cells.append(("markdown", s.strip("\n")))
-def code(s): cells.append(("code", s.strip("\n")))
 
-# ---------------------------------------------------------------- title
+
+def md(s):
+    cells.append(("markdown", s.strip("\n")))
+
+
+def code(s):
+    cells.append(("code", s.strip("\n")))
+
+
 md(r"""
 # Triagegeist — The Waiting-Room Blind Spot
-### Auditing acuity-prediction AI, and predicting who deteriorates before they are seen
+### What a synthetic triage benchmark can and cannot tell us, and a second-read watch validated on real ED data
 
-A triage acuity score answers *"how sick is this patient?"* — not *"what will
-happen to them while they wait?"* This notebook gives the Foundation **two things
-it can use**:
+**Summary.**
+1. The synthetic labels were generated, not assigned by people: the 50 nurses show no rater effect (Cramér's V 0.02 vs 0.35 across real hospitals), and the vitals encode the label (|r| 0.46–0.65 vs ≤ 0.08 in real triage).
+2. With the same 10 vitals and the same model, acuity agreement is κ 0.90 on the synthetic data and **0.24 on real NHAMCS triage**.
+3. On the synthetic data, intake fields add nothing beyond the acuity level for predicting escalation (ΔAUC +0.001), so the benchmark cannot evaluate a waiting-room tool.
+4. On **real** NHAMCS data, among patients triaged as lower acuity, intake data predicts admission far better than the triage level alone: **AUC 0.80 vs 0.64** (hospital-grouped validation). Flagging the top 20% catches **58% [55, 61]** of later admissions at 2.9× the base rate, with positive net benefit for thresholds from 2% to 35%.
 
-- **A working second-read tool** — a *waiting-room escalation early-warning*
-  model that, **within the lower-acuity queue (ESI 3–5)**, concentrates the risk
-  of needing admission: flagging the top 20% by risk captures **~35% of all
-  low-acuity escalations at 1.7× precision** (AUC 0.76 within the subgroup). This
-  targets exactly the patients the single acuity number overlooks.
-- **An honesty & validation framework** so triage-AI results can be *trusted* —
-  a leakage litmus test plus anchoring on real-world data.
-
-It is built as one honest, end-to-end study in five parts: (1) leakage & shortcut
-forensics, (2) an honest leak-free acuity model and why GroupKFold is
-*insufficient*, (3) an equity / undertriage audit, (4) the waiting-room tool, and
-(5) external validation on real U.S. ED data (NHAMCS, CDC).
-
-**Why this matters for the pilots ahead.** On the synthetic benchmark a structured
-model reaches quadratic-weighted κ ≈ 0.93 — *above the human inter-rater ceiling
-(κ 0.6–0.8)*, which is impossible in reality and is a fingerprint of generative
-leakage. On **real NHAMCS** the same method scores κ ≈ 0.27. The constructive
-takeaway: to make clinical pilots succeed, invest in **honest evaluation and real
-linked data, not higher leaderboard accuracy** — and deploy AI as a *second read*
-that catches the waiting-room blind spot.
+All intervals are 95% bootstrap (hospital-cluster on NHAMCS). Full write-up and code: linked repository.
 """)
 
-# ---------------------------------------------------------------- problem
 md(r"""
-## 1. Clinical problem statement
-
-Emergency triage assigns each arrival an acuity level (e.g. ESI 1–5) that governs
-how long they may safely wait. Two failure modes matter clinically:
-
-- **Undertriage** — a genuinely sick patient is given a low acuity and waits too
-  long. This is the dangerous, sometimes fatal error; its cost is asymmetric and
-  far exceeds overtriage. Inter-rater reliability of human ESI triage is only
-  moderate (κ ≈ 0.6–0.8) [1], and undertriage of vulnerable groups is a
-  documented patient-safety concern [2].
-- **The waiting-room blind spot** — the acuity number is a *snapshot*. It does
-  not directly say who will deteriorate, need admission, or give up and leave
-  *without being seen* (LWBS) while waiting. Machine-learning triage that
-  predicts *outcomes* (admission, deterioration) rather than re-deriving the ESI
-  label is an established, more clinically useful direction [3, 4], yet it needs
-  real outcome data — the crux of this study.
-
-We therefore (a) build an acuity model **honestly**, refusing the dataset's
-shortcuts, and (b) ask whether intake data can flag waiting-room risk *beyond*
-the acuity score — then check every claim against real clinical data.
+## 1. Setup
+The cells below write the project's four modules into the working directory. They are the same files as `src/` in the repository.
 """)
+for name in ["stats.py", "load_nhamcs.py", "analysis.py", "figures.py"]:
+    code("%%writefile src/" + name + "\n" + (SRC / name).read_text(encoding="utf-8"))
+cells.insert(2, ("code", "import os\nos.makedirs('src', exist_ok=True)\nos.makedirs('data', exist_ok=True)"))
 
-# ---------------------------------------------------------------- imports + load
 code(r"""
-import os, io, zipfile, urllib.request, warnings
-import numpy as np, pandas as pd
-import matplotlib.pyplot as plt
-import lightgbm as lgb
-from sklearn.model_selection import StratifiedKFold, GroupKFold
-from sklearn.metrics import (accuracy_score, cohen_kappa_score, roc_auc_score,
-                             average_precision_score, brier_score_loss, confusion_matrix)
-from sklearn.isotonic import IsotonicRegression
+import sys, json, warnings
+sys.path.insert(0, "src")
 warnings.filterwarnings("ignore")
-# --- consistent, clean house style for every figure ---
-plt.rcParams.update({
-    "figure.dpi": 120, "savefig.dpi": 120, "font.size": 10,
-    "axes.spines.top": False, "axes.spines.right": False,
-    "axes.titlesize": 11, "axes.titleweight": "bold",
-    "axes.grid": True, "grid.alpha": 0.25, "grid.linestyle": "-",
-    "axes.axisbelow": True, "figure.autolayout": False})
-NAVY, RED, BLUE, GREEN, AMBER, GREY = "#0b1f33", "#e23b3b", "#2b6cb0", "#2b8a3e", "#f08a3c", "#9aa5b1"
-SEED = 42
+import numpy as np, pandas as pd, matplotlib.pyplot as plt
+import stats as S, load_nhamcs, analysis as A, figures as F
 
-def find_file(name):
-    cands = []
-    for root in ["/kaggle/input", "comp_data", "../comp_data", "."]:
-        if os.path.isdir(root):
-            for dp, _, fns in os.walk(root):
-                if name in fns:
-                    cands.append(os.path.join(dp, name))
-    if not cands:
-        raise FileNotFoundError(name + " not found under /kaggle/input or comp_data/")
-    # prefer the shallowest path
-    return sorted(cands, key=len)[0]
-
-train = pd.read_csv(find_file("train.csv"))
-hist  = pd.read_csv(find_file("patient_history.csv"))
-cc    = pd.read_csv(find_file("chief_complaints.csv"))
-HX = [c for c in hist.columns if c.startswith("hx_")]
-df = (train.merge(hist[["patient_id"]+HX], on="patient_id", how="left")
-            .merge(cc[["patient_id","chief_complaint_raw"]], on="patient_id", how="left"))
-df["pain_score"] = df["pain_score"].replace(-1, np.nan)   # -1 = missing sentinel
-df["hx_burden"]  = df[HX].sum(axis=1)
-print("merged training frame:", df.shape, "| acuity prevalence:",
-      df["triage_acuity"].value_counts(normalize=True).round(3).sort_index().to_dict())
+nd = load_nhamcs.build()            # downloads ed2021.zip / ED2022.zip from the CDC
+df, hx = A.load_synthetic()
+R = {"meta": {"seed": A.SEED, "n_train": len(df)}}
+print("synthetic:", df.shape, "| NHAMCS:", nd.shape)
 """)
 
-# ---------------------------------------------------------------- disclosure
 md(r"""
-## 2. Data disclosure
+## 2. Clinical problem
+Triage assigns an acuity level (ESI 1–5) that sets how long a patient may wait. The dangerous error is undertriage. The level is a snapshot: it does not say which patients in the lower-acuity queue will need a hospital bed. We ask (1) whether this synthetic benchmark can judge triage AI, and (2) whether triage-time data identifies future admissions among lower-acuity patients **beyond the triage level itself**.
 
-| File | Source | Role |
-|---|---|---|
-| `train.csv` (80k), `test.csv` (20k) | **Triagegeist synthetic ED dataset**, provided via the Kaggle competition (simulated Finnish multi-site ED network) | acuity label + intake |
-| `chief_complaints.csv`, `patient_history.csv` | same | complaint text, 24 comorbidity flags |
-| **NHAMCS ED 2021–2022** | **CDC / NCHS**, public-use files (public domain), parsed from the official fixed-width layout | real-world external validation |
-
-The competition data is **synthetic**; we treat it as a proof-of-concept
-benchmark and validate findings on real NHAMCS data. All datasets are cited and
-used under their terms.
+**Data.** Triagegeist synthetic ED data (80k visits, 5 sites, 50 nurses) and NHAMCS ED 2021–2022 (CDC/NCHS, public domain, 32,232 real visits). The NHAMCS fixed-width files are parsed with codebook byte positions; the disposition block moves 2 bytes between 2021 and 2022. Only triage-time information is used as a predictor.
 """)
 
-# ---------------------------------------------------------------- M1 forensics
 md(r"""
-## 3. Module 1 — Leakage & shortcut forensics
-
-Before modelling, we ask what the synthetic generator actually encoded. Two
-problems disqualify naive high scores:
-
-- **Post-triage leakage.** `disposition` and `ed_los_hours` are outcomes
-  realised *after* triage (and absent from `test.csv`). They must never be model
-  inputs for acuity.
-- **A complaint→acuity shortcut.** The free-text chief complaint almost
-  perfectly determines acuity, so any text model memorises templates rather than
-  learning clinical reasoning.
+## 3. Module 1 — How the synthetic labels were made
 """)
 code(r"""
-# (a) post-triage leakage: correlation with the acuity label
-leak = {c: round(df[c].corr(df["triage_acuity"]), 3)
-        for c in ["ed_los_hours","news2_score","shock_index","gcs_total"]}
-print("Correlation with triage_acuity:", leak)
-
-# (b) the chief-complaint shortcut: within-complaint label purity
-g = df.groupby("chief_complaint_raw")["triage_acuity"]
-purity = g.agg(lambda s: s.value_counts(normalize=True).iloc[0])
-print(f"Unique complaints: {df['chief_complaint_raw'].nunique()}")
-print(f"Mean within-complaint acuity purity: {purity.mean():.4f}")
-print(f"Share of complaints that FULLY determine acuity: {(purity==1).mean():.1%}")
-
-fig, ax = plt.subplots(1, 2, figsize=(9, 3.2))
-ax[0].bar(leak.keys(), leak.values(), color="#e23b3b")
-ax[0].axhline(0, color="k", lw=.6); ax[0].set_title("Leakage: corr. with acuity")
-ax[0].tick_params(axis="x", rotation=30)
-ax[1].hist(purity, bins=20, color="#2b6cb0")
-ax[1].set_title("Complaint→acuity purity\n(1.0 = fully deterministic)")
-ax[1].set_xlabel("max class share within complaint")
-plt.tight_layout(); plt.show()
+R["m1_forensics"] = A.m1_forensics(df, nd)
+m1 = R["m1_forensics"]
+print(json.dumps({k: m1[k] for k in ["rater_effect", "news2_recomputed", "complaints", "text_model"]}, indent=1))
+F.fig_generator(R); plt.show()
+""")
+md(r"""
+- **No rater effect.** Fifty nurses with ~1,600 patients each produce indistinguishable acuity distributions (p ≈ 0.99). Real triage differs strongly between hospitals. Labels without rater variation were not assigned by people.
+- **Vitals encode the label.** Recomputing NEWS2 from the vitals reproduces the provided score (r = 0.95), so NEWS2 is not separately leaked; the vitals themselves were sampled from acuity.
+- **Text is a lookup table.** 99.7% of complaints map to one level. Holding out exact strings does not help because templates share modifiers; holding out base phrases does.
 """)
 
-# ---------------------------------------------------------------- M2 acuity model
 md(r"""
-## 4. Module 2 — An honest, leak-free acuity model
-
-We drop post-triage outcomes **and refuse the raw-text shortcut**, using only
-structured intake (vitals, derived scores, demographics, the coarse
-`chief_complaint_system` category, comorbidities). We then validate two ways:
-
-- **StratifiedKFold** — the in-template score most submissions report.
-- **GroupKFold by chief complaint** — no complaint template appears in both train
-  and validation, the standard cure for template leakage.
+## 4. Module 2 — Acuity prediction does not transfer
 """)
 code(r"""
-CAT = ["arrival_mode","arrival_season","shift","sex","language","insurance_type",
-       "transport_origin","pain_location","mental_status_triage",
-       "chief_complaint_system","age_group","site_id"]
-NUM = ["arrival_hour","arrival_month","age","num_prior_ed_visits_12m",
-       "num_prior_admissions_12m","num_active_medications","num_comorbidities",
-       "systolic_bp","diastolic_bp","mean_arterial_pressure","pulse_pressure",
-       "heart_rate","respiratory_rate","temperature_c","spo2","gcs_total",
-       "pain_score","weight_kg","height_cm","bmi","shock_index","news2_score"]
-
-def make_X(d):
-    X = d[NUM + HX + ["hx_burden"]].copy()
-    for c in CAT: X[c] = d[c].astype("category")
-    return X
-
-X = make_X(df); y = df["triage_acuity"].values
-groups = df["chief_complaint_raw"].values
-
-def lgbm():
-    return lgb.LGBMClassifier(n_estimators=300, learning_rate=0.05, num_leaves=48,
-                              subsample=0.8, colsample_bytree=0.8,
-                              min_child_samples=40, random_state=SEED, verbose=-1)
-
-def cv_predict(splitter, use_groups=False):
-    oof = np.zeros(len(y))
-    it = splitter.split(X, y, groups) if use_groups else splitter.split(X, y)
-    for tr, va in it:
-        m = lgbm(); m.fit(X.iloc[tr], y[tr]); oof[va] = m.predict(X.iloc[va])
-    return oof
-
-def report(y, oof, tag):
-    under = (oof > y).mean(); over = (oof < y).mean()
-    high = y <= 2
-    rec = (oof[high] <= 2).mean(); missed = int(((oof > 2) & high).sum())
-    print(f"{tag:38s} acc={accuracy_score(y,oof):.3f}  QWK={cohen_kappa_score(y,oof,weights='quadratic'):.3f}"
-          f"  undertriage={under:.3f}  high-acuity recall={rec:.3f}  missed_high={missed}")
-    return accuracy_score(y, oof), cohen_kappa_score(y, oof, weights="quadratic")
-
-oof_skf = cv_predict(StratifiedKFold(5, shuffle=True, random_state=SEED))
-oof_gkf = cv_predict(GroupKFold(5), use_groups=True)
-a_skf,k_skf = report(y, oof_skf, "StratifiedKFold (in-template)")
-a_gkf,k_gkf = report(y, oof_gkf, "GroupKFold by complaint (out-of-template)")
-print(f"\nAccuracy change when complaints are held out: {a_gkf-a_skf:+.3f}  (~0: no collapse)")
+R["m2_acuity"], oof_acuity = A.m2_acuity(df, hx, nd)
+for k, v in R["m2_acuity"].items():
+    q = v["qwk"]; print(f"{k:38s} acc={v['accuracy']:.3f}  kappa={q['est']:.3f} [{q['lo']:.3f}, {q['hi']:.3f}]")
+F.fig_acuity(R); plt.show()
 """)
 md(r"""
-**The non-obvious result.** Holding out entire complaint templates barely changes
-the score (Δacc ≈ 0). The leakage is **generative, not textual**: the synthetic
-vitals were sampled *from* acuity (note `news2_score` correlates −0.82 with the
-label), so a structured model rides that circularity and **GroupKFold cannot
-detect it.** And κ ≈ 0.93 *exceeds the human inter-rater ceiling* (κ 0.6–0.8) —
-no real triage model can. This is the central caution: standard ML hygiene is
-not enough on generated data; only real-world data can reveal the truth (Module 5).
+With identical features and model, κ falls from 0.90 (synthetic) to 0.24 (real). On the synthetic data the vitals alone give κ 0.895; without them κ is 0.69. Acuity accuracy on this benchmark measures recovery of the generator.
+""")
+
+md(r"""
+## 5. Module 3 — Equity audit, adjusted for acuity mix
+Crude undertriage rates mislead because undertriage is impossible at ESI 5. We compare observed with expected undertriage given each group's true acuity mix, test heterogeneity by permutation within acuity levels, and correct for four attributes (Holm).
 """)
 code(r"""
-# Confusion matrix + clinically-grouped feature importance (honest interpretation)
-cm = confusion_matrix(y, oof_skf, normalize="true")
-m_full = lgbm().fit(X, y)
-imp = pd.Series(m_full.feature_importances_, index=X.columns).sort_values()[-12:]
-
-fig, ax = plt.subplots(1, 2, figsize=(11, 4))
-im = ax[0].imshow(cm, cmap="Blues", vmin=0, vmax=1)
-ax[0].set_xticks(range(5)); ax[0].set_xticklabels([f"ESI{i}" for i in range(1,6)])
-ax[0].set_yticks(range(5)); ax[0].set_yticklabels([f"ESI{i}" for i in range(1,6)])
-ax[0].set_xlabel("predicted"); ax[0].set_ylabel("true"); ax[0].set_title("Confusion (row-normalised)")
-for i in range(5):
-    for j in range(5):
-        ax[0].text(j,i,f"{cm[i,j]:.2f}",ha="center",va="center",
-                   color="white" if cm[i,j]>.5 else "black", fontsize=8)
-ax[1].barh(imp.index, imp.values, color="#2b6cb0"); ax[1].set_title("Top features (LightGBM gain)")
-plt.tight_layout(); plt.show()
+R["m3_equity"] = A.m3_equity(df, oof_acuity)
+for col in ["language", "insurance_type", "sex", "age_group"]:
+    print(f"{col:15s} Holm-adjusted p = {R['m3_equity'][col]['holm_p']}")
+F.fig_equity(R); plt.show()
+""")
+md(r"""
+No attribute shows significant heterogeneity after adjustment. The audit method carries over to real data; on this synthetic data it finds no disparity.
 """)
 
-# ---------------------------------------------------------------- M3 equity
 md(r"""
-## 5. Module 3 — Equity / undertriage-disparity audit
-
-Even an "accurate" model can under-rate some groups more than others. Using the
-out-of-fold predictions, we measure the **model undertriage rate** (predicting a
-*less* urgent level than the assigned label) within demographic strata. This is a
-reusable audit *method*; on synthetic labels the magnitudes are small and partly
-artefactual, but the pattern — immigrant-community languages (Arabic, Somali)
-showing the highest undertriage — is exactly the equity signal real deployments
-must monitor.
+## 6. Module 4 — The synthetic data cannot evaluate a waiting-room tool
+Escalation = admitted, transferred, observation or died. The key comparison is against a model that sees **only the acuity level**.
 """)
 code(r"""
-d = df.copy(); d["under"] = (oof_skf > y).astype(int)
-fig, axes = plt.subplots(1, 4, figsize=(13, 3.2)); overall = d["under"].mean()
-for ax, col in zip(axes, ["language","insurance_type","sex","age_group"]):
-    r = d.groupby(col)["under"].mean().sort_values(ascending=False)
-    colors = ["#d73027" if v>overall else "#4575b4" for v in r.values]
-    ax.bar(r.index, r.values*100, color=colors)
-    ax.axhline(overall*100, color="k", ls="--", lw=1)
-    ax.set_title(col); ax.tick_params(axis="x", rotation=40); ax.set_ylabel("undertriage %")
-plt.suptitle(f"Model undertriage rate by group (dashed = overall {overall:.1%})")
-plt.tight_layout(); plt.show()
+R["m4_waiting_room"], oof_syn = A.m4_waiting_room(df, hx)
+m4 = R["m4_waiting_room"]
+for k in ["acuity_only", "full", "delta_full_minus_acuity"]:
+    c = m4["auc_low"][k]; print(f"ESI 3-5  {k:26s} {c['est']:.3f} [{c['lo']:.3f}, {c['hi']:.3f}]")
+print("LWBS AUC", m4["lwbs"]["auc"])
+""")
+md(r"""
+Inside the ESI 3–5 queue the full model's AUC (0.76) equals the acuity-only model's: the synthetic disposition depends on acuity alone. Any apparent within-queue signal is just ESI 3 ranked above ESI 4 and 5. A waiting-room tool can only be judged on real outcomes.
 """)
 
-# ---------------------------------------------------------------- M4 waiting room
 md(r"""
-## 6. Module 4 — The waiting-room risk model
-
-The Foundation suggests a "deterioration risk for patients already waiting"
-track. We test it directly. `triage_acuity` **is** a valid input here (it is a
-triage-time output, known before the wait); the only excluded field is
-`ed_los_hours`. Targets:
-
-- **Escalation** = disposition ∈ {admitted, transferred, observation, deceased}
-  (needs care beyond the ED).
-- **LWBS** = left without being seen.
-
-The key clinical question: does intake data add value *beyond the acuity score*?
+## 7. Module 5 — Real NHAMCS validation
+Folds are grouped by hospital; intervals resample hospitals; weighted results use the survey weights `PATWT`.
 """)
 code(r"""
-df["escalate"] = df["disposition"].isin(["admitted","transferred","observation","deceased"]).astype(int)
-df["lwbs"]     = (df["disposition"]=="lwbs").astype(int)
-skf = StratifiedKFold(5, shuffle=True, random_state=SEED)
+R["m5_nhamcs"], oof_real = A.m5_nhamcs(nd)
+a = R["m5_nhamcs"]["admit"]
+for k, c in a["auc_low"].items():
+    print(f"IMMEDR 3-5  {k:34s} {c['est']:.3f} [{c['lo']:.3f}, {c['hi']:.3f}]")
+op = a["operating_points_low"]["top_20pct"]
+print(f"\nFlag top 20%: recall {op['recall']:.1%} {op['recall_ci']}, lift {op['lift']}x, precision {op['precision']:.1%}")
+print("calibration:", a["calibration"])
+print("decision curve CI above zero for thresholds:", a["decision_curve_low"]["thresholds_with_ci_above_zero"])
+print("left early AUC:", R["m5_nhamcs"]["left_early"]["auc"])
 
-def cv_proba(Xm, yt):
-    oof = np.zeros(len(yt)); spw = (yt==0).sum()/(yt==1).sum()
-    for tr, va in skf.split(Xm, yt):
-        m = lgb.LGBMClassifier(n_estimators=400, learning_rate=0.03, num_leaves=48,
-                               subsample=0.8, colsample_bytree=0.8, min_child_samples=40,
-                               scale_pos_weight=spw, random_state=SEED, verbose=-1)
-        m.fit(Xm.iloc[tr], yt[tr]); oof[va] = m.predict_proba(Xm.iloc[va])[:,1]
-    return oof
-
-ye = df["escalate"].values
-Xacu = df[["triage_acuity"]].copy()
-Xall = make_X(df); Xall["triage_acuity"] = df["triage_acuity"]
-oof_acu  = cv_proba(Xacu, ye)
-oof_all  = cv_proba(Xall, ye)
-auc_acu, auc_all = roc_auc_score(ye, oof_acu), roc_auc_score(ye, oof_all)
-print(f"Escalation AUC — acuity only: {auc_acu:.3f} | full intake: {auc_all:.3f} | gain: {auc_all-auc_acu:+.3f}")
-print(f"Escalation PR-AUC (full): {average_precision_score(ye, oof_all):.3f} (prevalence {ye.mean():.3f})")
-
-iso = IsotonicRegression(out_of_bounds="clip").fit(oof_all, ye)
-print(f"Brier {brier_score_loss(ye, oof_all):.3f} -> {brier_score_loss(ye, iso.predict(oof_all)):.3f} after calibration")
-
-yl = df["lwbs"].values
-oof_l = cv_proba(Xall, yl)
-print(f"\nLWBS AUC: {roc_auc_score(yl, oof_l):.3f} (prevalence {yl.mean():.3f}) — near-random")
-
-# --- THE TOOL: a waiting-room watch within the LOWER-acuity queue (ESI 3-5) ---
-# Global AUC ~ acuity-alone does NOT mean no value: the value is operational,
-# inside the queue the acuity number treats as 'can wait'.
-low = df["triage_acuity"].isin([3,4,5]).values
-p_low, y_low = oof_all[low], ye[low]
-auc_low = roc_auc_score(y_low, p_low)
-print(f"\nWaiting-room WATCH within ESI 3-5 (n={low.sum():,}, escalation base {y_low.mean():.3f}): AUC={auc_low:.3f}")
-rows = []
-for q in [0.95, 0.90, 0.80]:
-    thr = np.quantile(p_low, q); fl = p_low >= thr
-    rows.append((f"top {int((1-q)*100)}%", fl.mean(), y_low[fl].mean(),
-                 y_low[fl].sum()/y_low.sum(), y_low[fl].mean()/y_low.mean()))
-watch = pd.DataFrame(rows, columns=["flag","alert_rate","precision","recall_of_escalations","precision_lift"]).round(2)
-print(watch.to_string(index=False))
-
-fig, ax = plt.subplots(1, 2, figsize=(9.5, 3.4))
-bins = pd.qcut(oof_all, 10, duplicates="drop")
-cal = pd.DataFrame({"p":oof_all,"y":ye}).groupby(bins).mean()
-ax[0].plot([0,1],[0,1],"k--",lw=.8); ax[0].plot(cal["p"], cal["y"], "o-", color="#2b6cb0")
-ax[0].set_xlabel("predicted risk"); ax[0].set_ylabel("observed"); ax[0].set_title("Escalation calibration")
-# risk concentration within ESI 3-5: observed escalation rate by predicted-risk decile
-dec = pd.qcut(p_low, 10, labels=False, duplicates="drop")
-rate = pd.Series(y_low).groupby(dec).mean()
-ax[1].bar(range(len(rate)), rate.values, color="#2b8a3e")
-ax[1].axhline(y_low.mean(), color="k", ls="--", lw=1, label=f"queue base {y_low.mean():.2f}")
-ax[1].set_xlabel("predicted-risk decile (ESI 3-5)"); ax[1].set_ylabel("observed escalation rate")
-ax[1].set_title("Watch tool concentrates risk\ninside the low-acuity queue"); ax[1].legend()
-plt.tight_layout(); plt.show()
+A.ART.mkdir(exist_ok=True)
+(A.ART / "results.json").write_text(json.dumps(R, indent=2, default=str))
+oof_syn.to_parquet(A.ART / "oof_synthetic.parquet", index=False)
+pd.DataFrame(oof_real).to_parquet(A.ART / "oof_nhamcs.parquet", index=False)
+F.fig_watch(R, oof_syn, pd.DataFrame(oof_real)); plt.show()
+F.fig_decision_curve(R); plt.show()
 """)
 md(r"""
-**From a null result to a usable tool.** Globally, full intake (AUC ≈ 0.84) does
-not beat acuity alone — disposition here is largely an *acuity derivative*. But
-that global view hides the clinically useful signal: **inside the lower-acuity
-queue (ESI 3–5), which the acuity score treats as "can wait", the model still
-separates escalation risk (AUC ≈ 0.76).** Flagging the top ~20% by risk as a
-*waiting-room watch* captures roughly a third of all low-acuity escalations at
-~1.7× the base precision — a concrete, calibrated second read that targets the
-blind spot. (LWBS stays near-random, AUC ≈ 0.61: who *leaves* is operational, not
-clinical — an honest boundary on what intake data can do.) For richer
-deterioration prediction the Foundation will need real, longitudinally-linked ED
-data; the modelling shown here is ready for it. We anchor on real data next.
+Among real patients triaged as lower acuity, triage-time data ranks admission risk far better than the triage level (AUC 0.80 vs 0.64, gain +0.156 [0.131, 0.182]). Hospital-grouped validation is slightly lower than a random split (0.808), as expected. Survey-weighted AUC is 0.82. After cross-fitted calibration the slope is 0.96. Net benefit beats both "review everyone" and "review no-one" from 2% to 35% thresholds.
 """)
 
-# ---------------------------------------------------------------- M5 NHAMCS
 md(r"""
-## 7. Module 5 — Real-world validation on NHAMCS (CDC)
-
-We parse the **CDC NHAMCS ED public-use files (2021–2022)** — fixed-width ASCII,
-positions from the official codebook (admission flags shift +2 bytes in 2022, so
-each year is parsed with its own layout) — and run two real-data checks:
-
-1. **Acuity reality check.** The same structured model on real `IMMEDR` labels —
-   exposing how inflated the synthetic κ is.
-2. **The waiting-room watch, on real outcomes.** Does triage data flag real
-   *hospital admission* among patients triaged as *lower acuity*? This is the
-   decisive test of whether our tool's premise survives outside synthetic data.
-
-If internet is disabled the cell skips cleanly (reference numbers are printed).
+### Equity on real data
 """)
 code(r"""
-# Codebook positions (1-based inclusive). Front-half vars are identical across
-# years; the hospital-admission flags shift +2 bytes in 2022 (two COVID items
-# were inserted), so we parse each year with its own layout.
-COMMON = {"IMMEDR":(67,68),"AGE":(16,18),"SEX":(25,25),"TEMPF":(48,51),"PULSE":(52,54),
-          "RESPR":(55,57),"BPSYS":(58,60),"BPDIAS":(61,63),"POPCT":(64,66),
-          "PAINSCALE":(69,70),"ARREMS":(33,34),"SEEN72":(71,72),"RFV1":(73,77)}
-ADM = {2021:{"ADMITHOS":(497,497),"OBSHOS":(498,498)},
-       2022:{"ADMITHOS":(499,499),"OBSHOS":(500,500)}}
-BASE = "https://ftp.cdc.gov/pub/Health_Statistics/NCHS/Datasets/NHAMCS"
-
-def load_nhamcs_year(year, zipname):
-    raw = urllib.request.urlopen(f"{BASE}/{zipname}", timeout=60).read()
-    name = zipfile.ZipFile(io.BytesIO(raw)).namelist()[0]
-    txt = zipfile.ZipFile(io.BytesIO(raw)).read(name)
-    spec = {**COMMON, **ADM[year]}
-    colspecs = [(s-1, e) for s,e in spec.values()]
-    d = pd.read_fwf(io.BytesIO(txt), colspecs=colspecs, names=list(spec), dtype=str)
-    return d.apply(pd.to_numeric, errors="coerce")
-
-def clean_nhamcs(d):
-    d = d[d["IMMEDR"].isin([1,2,3,4,5])].copy()
-    for c in ["TEMPF","PULSE","RESPR","BPSYS","BPDIAS","POPCT","PAINSCALE"]:
-        d.loc[d[c].isin([-9,-8,-7]), c] = np.nan
-    for c in ["BPSYS","BPDIAS","POPCT","PULSE","RESPR"]:
-        d.loc[d[c]==0, c] = np.nan
-    d.loc[d["PULSE"]==998,"PULSE"]=np.nan; d.loc[d["BPDIAS"]==998,"BPDIAS"]=np.nan
-    d["TEMPF"]=d["TEMPF"]/10.0
-    d.loc[d["PAINSCALE"]>10,"PAINSCALE"]=np.nan
-    for c in ["SEX","ARREMS","SEEN72","AGE"]: d.loc[d[c].isin([-9,-8,-7]),c]=np.nan
-    d.loc[d["RFV1"]<0,"RFV1"]=np.nan; d["RFV1_module"]=(d["RFV1"]//10000)
-    d["admit"] = ((d["ADMITHOS"]==1) | (d["OBSHOS"]==1)).astype(int)  # real admission outcome
-    return d
-
-FEATS = ["AGE","SEX","TEMPF","PULSE","RESPR","BPSYS","BPDIAS","POPCT",
-         "PAINSCALE","ARREMS","SEEN72","RFV1_module"]
-try:
-    nd = clean_nhamcs(pd.concat([load_nhamcs_year(2021,"ed2021.zip"),
-                                 load_nhamcs_year(2022,"ED2022.zip")], ignore_index=True))
-    Xn = nd[FEATS]; yn = nd["IMMEDR"].astype(int).values
-    # (1) acuity reality check
-    oof = np.zeros(len(yn))
-    for tr, va in StratifiedKFold(5, shuffle=True, random_state=SEED).split(Xn, yn):
-        m = lgbm(); m.fit(Xn.iloc[tr], yn[tr]); oof[va]=m.predict(Xn.iloc[va])
-    nh_acc, nh_qwk = accuracy_score(yn,oof), cohen_kappa_score(yn,oof,weights="quadratic")
-    print(f"[acuity] NHAMCS real (n={len(yn):,}): accuracy={nh_acc:.3f}  QWK={nh_qwk:.3f}")
-
-    # (2) THE WAITING-ROOM WATCH ON REAL ADMISSION OUTCOMES
-    ya = nd["admit"].values; oa = np.zeros(len(ya)); spw=(ya==0).sum()/(ya==1).sum()
-    for tr, va in StratifiedKFold(5, shuffle=True, random_state=SEED).split(Xn, ya):
-        m = lgb.LGBMClassifier(n_estimators=400, learning_rate=0.03, num_leaves=48,
-                               subsample=0.8, colsample_bytree=0.8, min_child_samples=40,
-                               scale_pos_weight=spw, random_state=SEED, verbose=-1)
-        m.fit(Xn.iloc[tr], ya[tr]); oa[va]=m.predict_proba(Xn.iloc[va])[:,1]
-    lowr = nd["IMMEDR"].isin([3,4,5]).values
-    auc_low_real = roc_auc_score(ya[lowr], oa[lowr])
-    pr, yr = oa[lowr], ya[lowr]; fl = pr >= np.quantile(pr, 0.8)
-    print(f"[watch ] real admission rate={ya.mean():.3f}; within LOW-acuity (n={lowr.sum():,}, base {yr.mean():.3f}): "
-          f"AUC={auc_low_real:.3f}")
-    print(f"[watch ] flag top 20%: precision={yr[fl].mean():.2f}  recall={yr[fl].sum()/yr.sum():.2f}  "
-          f"lift={yr[fl].mean()/yr.mean():.1f}x")
-    NHAMCS_OK = True
-except Exception as e:
-    print("NHAMCS validation skipped (no internet / fetch failed):", type(e).__name__, e)
-    print("Reference repo run: acuity acc=0.540 QWK=0.265; watch within low-acuity AUC=0.777, top20% recall=0.57 lift=2.9x")
-    nh_qwk, auc_low_real = 0.265, 0.777; NHAMCS_OK = False
-
-# Two-panel punchline: acuity illusion (left) + the tool survives on real data (right)
-fig, ax = plt.subplots(1, 2, figsize=(11, 3.6))
-labels = ["Synthetic\n(in-template)","Synthetic\n(GroupKFold)","Real NHAMCS"]
-vals = [k_skf, k_gkf, nh_qwk]
-ax[0].bar(labels, vals, color=["#e23b3b","#f08a3c","#2b8a3e"])
-ax[0].axhspan(0.6, 0.8, color="gray", alpha=.2, label="human ceiling κ 0.6–0.8")
-ax[0].set_ylabel("acuity κ (quadratic)"); ax[0].set_ylim(0,1)
-ax[0].set_title("Acuity: synthetic illusion vs real ceiling"); ax[0].legend(fontsize=8)
-for i,v in enumerate(vals): ax[0].text(i, v+.02, f"{v:.2f}", ha="center")
-ax[1].bar(["Synthetic\nESI 3-5","Real NHAMCS\nIMMEDR 3-5"], [auc_low, auc_low_real],
-          color=[BLUE, GREEN]); ax[1].set_ylim(0.5,0.85)
-ax[1].set_ylabel("admission/escalation AUC"); ax[1].set_title("Waiting-room watch holds on REAL data")
-for i,v in enumerate([auc_low, auc_low_real]): ax[1].text(i, v+.01, f"{v:.2f}", ha="center")
-plt.tight_layout(); plt.show()
-
-# Decision-curve (net-benefit) analysis on the REAL low-acuity queue: is the watch
-# clinically worth using vs the two trivial policies (watch everyone / watch no-one)?
-if NHAMCS_OK:
-    p, yt = oa[lowr], ya[lowr]; N = len(yt)
-    ths = np.linspace(0.02, 0.40, 39)
-    def nb(flag):
-        tp = ((flag==1)&(yt==1)).sum(); fp = ((flag==1)&(yt==0)).sum()
-        return tp/N - fp/N*(pt/(1-pt))
-    nb_model, nb_all = [], []
-    for pt in ths:
-        nb_model.append(nb(p>=pt)); nb_all.append(nb(np.ones(N)))
-    fig, ax = plt.subplots(figsize=(6.2,3.6))
-    ax.plot(ths, nb_model, color=GREEN, lw=2.2, label="Waiting-room watch")
-    ax.plot(ths, nb_all, color=GREY, lw=1.4, ls="--", label="Watch everyone")
-    ax.axhline(0, color="k", lw=1, label="Watch no-one (acuity-only)")
-    ax.set_xlabel("threshold probability (clinician's risk tolerance)")
-    ax.set_ylabel("net benefit"); ax.set_ylim(bottom=min(nb_all)*1.1)
-    ax.set_title("Decision-curve analysis — real low-acuity ED queue")
-    ax.legend(fontsize=8.5)
-    plt.tight_layout(); plt.show()
-    print(f"Net benefit positive and above both default policies across "
-          f"thresholds ~{ths[np.argmax(np.array(nb_model)>np.array(nb_all))]:.0%}–40%.")
+F.fig_real_equity(R); plt.show()
+for col, rows in R["m5_nhamcs"]["equity_low_acuity_watch"].items():
+    for g, v in rows.items():
+        print(f"{col:15s} {g:18s} caught {v['recall_of_watch']['est']:.0%}  observed {v['observed_rate']:.1%}  predicted {v['mean_predicted']:.1%}")
+""")
+md(r"""
+With one threshold, the share of admissions caught follows baseline risk (Medicare 79%, self-pay 26%; NH White 62%, NH Black 52%). Predicted risk is not lower than observed for any of these groups, so the gap comes from the threshold policy, not miscalibration. Choosing the threshold policy is an equity decision to make before deployment.
 """)
 
 md(r"""
-**The decisive result.** Two things happen on real data. (i) Acuity κ collapses
-from 0.93 to ≈ 0.27 — the synthetic agreement was an illusion. (ii) **The
-waiting-room watch survives, and strengthens:** among real patients triaged
-*lower acuity* (IMMEDR 3–5), triage data predicts genuine hospital admission at
-**AUC ≈ 0.78**, and flagging the top 20% by risk catches **≈ 57% of those
-admissions at ~2.9× precision** (vs 1.75× on synthetic). The clean separation is
-the whole thesis: **the acuity *label* is corrupted by leakage and should not be
-chased, but the deterioration *signal* is real and transferable — so build the
-second-read watch, not a higher-accuracy acuity mimic.**
-""")
-
-# ---------------------------------------------------------------- submission
-md(r"""
-## 8. A concrete predictive artifact (test-set submission)
-
-For completeness we fit the honest, leak-free acuity model on the full training
-set and produce `submission.csv` in the required format. (The notebook also
-exposes the calibrated waiting-room watch score, which is the deployable tool.)
+## 8. Test-set predictions
+The competition asked for acuity predictions; here is the structured, leak-free acuity model fitted on all training data. Given Module 2, these predictions reproduce the generator and should not be read as clinical skill.
 """)
 code(r"""
-test = pd.read_csv(find_file("test.csv"))
-th = pd.read_csv(find_file("patient_history.csv"))
-test = test.merge(th[["patient_id"]+HX], on="patient_id", how="left")
+test = pd.read_csv(A.find("test.csv"))
+hist = pd.read_csv(A.find("patient_history.csv"))
+test = test.merge(hist[["patient_id"] + hx], on="patient_id", how="left")
 test["pain_score"] = test["pain_score"].replace(-1, np.nan)
-test["hx_burden"] = test[HX].sum(axis=1)
-Xte = make_X(test)
-final = lgbm().fit(X, y)
-pred = final.predict(Xte)
-sub = pd.DataFrame({"patient_id": test["patient_id"], "triage_acuity": pred.astype(int)})
+test["hx_burden"] = test[hx].sum(axis=1)
+model = A.clf().fit(A.make_X(df, hx), df["triage_acuity"].values)
+sub = pd.DataFrame({"patient_id": test["patient_id"], "triage_acuity": model.predict(A.make_X(test, hx)).astype(int)})
 sub.to_csv("submission.csv", index=False)
-print("submission.csv:", sub.shape, "| predicted acuity mix:",
-      sub["triage_acuity"].value_counts(normalize=True).round(3).sort_index().to_dict())
+print(sub.shape, sub["triage_acuity"].value_counts(normalize=True).round(3).sort_index().to_dict())
 """)
 
-# ---------------------------------------------------------------- demo
 md(r"""
-## 9. Clinical decision-support demo — a per-patient second opinion
+## 9. Limitations
+1. NHAMCS is cross-sectional: admission stands in for deterioration, and timing during the wait is unobserved.
+2. Only 12 public-use variables are used; local data with full complaint text and repeat vitals should do better.
+3. Hospital-grouped validation tests transfer across US hospitals, not to Nordic EDs. A silent-deployment pilot is the next step.
+4. The bootstrap resamples hospitals but does not reproduce the full stratified survey design.
+5. Decision support only; not a medical device.
 
-The tool is meant for a clinician, so here it is as one. For any patient we return
-the assigned acuity, a **calibrated waiting-room escalation risk**, a **watch
-flag** with two selectable modes, and the **top features driving the risk** (native
-LightGBM contributions). We then contrast two patients: a *blind-spot* case — low
-acuity but high escalation risk — versus a routine low-risk case. *Not a medical
-device; decision support only.*
-""")
-code(r"""
-# Final escalation model on full synthetic data; reuse OOF calibrator from Module 4.
-esc_model = lgb.LGBMClassifier(n_estimators=400, learning_rate=0.03, num_leaves=48,
-                               subsample=0.8, colsample_bytree=0.8, min_child_samples=40,
-                               scale_pos_weight=(ye==0).sum()/(ye==1).sum(),
-                               random_state=SEED, verbose=-1).fit(Xall, ye)
-
-# Calibrated escalation risk for everyone (one consistent scale for thresholds + display).
-risk_all = iso.predict(oof_all)
-low35 = df["triage_acuity"].isin([3,4,5]).values
-THR_WATCH = np.quantile(risk_all[low35], 0.80)  # high-recall safety net (top 20%)
-THR_ALERT = np.quantile(risk_all[low35], 0.95)  # high-precision targeted review (top 5%)
-print(f"Watch modes on the low-acuity queue:  SAFETY-NET risk>={THR_WATCH:.0%} (catches ~35% of "
-      f"escalations) | TARGETED risk>={THR_ALERT:.0%} (higher precision, fewer alerts)")
-
-def second_opinion(i):
-    acu = int(df["triage_acuity"].iloc[i])               # acuity is assigned at triage (an input)
-    risk = float(risk_all[i])
-    mode = ("TARGETED-REVIEW ALERT" if risk >= THR_ALERT else
-            "WAITING-ROOM WATCH" if risk >= THR_WATCH else "routine")
-    contrib = np.asarray(esc_model.booster_.predict(Xall.iloc[[i]], pred_contrib=True)).ravel()[:-1]
-    top = sorted(zip(Xall.columns, contrib), key=lambda t: -abs(t[1]))[:4]
-    print(f"\nPatient {df['patient_id'].iloc[i]}  (assigned ESI {acu})")
-    print(f"  waiting-room escalation risk : {risk:0.0%}   ->  {mode}")
-    print( "  top drivers (+ raises / - lowers risk):")
-    for name, c in top:
-        print(f"      {'+' if c>=0 else '-'} {name} ({c:+.2f})")
-
-# Blind-spot = a LOW-acuity (ESI 3-5) patient who truly escalated, ranked highest risk;
-# routine = a low-acuity patient who did not, ranked lowest risk.
-esc = df["escalate"].values.astype(bool)
-cand_b = np.where(low35 & esc)[0];  blind   = cand_b[np.argmax(risk_all[cand_b])]
-cand_r = np.where(low35 & ~esc)[0]; routine = cand_r[np.argmin(risk_all[cand_r])]
-print("\n--- BLIND-SPOT CASE (lower-acuity queue, but high deterioration risk; truly admitted) ---")
-second_opinion(blind)
-print("\n--- ROUTINE CASE (lower-acuity, low risk; discharged) ---")
-second_opinion(routine)
-""")
-
-# ---------------------------------------------------------------- limitations
-md(r"""
-## 10. Limitations, reproducibility & clinical recommendations
-
-**Limitations (honest).**
-1. The competition data is **synthetic**; its vitals are generated from acuity, so
-   in-distribution scores are not clinically meaningful — the entire point of
-   Modules 1, 4 and 5.
-2. The equity audit is computed against synthetic labels; magnitudes are small
-   and indicative of *method*, not of real disparities.
-3. NHAMCS is a cross-sectional survey with its own missingness and no patient
-   linkage; κ ≈ 0.27 is a floor given the limited public feature set, not a
-   tuned ceiling.
-4. No model here is deployment-ready; all are second-read decision support.
-
-**Reproducibility.** Fixed seed (42), 5-fold CV, OOF metrics, no post-triage
-leakage, data paths auto-resolved, NHAMCS parsed from the official codebook
-layout. Full code + README: see the linked repository.
-
-**Recommendations for the pilots ahead (constructive).**
-- **Deploy as a second read, not a replacement.** The waiting-room watch is most
-  valuable where the acuity number is least informative: re-checking the
-  lower-acuity queue for hidden escalation risk.
-- **Adopt the leakage litmus test.** If a model's κ exceeds the human ceiling,
-  treat it as leakage until proven on real, linked data — a cheap safeguard for
-  every future benchmark the Foundation commissions.
-- **Monitor the right thing:** high-acuity (ESI 1–2) undertriage and
-  language-minority equity, continuously — not aggregate accuracy.
-- **Invest in real longitudinal ED data** to unlock genuine deterioration
-  prediction; this study shows the modelling is ready and the data is the
-  bottleneck, which is an actionable, fundable conclusion.
-""")
-md(r"""
 ## References
-1. Gilboy N, Tanabe P, Travers D, Rosenau A. *Emergency Severity Index (ESI):
-   A Triage Tool for ED Care, v4.* AHRQ, 2012.
-2. Farrohknia N, et al. *Emergency department triage scales and their components:
-   a systematic review.* Scand J Trauma Resusc Emerg Med, 2011;19:42.
-3. Levin S, et al. *Machine-learning-based electronic triage more accurately
-   differentiates patients than the Emergency Severity Index.* Ann Emerg Med,
-   2018;71(5):565–574.
-4. Hong WS, Haimovich AD, Taylor RA. *Predicting hospital admission at ED triage
-   using machine learning.* PLoS One, 2018;13(7):e0201016.
-5. Royal College of Physicians. *National Early Warning Score (NEWS) 2.* London, 2017.
-6. Obermeyer Z, et al. *Dissecting racial bias in an algorithm used to manage the
-   health of populations.* Science, 2019;366(6464):447–453.
-7. Baker DW, Stevens CD, Brook RH. *Patients who leave a public hospital ED
-   without being seen by a physician.* JAMA, 1991;266(8):1085–1090.
-8. NCHS. *NHAMCS public-use ED files 2021–2022.* CDC. https://www.cdc.gov/nchs/ahcd/
+Gilboy N et al., *ESI v4*, AHRQ 2012 · Mistry B et al., *Ann Emerg Med* 2018;71:581–587 · Levin S et al., *Ann Emerg Med* 2018;71:565–574 · Hong WS et al., *PLoS One* 2018;13:e0201016 · Vickers AJ, Elkin EB, *Med Decis Making* 2006;26:565–574 · RCP, *NEWS2* 2017 · Obermeyer Z et al., *Science* 2019;366:447–453 · NCHS, *NHAMCS 2021–2022*, CDC.
 """)
 
-# ---------------------------------------------------------------- assemble
-nb = {"cells": [], "metadata": {"kernelspec": {"name":"python3","display_name":"Python 3"},
-      "language_info":{"name":"python"}}, "nbformat":4, "nbformat_minor":5}
+nb = {"cells": [], "metadata": {"kernelspec": {"name": "python3", "display_name": "Python 3"},
+                                "language_info": {"name": "python"}}, "nbformat": 4, "nbformat_minor": 5}
 for typ, src in cells:
-    lines = src.splitlines(keepends=True)
-    c = {"cell_type": typ, "metadata": {}, "source": lines}
-    if typ == "code": c["outputs"] = []; c["execution_count"] = None
+    c = {"cell_type": typ, "metadata": {}, "source": src.splitlines(keepends=True)}
+    if typ == "code":
+        c["outputs"] = []; c["execution_count"] = None
     nb["cells"].append(c)
-
-out = Path(__file__).resolve().parent.parent / "notebook" / "triagegeist.ipynb"
+out = SRC.parent / "notebook" / "triagegeist.ipynb"
 out.parent.mkdir(exist_ok=True)
 out.write_text(json.dumps(nb, indent=1), encoding="utf-8")
 print("wrote", out, "with", len(cells), "cells")

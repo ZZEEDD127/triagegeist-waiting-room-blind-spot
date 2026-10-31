@@ -1,76 +1,1160 @@
 {
-  "forensics": {
-    "leak_corr": {
+  "meta": {
+    "seed": 42,
+    "n_boot": 1000,
+    "n_train": 80000,
+    "lightgbm": "4.6.0"
+  },
+  "m1_forensics": {
+    "corr_with_acuity": {
       "ed_los_hours": -0.757,
       "news2_score": -0.815,
       "shock_index": -0.632,
-      "gcs_total": 0.657
+      "gcs_total": 0.657,
+      "spo2": 0.654,
+      "heart_rate": -0.568
     },
-    "complaint_acuity_purity": 0.9993,
-    "complaint_fully_determine_acuity": 0.997,
-    "n_unique_complaints": 4949
-  },
-  "acuity": {
-    "stratified": {
-      "accuracy": 0.8567,
-      "qwk": 0.931,
-      "undertriage_rate": 0.0745,
-      "overtriage_rate": 0.0688,
-      "high_acuity_recall(1-2)": 0.9823,
-      "n_missed_high_acuity": 295
+    "corr_with_acuity_nhamcs": {
+      "PULSE": -0.003,
+      "RESPR": -0.026,
+      "POPCT": 0.072,
+      "BPSYS": -0.079,
+      "TEMPF": -0.013
     },
-    "groupkfold_by_complaint": {
-      "accuracy": 0.8577,
-      "qwk": 0.9314,
-      "undertriage_rate": 0.0734,
-      "overtriage_rate": 0.0689,
-      "high_acuity_recall(1-2)": 0.9824,
-      "n_missed_high_acuity": 294
+    "corr_with_acuity_synthetic_same_vitals": {
+      "PULSE": -0.568,
+      "RESPR": -0.653,
+      "POPCT": 0.654,
+      "BPSYS": 0.462,
+      "TEMPF": -0.649
+    },
+    "complaints": {
+      "n_unique": 4949,
+      "median_count": 16.0,
+      "purity_all": 0.9993,
+      "share_deterministic_all": 0.997,
+      "n_with_20plus": 1842,
+      "purity_20plus": 0.9998,
+      "share_deterministic_20plus": 0.9989
+    },
+    "news2_recomputed": {
+      "exact_match": 0.711,
+      "corr_given_vs_recomputed": 0.946,
+      "corr_recomputed_with_acuity": -0.821
+    },
+    "rater_effect": {
+      "synthetic_nurses": 50,
+      "synthetic_nurse_cramers_v": 0.0218,
+      "synthetic_nurse_p": 0.9908,
+      "nhamcs_hospitals": 239,
+      "nhamcs_hospital_cramers_v": 0.353,
+      "nhamcs_hospital_p": 0.0
+    },
+    "text_model": {
+      "stratified": {
+        "accuracy": 0.9994,
+        "qwk": 0.9997
+      },
+      "group_exact_complaint": {
+        "accuracy": 0.9994,
+        "qwk": 0.9997
+      },
+      "group_complaint_base": {
+        "accuracy": 0.8832,
+        "qwk": 0.9276
+      },
+      "n_complaint_bases": 874
     }
   },
-  "fairness": {
+  "m2_acuity": {
+    "structured_stratified": {
+      "accuracy": 0.8571,
+      "qwk": {
+        "est": 0.9309,
+        "lo": 0.9296,
+        "hi": 0.9321
+      },
+      "undertriage_rate": 0.0738,
+      "overtriage_rate": 0.0691,
+      "high_acuity_recall": 0.9824,
+      "n_missed_high_acuity": 293
+    },
+    "structured_group_by_complaint_base": {
+      "accuracy": 0.8325,
+      "qwk": {
+        "est": 0.919,
+        "lo": 0.9176,
+        "hi": 0.9204
+      },
+      "undertriage_rate": 0.0821,
+      "overtriage_rate": 0.0854,
+      "high_acuity_recall": 0.9821,
+      "n_missed_high_acuity": 298
+    },
+    "structured_group_by_site": {
+      "accuracy": 0.8573,
+      "qwk": {
+        "est": 0.9311,
+        "lo": 0.9297,
+        "hi": 0.9323
+      },
+      "undertriage_rate": 0.0739,
+      "overtriage_rate": 0.0687,
+      "high_acuity_recall": 0.9822,
+      "n_missed_high_acuity": 296
+    },
+    "ablation_vitals_only": {
+      "accuracy": 0.7922,
+      "qwk": {
+        "est": 0.8947,
+        "lo": 0.893,
+        "hi": 0.8965
+      },
+      "undertriage_rate": 0.1056,
+      "overtriage_rate": 0.1022,
+      "high_acuity_recall": 0.9714,
+      "n_missed_high_acuity": 477
+    },
+    "ablation_without_vitals": {
+      "accuracy": 0.5667,
+      "qwk": {
+        "est": 0.6944,
+        "lo": 0.6909,
+        "hi": 0.6983
+      },
+      "undertriage_rate": 0.2311,
+      "overtriage_rate": 0.2022,
+      "high_acuity_recall": 0.6585,
+      "n_missed_high_acuity": 5689
+    },
+    "harmonised_synthetic": {
+      "accuracy": 0.8001,
+      "qwk": {
+        "est": 0.9011,
+        "lo": 0.8994,
+        "hi": 0.9027
+      },
+      "undertriage_rate": 0.1083,
+      "overtriage_rate": 0.0916,
+      "high_acuity_recall": 0.9281,
+      "n_missed_high_acuity": 1198
+    },
+    "harmonised_nhamcs": {
+      "accuracy": 0.5275,
+      "qwk": {
+        "est": 0.2395,
+        "lo": 0.2135,
+        "hi": 0.2627
+      },
+      "undertriage_rate": 0.2208,
+      "overtriage_rate": 0.2517,
+      "high_acuity_recall": 0.1644,
+      "n_missed_high_acuity": 3020
+    },
+    "nhamcs_intake_random_split": {
+      "accuracy": 0.5387,
+      "qwk": {
+        "est": 0.2684,
+        "lo": 0.2433,
+        "hi": 0.2915
+      },
+      "undertriage_rate": 0.2212,
+      "overtriage_rate": 0.24,
+      "high_acuity_recall": 0.1859,
+      "n_missed_high_acuity": 2942
+    },
+    "nhamcs_intake_hospital_split": {
+      "accuracy": 0.5355,
+      "qwk": {
+        "est": 0.2566,
+        "lo": 0.2328,
+        "hi": 0.2786
+      },
+      "undertriage_rate": 0.2238,
+      "overtriage_rate": 0.2407,
+      "high_acuity_recall": 0.1674,
+      "n_missed_high_acuity": 3009
+    }
+  },
+  "m3_equity": {
     "language": {
-      "Arabic": 0.0834,
-      "English": 0.0764,
-      "Somali": 0.0754,
-      "Swedish": 0.0749,
-      "Other": 0.0738,
-      "Finnish": 0.0736,
-      "Russian": 0.0734,
-      "Estonian": 0.0725
+      "groups": {
+        "Arabic": {
+          "n": 3944,
+          "crude_rate": 0.0827,
+          "oe_ratio": {
+            "est": 1.1351,
+            "lo": 1.0277,
+            "hi": 1.2476
+          }
+        },
+        "English": {
+          "n": 8024,
+          "crude_rate": 0.0749,
+          "oe_ratio": {
+            "est": 1.0109,
+            "lo": 0.9344,
+            "hi": 1.0891
+          }
+        },
+        "Estonian": {
+          "n": 4858,
+          "crude_rate": 0.0716,
+          "oe_ratio": {
+            "est": 0.9861,
+            "lo": 0.8926,
+            "hi": 1.0871
+          }
+        },
+        "Finnish": {
+          "n": 44134,
+          "crude_rate": 0.0728,
+          "oe_ratio": {
+            "est": 0.9864,
+            "lo": 0.9505,
+            "hi": 1.0186
+          }
+        },
+        "Other": {
+          "n": 3968,
+          "crude_rate": 0.0786,
+          "oe_ratio": {
+            "est": 1.0538,
+            "lo": 0.9529,
+            "hi": 1.1757
+          }
+        },
+        "Russian": {
+          "n": 5587,
+          "crude_rate": 0.0745,
+          "oe_ratio": {
+            "est": 1.0099,
+            "lo": 0.9186,
+            "hi": 1.1059
+          }
+        },
+        "Somali": {
+          "n": 3170,
+          "crude_rate": 0.0722,
+          "oe_ratio": {
+            "est": 0.9656,
+            "lo": 0.8489,
+            "hi": 1.0725
+          }
+        },
+        "Swedish": {
+          "n": 6315,
+          "crude_rate": 0.0732,
+          "oe_ratio": {
+            "est": 0.9829,
+            "lo": 0.9061,
+            "hi": 1.0638
+          }
+        }
+      },
+      "perm_p": 0.3156,
+      "holm_p": 0.7276
     },
     "insurance_type": {
-      "military": 0.0763,
-      "public": 0.075,
-      "private": 0.0737,
-      "none": 0.0725,
-      "unknown": 0.0721
+      "groups": {
+        "military": {
+          "n": 3196,
+          "crude_rate": 0.0732,
+          "oe_ratio": {
+            "est": 0.988,
+            "lo": 0.8728,
+            "hi": 1.1098
+          }
+        },
+        "none": {
+          "n": 6320,
+          "crude_rate": 0.0699,
+          "oe_ratio": {
+            "est": 0.947,
+            "lo": 0.8554,
+            "hi": 1.042
+          }
+        },
+        "private": {
+          "n": 19915,
+          "crude_rate": 0.0728,
+          "oe_ratio": {
+            "est": 0.9868,
+            "lo": 0.9365,
+            "hi": 1.039
+          }
+        },
+        "public": {
+          "n": 48170,
+          "crude_rate": 0.0751,
+          "oe_ratio": {
+            "est": 1.0164,
+            "lo": 0.9812,
+            "hi": 1.0484
+          }
+        },
+        "unknown": {
+          "n": 2399,
+          "crude_rate": 0.0684,
+          "oe_ratio": {
+            "est": 0.9357,
+            "lo": 0.8012,
+            "hi": 1.0697
+          }
+        }
+      },
+      "perm_p": 0.4551,
+      "holm_p": 0.7276
     },
     "sex": {
-      "Other": 0.0867,
-      "F": 0.0742,
-      "M": 0.0741
+      "groups": {
+        "F": {
+          "n": 40339,
+          "crude_rate": 0.0739,
+          "oe_ratio": {
+            "est": 1.0019,
+            "lo": 0.9665,
+            "hi": 1.0316
+          }
+        },
+        "M": {
+          "n": 37735,
+          "crude_rate": 0.0731,
+          "oe_ratio": {
+            "est": 0.9886,
+            "lo": 0.9548,
+            "hi": 1.0217
+          }
+        },
+        "Other": {
+          "n": 1926,
+          "crude_rate": 0.0877,
+          "oe_ratio": {
+            "est": 1.1828,
+            "lo": 1.0303,
+            "hi": 1.3397
+          }
+        }
+      },
+      "perm_p": 0.0897,
+      "holm_p": 0.3588
     },
     "age_group": {
-      "young_adult": 0.0767,
-      "middle_aged": 0.0743,
-      "elderly": 0.0734,
-      "pediatric": 0.0705
+      "groups": {
+        "elderly": {
+          "n": 21653,
+          "crude_rate": 0.0725,
+          "oe_ratio": {
+            "est": 0.9822,
+            "lo": 0.9334,
+            "hi": 1.0291
+          }
+        },
+        "middle_aged": {
+          "n": 27889,
+          "crude_rate": 0.0745,
+          "oe_ratio": {
+            "est": 1.0105,
+            "lo": 0.9684,
+            "hi": 1.0508
+          }
+        },
+        "pediatric": {
+          "n": 6595,
+          "crude_rate": 0.0682,
+          "oe_ratio": {
+            "est": 0.9312,
+            "lo": 0.8468,
+            "hi": 1.0095
+          }
+        },
+        "young_adult": {
+          "n": 23863,
+          "crude_rate": 0.0758,
+          "oe_ratio": {
+            "est": 1.0227,
+            "lo": 0.9776,
+            "hi": 1.0632
+          }
+        }
+      },
+      "perm_p": 0.2425,
+      "holm_p": 0.7276
+    },
+    "undertriage_rate_by_true_acuity": {
+      "1": 0.0782,
+      "2": 0.0218,
+      "3": 0.1029,
+      "4": 0.1037,
+      "5": 0.0
     }
   },
-  "waiting_room": {
-    "escalate_auc_acuity_only": 0.8367,
-    "escalate_auc_full_intake": 0.8264,
-    "escalate_pr_auc_full": 0.7888,
-    "escalate_prevalence": 0.4319,
-    "brier_raw": 0.1672,
-    "brier_calibrated": 0.1645,
-    "lwbs_auc": 0.6103,
-    "lwbs_prevalence": 0.0457
+  "m4_waiting_room": {
+    "prevalence_all": 0.4319,
+    "prevalence_low": 0.3134,
+    "n_low": 63339,
+    "auc_all": {
+      "acuity_only": {
+        "est": 0.8367,
+        "lo": 0.8342,
+        "hi": 0.8395
+      },
+      "full": {
+        "est": 0.8377,
+        "lo": 0.835,
+        "hi": 0.8405
+      },
+      "delta_full_minus_acuity": {
+        "est": 0.001,
+        "lo": -0.0005,
+        "hi": 0.0023
+      }
+    },
+    "auc_low": {
+      "acuity_only": {
+        "est": 0.7622,
+        "lo": 0.7584,
+        "hi": 0.7662
+      },
+      "full": {
+        "est": 0.7634,
+        "lo": 0.7597,
+        "hi": 0.7673
+      },
+      "delta_full_minus_acuity": {
+        "est": 0.0012,
+        "lo": -0.0013,
+        "hi": 0.0039
+      },
+      "full_site_held_out": {
+        "est": 0.7608,
+        "lo": 0.7569,
+        "hi": 0.765
+      }
+    },
+    "operating_points_low": {
+      "top_5pct": {
+        "alert_rate": 0.05,
+        "precision": 0.562,
+        "recall": 0.09,
+        "lift": 1.79,
+        "base_rate": 0.313,
+        "recall_ci": {
+          "est": 0.0897,
+          "lo": 0.0868,
+          "hi": 0.0923
+        },
+        "lift_ci": {
+          "est": 1.7932,
+          "lo": 1.7354,
+          "hi": 1.8447
+        }
+      },
+      "top_10pct": {
+        "alert_rate": 0.1,
+        "precision": 0.55,
+        "recall": 0.175,
+        "lift": 1.75,
+        "base_rate": 0.313,
+        "recall_ci": {
+          "est": 0.1755,
+          "lo": 0.1718,
+          "hi": 0.1791
+        },
+        "lift_ci": {
+          "est": 1.755,
+          "lo": 1.7176,
+          "hi": 1.7905
+        }
+      },
+      "top_20pct": {
+        "alert_rate": 0.2,
+        "precision": 0.545,
+        "recall": 0.348,
+        "lift": 1.74,
+        "base_rate": 0.313,
+        "recall_ci": {
+          "est": 0.3477,
+          "lo": 0.3424,
+          "hi": 0.3523
+        },
+        "lift_ci": {
+          "est": 1.7386,
+          "lo": 1.7122,
+          "hi": 1.7611
+        }
+      }
+    },
+    "calibration": {
+      "raw": {
+        "brier": 0.1556,
+        "ece": 0.0169,
+        "slope": 0.982,
+        "citl": -0.0001
+      },
+      "crossfit_isotonic": {
+        "brier": 0.1547,
+        "ece": 0.006,
+        "slope": 0.996,
+        "citl": -0.0
+      }
+    },
+    "lwbs": {
+      "prevalence": 0.0457,
+      "auc": {
+        "est": 0.6255,
+        "lo": 0.6179,
+        "hi": 0.6338
+      }
+    },
+    "demo": {
+      "threshold_top20": 0.545,
+      "precision_of_flags": 0.541,
+      "typical_true_positive": {
+        "patient_id": "TG-5L8SF2KZK",
+        "acuity": 3,
+        "risk": 0.547,
+        "escalated": 1,
+        "disposition": "admitted",
+        "drivers": [
+          [
+            "triage_acuity",
+            0.597
+          ],
+          [
+            "chief_complaint_system",
+            0.108
+          ],
+          [
+            "diastolic_bp",
+            0.073
+          ],
+          [
+            "gcs_total",
+            -0.045
+          ]
+        ]
+      },
+      "typical_false_positive": {
+        "patient_id": "TG-LGVUG9H33",
+        "acuity": 3,
+        "risk": 0.547,
+        "escalated": 0,
+        "disposition": "discharged",
+        "drivers": [
+          [
+            "triage_acuity",
+            0.582
+          ],
+          [
+            "spo2",
+            0.055
+          ],
+          [
+            "weight_kg",
+            -0.046
+          ],
+          [
+            "gcs_total",
+            -0.04
+          ]
+        ]
+      },
+      "highest_risk_true_positive": {
+        "patient_id": "TG-G8VO8W2QT",
+        "acuity": 3,
+        "risk": 0.765,
+        "escalated": 1,
+        "disposition": "transferred",
+        "drivers": [
+          [
+            "triage_acuity",
+            0.679
+          ],
+          [
+            "height_cm",
+            0.201
+          ],
+          [
+            "chief_complaint_system",
+            0.089
+          ],
+          [
+            "respiratory_rate",
+            0.077
+          ]
+        ]
+      }
+    }
   },
-  "nhamcs": {
-    "n": 20702,
-    "accuracy": 0.5417,
-    "qwk": 0.2691
+  "m5_nhamcs": {
+    "n": 20616,
+    "n_hospitals": 298,
+    "n_low": 17017,
+    "share_visits_without_triage_level": 0.358,
+    "admit_rate_with_vs_without_level": [
+      0.129,
+      0.129
+    ],
+    "admit": {
+      "prevalence": 0.1293,
+      "prevalence_low": 0.0853,
+      "prevalence_low_weighted": 0.0809,
+      "auc_low": {
+        "immedr_only": {
+          "est": 0.6413,
+          "lo": 0.609,
+          "hi": 0.6705
+        },
+        "intake_only": {
+          "est": 0.7751,
+          "lo": 0.7603,
+          "hi": 0.7904
+        },
+        "intake_plus_immedr": {
+          "est": 0.7977,
+          "lo": 0.7816,
+          "hi": 0.8132
+        },
+        "delta_vs_immedr_only": {
+          "est": 0.1563,
+          "lo": 0.1313,
+          "hi": 0.1817
+        },
+        "intake_plus_immedr_weighted": {
+          "est": 0.8165,
+          "lo": 0.7985,
+          "hi": 0.8337
+        },
+        "intake_plus_immedr_random_split": {
+          "est": 0.8085,
+          "lo": 0.7961,
+          "hi": 0.8211
+        }
+      },
+      "auc_all": {
+        "immedr_only": {
+          "est": 0.7272,
+          "lo": 0.7027,
+          "hi": 0.7475
+        },
+        "intake_plus_immedr": {
+          "est": 0.8222,
+          "lo": 0.8092,
+          "hi": 0.8343
+        },
+        "delta_vs_immedr_only": {
+          "est": 0.095,
+          "lo": 0.0796,
+          "hi": 0.1135
+        }
+      },
+      "operating_points_low": {
+        "top_10pct": {
+          "alert_rate": 0.1,
+          "precision": 0.315,
+          "recall": 0.369,
+          "lift": 3.69,
+          "base_rate": 0.085,
+          "weighted": {
+            "alert_rate": 0.097,
+            "precision": 0.325,
+            "recall": 0.392,
+            "lift": 4.02,
+            "base_rate": 0.081
+          },
+          "recall_ci": {
+            "est": 0.3694,
+            "lo": 0.3446,
+            "hi": 0.3992
+          },
+          "lift_ci": {
+            "est": 3.6934,
+            "lo": 3.4441,
+            "hi": 3.9864
+          }
+        },
+        "top_20pct": {
+          "alert_rate": 0.2,
+          "precision": 0.247,
+          "recall": 0.579,
+          "lift": 2.89,
+          "base_rate": 0.085,
+          "weighted": {
+            "alert_rate": 0.197,
+            "precision": 0.251,
+            "recall": 0.612,
+            "lift": 3.1,
+            "base_rate": 0.081
+          },
+          "recall_ci": {
+            "est": 0.5789,
+            "lo": 0.5493,
+            "hi": 0.6103
+          },
+          "lift_ci": {
+            "est": 2.894,
+            "lo": 2.7457,
+            "hi": 3.0513
+          }
+        }
+      },
+      "calibration": {
+        "raw": {
+          "brier": 0.0917,
+          "ece": 0.0203,
+          "slope": 0.798,
+          "citl": -0.0057
+        },
+        "crossfit_isotonic": {
+          "brier": 0.0913,
+          "ece": 0.0046,
+          "slope": 0.964,
+          "citl": 0.0001
+        }
+      },
+      "decision_curve_low": {
+        "thresholds": [
+          0.02,
+          0.03,
+          0.04,
+          0.05,
+          0.06,
+          0.07,
+          0.08,
+          0.09,
+          0.1,
+          0.11,
+          0.12,
+          0.13,
+          0.14,
+          0.15,
+          0.16,
+          0.17,
+          0.18,
+          0.19,
+          0.2,
+          0.21,
+          0.22,
+          0.23,
+          0.24,
+          0.25,
+          0.26,
+          0.27,
+          0.28,
+          0.29,
+          0.3,
+          0.31,
+          0.32,
+          0.33,
+          0.34,
+          0.35,
+          0.36,
+          0.37,
+          0.38,
+          0.39,
+          0.4
+        ],
+        "model": [
+          0.06932,
+          0.06263,
+          0.05699,
+          0.05118,
+          0.04676,
+          0.04371,
+          0.04039,
+          0.03661,
+          0.03274,
+          0.03074,
+          0.02754,
+          0.02685,
+          0.02491,
+          0.02302,
+          0.02099,
+          0.01877,
+          0.0164,
+          0.01497,
+          0.0141,
+          0.01354,
+          0.01255,
+          0.01151,
+          0.0109,
+          0.01013,
+          0.00932,
+          0.00832,
+          0.00746,
+          0.00659,
+          0.00614,
+          0.0055,
+          0.00492,
+          0.00444,
+          0.00384,
+          0.00367,
+          0.00198,
+          0.00212,
+          0.00224,
+          0.00161,
+          0.00119
+        ],
+        "treat_all": [
+          0.0666,
+          0.05698,
+          0.04715,
+          0.03712,
+          0.02688,
+          0.01642,
+          0.00573,
+          -0.0052,
+          -0.01637,
+          -0.02779,
+          -0.03947,
+          -0.05142,
+          -0.06364,
+          -0.07616,
+          -0.08897,
+          -0.10209,
+          -0.11553,
+          -0.1293,
+          -0.14342,
+          -0.15789,
+          -0.17273,
+          -0.18796,
+          -0.2036,
+          -0.21964,
+          -0.23612,
+          -0.25306,
+          -0.27046,
+          -0.28836,
+          -0.30676,
+          -0.3257,
+          -0.34519,
+          -0.36527,
+          -0.38596,
+          -0.40728,
+          -0.42927,
+          -0.45196,
+          -0.47537,
+          -0.49956,
+          -0.52455
+        ],
+        "adv_lo": [
+          0.00187,
+          0.00392,
+          0.00802,
+          0.0111,
+          0.01662,
+          0.0238,
+          0.02976,
+          0.02833,
+          0.02492,
+          0.02345,
+          0.02049,
+          0.02091,
+          0.01892,
+          0.0169,
+          0.0148,
+          0.01258,
+          0.01061,
+          0.0103,
+          0.00983,
+          0.00955,
+          0.00851,
+          0.00742,
+          0.0069,
+          0.00611,
+          0.00534,
+          0.00427,
+          0.00374,
+          0.00319,
+          0.00311,
+          0.00243,
+          0.00183,
+          0.00169,
+          0.00106,
+          0.00088,
+          -0.00086,
+          -0.0004,
+          -6e-05,
+          -0.00075,
+          -0.0012
+        ],
+        "adv_hi": [
+          0.00352,
+          0.0071,
+          0.01136,
+          0.01649,
+          0.02271,
+          0.03052,
+          0.03739,
+          0.04146,
+          0.03991,
+          0.03769,
+          0.03437,
+          0.03276,
+          0.03083,
+          0.02884,
+          0.02686,
+          0.02449,
+          0.02177,
+          0.02019,
+          0.01883,
+          0.01806,
+          0.01712,
+          0.01619,
+          0.01562,
+          0.01488,
+          0.01415,
+          0.01316,
+          0.01158,
+          0.01044,
+          0.00968,
+          0.00906,
+          0.00844,
+          0.00778,
+          0.00719,
+          0.00717,
+          0.0054,
+          0.00516,
+          0.00499,
+          0.00436,
+          0.00395
+        ],
+        "thresholds_with_ci_above_zero": [
+          0.02,
+          0.35
+        ]
+      }
+    },
+    "escalate": {
+      "prevalence": 0.1568,
+      "prevalence_low": 0.1032,
+      "prevalence_low_weighted": 0.0953,
+      "auc_low": {
+        "immedr_only": {
+          "est": 0.6445,
+          "lo": 0.6222,
+          "hi": 0.6656
+        },
+        "intake_only": {
+          "est": 0.758,
+          "lo": 0.7446,
+          "hi": 0.771
+        },
+        "intake_plus_immedr": {
+          "est": 0.7908,
+          "lo": 0.779,
+          "hi": 0.8034
+        },
+        "delta_vs_immedr_only": {
+          "est": 0.1463,
+          "lo": 0.124,
+          "hi": 0.1681
+        },
+        "intake_plus_immedr_weighted": {
+          "est": 0.8059,
+          "lo": 0.7891,
+          "hi": 0.8217
+        },
+        "intake_plus_immedr_random_split": {
+          "est": 0.7964,
+          "lo": 0.785,
+          "hi": 0.8079
+        }
+      },
+      "auc_all": {
+        "immedr_only": {
+          "est": 0.7364,
+          "lo": 0.7192,
+          "hi": 0.7536
+        },
+        "intake_plus_immedr": {
+          "est": 0.8217,
+          "lo": 0.8114,
+          "hi": 0.8314
+        },
+        "delta_vs_immedr_only": {
+          "est": 0.0854,
+          "lo": 0.0719,
+          "hi": 0.1001
+        }
+      },
+      "operating_points_low": {
+        "top_10pct": {
+          "alert_rate": 0.1,
+          "precision": 0.368,
+          "recall": 0.357,
+          "lift": 3.57,
+          "base_rate": 0.103,
+          "weighted": {
+            "alert_rate": 0.098,
+            "precision": 0.374,
+            "recall": 0.383,
+            "lift": 3.93,
+            "base_rate": 0.095
+          },
+          "recall_ci": {
+            "est": 0.3571,
+            "lo": 0.3366,
+            "hi": 0.3787
+          },
+          "lift_ci": {
+            "est": 3.57,
+            "lo": 3.3631,
+            "hi": 3.7859
+          }
+        },
+        "top_20pct": {
+          "alert_rate": 0.2,
+          "precision": 0.283,
+          "recall": 0.549,
+          "lift": 2.74,
+          "base_rate": 0.103,
+          "weighted": {
+            "alert_rate": 0.197,
+            "precision": 0.275,
+            "recall": 0.57,
+            "lift": 2.89,
+            "base_rate": 0.095
+          },
+          "recall_ci": {
+            "est": 0.549,
+            "lo": 0.526,
+            "hi": 0.5713
+          },
+          "lift_ci": {
+            "est": 2.7444,
+            "lo": 2.6295,
+            "hi": 2.8562
+          }
+        }
+      },
+      "calibration": {
+        "raw": {
+          "brier": 0.1045,
+          "ece": 0.0199,
+          "slope": 0.83,
+          "citl": -0.0047
+        },
+        "crossfit_isotonic": {
+          "brier": 0.1041,
+          "ece": 0.0059,
+          "slope": 0.954,
+          "citl": 0.0
+        }
+      }
+    },
+    "left_early": {
+      "prevalence": 0.0277,
+      "auc": {
+        "est": 0.5805,
+        "lo": 0.5576,
+        "hi": 0.6058
+      }
+    },
+    "equity_low_acuity_watch": {
+      "race_ethnicity": {
+        "NH Black": {
+          "n": 3970,
+          "admissions": 254,
+          "recall_of_watch": {
+            "est": 0.5236,
+            "lo": 0.4557,
+            "hi": 0.59
+          },
+          "observed_rate": 0.064,
+          "mean_predicted": 0.08
+        },
+        "Hispanic": {
+          "n": 2866,
+          "admissions": 184,
+          "recall_of_watch": {
+            "est": 0.5489,
+            "lo": 0.4728,
+            "hi": 0.6429
+          },
+          "observed_rate": 0.064,
+          "mean_predicted": 0.071
+        },
+        "NH White": {
+          "n": 9516,
+          "admissions": 944,
+          "recall_of_watch": {
+            "est": 0.6229,
+            "lo": 0.5801,
+            "hi": 0.6647
+          },
+          "observed_rate": 0.099,
+          "mean_predicted": 0.101
+        },
+        "NH Other": {
+          "n": 665,
+          "admissions": 69,
+          "recall_of_watch": {
+            "est": 0.5797,
+            "lo": 0.4508,
+            "hi": 0.7029
+          },
+          "observed_rate": 0.104,
+          "mean_predicted": 0.091
+        }
+      },
+      "payer": {
+        "Medicaid/CHIP": {
+          "n": 6353,
+          "admissions": 340,
+          "recall_of_watch": {
+            "est": 0.4294,
+            "lo": 0.3638,
+            "hi": 0.4954
+          },
+          "observed_rate": 0.054,
+          "mean_predicted": 0.062
+        },
+        "Private": {
+          "n": 4457,
+          "admissions": 301,
+          "recall_of_watch": {
+            "est": 0.4286,
+            "lo": 0.3716,
+            "hi": 0.4957
+          },
+          "observed_rate": 0.068,
+          "mean_predicted": 0.074
+        },
+        "Medicare": {
+          "n": 3170,
+          "admissions": 606,
+          "recall_of_watch": {
+            "est": 0.7921,
+            "lo": 0.7512,
+            "hi": 0.8294
+          },
+          "observed_rate": 0.191,
+          "mean_predicted": 0.185
+        },
+        "Other": {
+          "n": 398,
+          "admissions": 28,
+          "recall_of_watch": {
+            "est": 0.6429,
+            "lo": 0.4654,
+            "hi": 0.8111
+          },
+          "observed_rate": 0.07,
+          "mean_predicted": 0.085
+        },
+        "Self-pay": {
+          "n": 1052,
+          "admissions": 42,
+          "recall_of_watch": {
+            "est": 0.2619,
+            "lo": 0.1261,
+            "hi": 0.4054
+          },
+          "observed_rate": 0.04,
+          "mean_predicted": 0.067
+        }
+      }
+    }
   }
 }
