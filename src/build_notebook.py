@@ -142,7 +142,9 @@ F.fig_watch(R, oof_syn, pd.DataFrame(oof_real)); plt.show()
 F.fig_decision_curve(R); plt.show()
 """)
 md(r"""
-Among real patients triaged as lower acuity, triage-time data ranks admission risk far better than the triage level (AUC 0.80 vs 0.64, gain +0.156 [0.131, 0.182]). Hospital-grouped validation is slightly lower than a random split (0.808), as expected. Survey-weighted AUC is 0.82. After cross-fitted calibration the slope is 0.96. Net benefit beats both "review everyone" and "review no-one" from 2% to 35% thresholds.
+Among real patients triaged as lower acuity, triage-time data ranks admission risk far better than the triage level (AUC 0.80 vs 0.64, a gain of about +0.16 with an interval far from zero; exact values printed above). Hospital-grouped validation is slightly lower than a random split (about 0.81), as expected. Survey-weighted AUC is about 0.82. After cross-fitted calibration the slope is about 0.96. Net benefit beats both "review everyone" and "review no-one" from about 2% to 35% thresholds.
+
+*Exact figures can shift in the third decimal between library versions, because fold assignment by hospital depends on the scikit-learn version. The repository's `results.json` was produced with lightgbm 4.6.0.*
 """)
 
 md(r"""
@@ -188,8 +190,8 @@ Gilboy N et al., *ESI v4*, AHRQ 2012 · Mistry B et al., *Ann Emerg Med* 2018;71
 
 nb = {"cells": [], "metadata": {"kernelspec": {"name": "python3", "display_name": "Python 3"},
                                 "language_info": {"name": "python"}}, "nbformat": 4, "nbformat_minor": 5}
-for typ, src in cells:
-    c = {"cell_type": typ, "metadata": {}, "source": src.splitlines(keepends=True)}
+for i, (typ, src) in enumerate(cells):
+    c = {"cell_type": typ, "id": f"cell-{i:02d}", "metadata": {}, "source": src.splitlines(keepends=True)}
     if typ == "code":
         c["outputs"] = []; c["execution_count"] = None
     nb["cells"].append(c)
